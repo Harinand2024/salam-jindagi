@@ -1,0 +1,127 @@
+<footer id="uc-footer" class="bg-dark text-white pt-5 pb-3">
+  <div class="container">
+    <div class="row gy-4">
+
+      <!-- Logo & Description -->
+      <div class="col-lg-4 col-md-6">
+        <a href="/">
+          <img src="{{ profile_setting.logo_light.url }}" alt="Logo" class="img-fluid mb-3" style="max-width: 230px;">
+        </a>
+        <p class="small mb-4 text-light opacity-75" style="line-height: 1.6;">
+          <strong>ਜਨ ਪੰਜਾਬ ਨਿਊਜ਼ - ਲੋਕਾਂ ਦੀ ਆਵਾਜ਼, ਪੰਜਾਬ ਦੀ ਧੜਕਣ।</strong> <br>
+         
+          ਅੰਮ੍ਰਿਤਸਰ ਤੋਂ ਪਟਿਆਲਾ, ਮਾਲਵਾ ਤੋਂ ਮਾਝਾ ਤੇ ਦੋਆਬੇ ਤੱਕ - ਅਸੀਂ ਲਿਆਉਂਦੇ ਹਾਂ ਪੰਜਾਬ ਦੀਆਂ ਅਸਲੀ ਕਹਾਣੀਆਂ, ਮਿੱਟੀ ਨਾਲ ਜੁੜੇ ਸੱਚ, ਤੇ ਲੋਕਾਂ ਦੀਆਂ ਭਾਵਨਾਵਾਂ।<br>
+          
+          ਅਸੀਂ ਤੁਹਾਨੂੰ ਦਿੰਦੇ ਹਾਂ ਬੇਖੌਫ਼ ਖ਼ਬਰਾਂ, ਸੱਚੀ ਸਥਾਨਕ ਕਵਰੇਜ, ਤੇ ਉਹ ਹਰ ਜਾਣਕਾਰੀ ਜੋ ਪੰਜਾਬ ਦੀ ਧਰਤੀ ‘ਤੇ ਹੋ ਰਹੇ ਬਦਲਾਓ ਨੂੰ ਸਮਝਾਉਂਦੀ ਹੈ।<br>
+          
+          ਜਨ ਪੰਜਾਬ ਨਿਊਜ਼ — ਜੋ ਸੱਚ, ਓਹੀ ਪੰਜਾਬ।
+        </p>
+        <ul class="list-unstyled d-flex gap-3">
+          {% if profile_setting.facbook %}
+            <li><a href="{{ profile_setting.facbook }}" target="_blank" class="text-white fs-5"><i class="bi bi-facebook"></i></a></li>
+          {% endif %}
+          {% if profile_setting.twitter %}
+            <li><a href="{{ profile_setting.twitter }}" target="_blank" class="text-white fs-5"><i class="bi bi-twitter"></i></a></li>
+          {% endif %}
+          {% if profile_setting.instagram %}
+            <li><a href="{{ profile_setting.instagram }}" target="_blank" class="text-white fs-5"><i class="bi bi-instagram"></i></a></li>
+          {% endif %}
+          {% if profile_setting.youtube %}
+            <li><a href="{{ profile_setting.youtube }}" target="_blank" class="text-white fs-5"><i class="bi bi-youtube"></i></a></li>
+          {% endif %}
+          {% if profile_setting.linkedin %}
+            <li><a href="{{ profile_setting.linkedin }}" target="_blank" class="text-white fs-5"><i class="bi bi-linkedin"></i></a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <!-- Articles -->
+      <div class="col-lg-5 col-md-6">
+        <h5 class="text-uppercase mb-3">ARTICLES</h5>
+        <div class="row gx-2 gy-2">
+          {% for article in Articale|slice:":12" %}
+          <div class="col-3">
+            <a href="/{{ article.newsfrom.slug }}/{{ article.post_cat.sub_cat.cat_slug }}/{{ article.slug }}" class="d-block">
+              <img src="{{ article.post_image.url }}" alt="{{ article.post_title }}" title="{{ article.post_title }}" class="img-fluid rounded shadow-sm">
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-lg-3 col-md-12">
+        <h5 class="text-uppercase mb-3">QUICK LINK</h5>
+        <ul class="list-unstyled small">
+          {% for page in pages %}
+          <li class="mb-2">
+            <a href="{% url 'cms' page.slug %}" class="text-white text-decoration-none link-hover">{{ page.pagename }}</a>
+          </li>
+          {% endfor %}
+          <li><a href="{% url 'sitemap' %}" class="text-white text-decoration-none link-hover">Sitemap</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <hr class="border-secondary mt-4">
+
+    <div class="text-center small text-light opacity-75">
+      <p class="mb-0">&copy; <script>document.write(new Date().getFullYear())</script> {{ profile_setting.copyright|default:"janpunjab. All rights reserved." }}</p>
+
+    </div>
+  </div>
+
+  <!-- Floating Buttons -->
+  <a href="/" class="floating-home-btn" title="Go to Home">
+    <i class="fas fa-home"></i>
+  </a>
+  <button onclick="scrollToTop()" class="scroll-up-button" id="scrollTopBtn">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+</footer>
+
+<script>
+  window.onscroll = function () {
+    const scrollBtn = document.getElementById("scrollTopBtn");
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+      scrollBtn.style.display = "block";
+    } else {
+      scrollBtn.style.display = "none";
+    }
+  };
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+</script>
+
+<style>
+  footer a.text-white:hover {
+    color: #ee3309 !important;
+  }
+  .link-hover:hover {
+    color: #ee3309 !important;
+    text-decoration: underline;
+  }
+  .scroll-up-button,
+  .floating-home-btn {
+    position: fixed;
+    right: 20px;
+    z-index: 1000;
+    border: none;
+    border-radius: 50%;
+    background-color: #ee3309;
+    color: white;
+    padding: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+  }
+  .scroll-up-button { bottom: 80px; display: none; }
+  .floating-home-btn { bottom: 20px; }
+  .scroll-up-button:hover,
+  .floating-home-btn:hover {
+    background-color: #ff4d1c;
+    transform: translateY(-3px);
+  }
+</style>

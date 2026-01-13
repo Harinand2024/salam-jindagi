@@ -3,21 +3,26 @@
 {% load static %}
 {% block body %}
 
-<div class="container">
-   
+<main class="overflow-hidden">
+{% include 'banner.html' %}
 
-     <div class="text-center my-3">
-      <img src="{% static 'assets/img/ads.png' %}" alt="Advertisement" class="img-fluid">
-    </div>
-    <!-- top news end -->
-   <h1 class="text-center text-title h5">ਜਨਪੰਜਾਬ – ਪੰਜਾਬ ਦੀਆਂ ਖ਼ਬਰਾਂ, ਬਦਲਾਂ ਬਰੇ ਕੈਨੇਡਾ ਤੇ ਭਾਰਤ ਦੀਆਂ ਅੱਪਡੇਟਸ</h1>
-    {% include 'topnews.html' %}
-    <!-- top news end -->
-     {% include 'articale.html' %}
-    <!-- news tabs start -->
-     {% include 'news_tabs.html' %}
-    <!-- news tabs end -->
-    
-    <h2 class="text-center text-title h5">ਜਨਪੰਜਾਬ – ਪੰਜਾਬ ਦੀ ਹਰ ਹਲਚਲ, ਭਾਰਤ ਅਤੇ ਕੈਨੇਡਾ ਦੀ ਤਾਜ਼ਾ ਰਿਪੋਰਟ</h2>
-</div>
+{% include 'about_section.html' %}
+
+{% include 'donations_section.html' %}
+
+{% include 'event_section.html' %}
+
+{% include 'join_section.html' %}
+
+{% include 'team_section.html' %}
+
+{% include 'testimonial_section.html' %}
+
+{% include 'blogs_section.html' %}
+
+{% include 'gallery_section.html' %}
+
+
+
+</main>
 {% endblock %}

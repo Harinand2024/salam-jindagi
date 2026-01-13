@@ -1,0 +1,119 @@
+{% load i18n %}
+{% load static %}
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+    <div class="loader"></div>
+</div>
+
+<!-- SIDEBAR START -->
+<div class="ul-sidebar">
+
+    <!-- Sidebar Header -->
+    <div class="ul-sidebar-header">
+        <div class="ul-sidebar-header-logo">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'assets/salamjindagi/img/logo.svg' %}" alt="logo" class="logo">
+            </a>
+        </div>
+        <button class="ul-sidebar-closer">
+            <i class="flaticon-close"></i>
+        </button>
+    </div>
+
+    <div class="ul-sidebar-header-nav-wrapper d-block d-lg-none"></div>
+
+    <!-- Sidebar Footer -->
+    <div class="ul-sidebar-footer">
+        <span class="ul-sidebar-footer-title">Follow us</span>
+        <div class="ul-sidebar-footer-social">
+            <a href="#"><i class="flaticon-facebook"></i></a>
+            <a href="#"><i class="flaticon-twitter"></i></a>
+            <a href="#"><i class="flaticon-instagram"></i></a>
+            <a href="#"><i class="flaticon-youtube"></i></a>
+        </div>
+    </div>
+</div>
+<!-- SIDEBAR END -->
+
+
+<!-- SEARCH MODAL -->
+<div class="ul-search-form-wrapper flex-grow-1 flex-shrink-0">
+    <button class="ul-search-closer"><i class="flaticon-close"></i></button>
+    <form action="#" class="ul-search-form">
+        <div class="ul-search-form-right">
+            <input type="search" name="search" placeholder="Search Here">
+            <button type="submit">
+                <i class="flaticon-search"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+
+<!-- HEADER START -->
+<header class="ul-header">
+    <div class="ul-header-bottom to-be-sticky">
+        <div class="ul-header-bottom-wrapper ul-header-container">
+
+            <!-- LOGO -->
+            <div class="logo-container">
+                <a href="#">
+                    <img src="{% static 'assets/salamjindagi/img/logo.svg' %}" class="logo">
+                </a>
+            </div>
+
+            <!-- NAVIGATION -->
+            <div class="ul-header-nav-wrapper">
+                <div class="to-go-to-sidebar-in-mobile">
+                    <nav class="ul-header-nav">
+
+                        <a href="#">Home</a>
+                        <a href="#">About</a>
+
+                        <div class="has-sub-menu">
+                            <a role="button">Pages</a>
+                            <div class="ul-header-submenu">
+                                <ul>
+                                    <li><a href="#">Services</a></li>
+                                    <li><a href="#">Projects</a></li>
+                                    <li><a href="#">Team</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="has-sub-menu">
+                            <a role="button">Blog</a>
+                            <div class="ul-header-submenu">
+                                <ul>
+                                    <li><a href="#">All Blogs</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <a href="#">Contact</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="ul-header-actions">
+                <button class="ul-header-search-opener">
+                    <i class="flaticon-search"></i>
+                </button>
+
+                <a href="#" class="ul-btn d-sm-inline-flex d-none">
+                    <i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
+                    Join With Us
+                </a>
+
+                <button class="ul-header-sidebar-opener d-lg-none">
+                    <i class="flaticon-menu"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</header>
+<!-- HEADER END -->
