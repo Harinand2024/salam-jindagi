@@ -1,0 +1,193 @@
+{% load static %}
+
+<!-- 🌟 Subscribe Modal (dxb Style - Fixed) -->
+<div class="modal fade" id="ModalSubscribe" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered {% if request.user_agent.is_mobile %}modal-fullscreen{% endif %}">
+    <div class="modal-content border-0 shadow-lg" id="subscribeModalBox">
+
+      <!-- Header -->
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title fw-semibold">
+          <i class="bi bi-envelope-paper text-danger me-2"></i> Subscribe to Jan Punjab
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body pt-2">
+        <div id="message" class="text-center mb-3"></div>
+
+        <form id="subscribeForm" autocomplete="off" class="px-1">
+          {% csrf_token %}
+
+          <!-- Name -->
+          <div class="mb-3">
+            <input type="text" name="fname" class="form-control form-control-lg rounded-pill border-light shadow-sm"
+              placeholder="Your Name" required>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <div class="position-relative">
+              <input type="email" id="email" name="email"
+                class="form-control form-control-lg rounded-pill border-light shadow-sm"
+                placeholder="Your Email Address" required>
+              <small id="otpStatus" class="text-danger small d-block mt-1 ps-3"></small>
+            </div>
+          </div>
+
+          <!-- OTP -->
+          <div class="mb-3">
+            <div class="position-relative">
+              <input type="text" id="otp" name="otp" maxlength="6"
+                class="form-control form-control-lg rounded-pill border-light shadow-sm"
+                placeholder="Enter OTP" disabled required>
+              <small id="otpVerifyStatus" class="text-danger small d-block mt-1 ps-3"></small>
+            </div>
+          </div>
+
+          <!-- Button -->
+          <button type="submit" class="btn-danger w-100 py-2 rounded-pill fw-semibold shadow-sm"
+            id="subscribeBtn" disabled>
+            Subscribe Now
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🌐 jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function () {
+  $("#email").on("blur", function () {
+    const email = $("#email").val().trim();
+    if (!email) return;
+
+    $("#otpStatus").text("Sending OTP...");
+
+    $.ajax({
+      url: "{% url 'send_otp' %}",
+      type: "POST",
+      data: {
+        email: email,
+        csrfmiddlewaretoken: "{{ csrf_token }}"
+      },
+      success: function () {
+        $("#otpStatus").text("OTP sent! Check your email.");
+        $("#otp").prop("disabled", false).focus();
+      },
+      error: function () {
+        $("#otpStatus").text("Error sending OTP. Try again.");
+      }
+    });
+  });
+
+  $("#otp").on("keyup", function () {
+    const otp = $(this).val().trim();
+    const email = $("#email").val().trim();
+    if (otp.length !== 6) return;
+
+    $("#otpVerifyStatus").text("Verifying...");
+
+    $.ajax({
+      url: "{% url 'verify_otp' %}",
+      type: "POST",
+      data: {
+        email: email,
+        otp: otp,
+        csrfmiddlewaretoken: "{{ csrf_token }}"
+      },
+      success: function (response) {
+        if (response.status === "success") {
+          $("#otpVerifyStatus").text("✅ OTP Verified!");
+          $("#subscribeBtn").prop("disabled", false);
+        } else {
+          $("#otpVerifyStatus").text("❌ Invalid OTP. Try again.");
+          $("#subscribeBtn").prop("disabled", true);
+        }
+      },
+      error: function () {
+        $("#otpVerifyStatus").text("Error verifying OTP.");
+      }
+    });
+  });
+
+  $("#subscribeForm").on("submit", function (e) {
+    e.preventDefault();
+    const formData = $(this).serialize();
+
+    $.ajax({
+      url: "{% url 'UserSubscriber' %}",
+      type: "POST",
+      data: formData,
+      success: function (response) {
+        if (response.status === "error") {
+          $("#message").html(`<p class="text-danger small">❌ ${response.message}</p>`);
+        } else {
+          $("#message").html(`<p class="text-success small">✅ ${response.message}</p>`);
+          setTimeout(() => {
+            $("#ModalSubscribe").modal("hide");
+            $("#message").html('');
+          }, 2000);
+        }
+      },
+      error: function () {
+        $("#message").html('<p class="text-danger small">❌ Subscription failed. Try again.</p>');
+      }
+    });
+  });
+});
+</script>
+
+<style>
+/* 🌟 Light dxb Look */
+#subscribeModalBox {
+  background: #fff;
+  border-radius: 20px;
+  animation: fadeInUp 0.3s ease;
+}
+
+/* Remove rounded corners for mobile fullscreen */
+@media (max-width: 768px) {
+  #subscribeModalBox {
+    border-radius: 0 !important;
+    height: 100%;
+    width: 100%;
+  }
+      .modal-content {
+        max-width: 100% !important;
+    }
+}
+
+#ModalSubscribe .form-control {
+  font-size: 15px;
+  padding-left: 20px;
+  background-color: #f9fbff;
+}
+
+#ModalSubscribe .form-control:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.15rem rgba(220, 53, 69, 0.25);
+  background-color: #fff;
+}
+
+#ModalSubscribe button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+</style>

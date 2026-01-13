@@ -1,0 +1,156 @@
+{% load static %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<style>
+.popular-video {
+  max-width: 420px;
+}
+/* Main video */
+.popular-video .main-video {
+  position: relative;
+  margin-bottom: 10px;
+}
+.popular-video .main-video iframe {
+  width: 100%;
+  border-radius: 6px;
+}
+/* Play button overlay */
+.popular-video .main-video .play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 14px 23px;
+  cursor: pointer;
+  width: 80px;
+  height: 80px;
+}
+/* Thumbnails slider */
+.swiper {
+  width: 100%;
+}
+.custom-slide {
+  position: relative;
+  width: 100px !important;
+  height: 100px !important;
+  margin: 0 5px !important;
+  cursor: pointer;
+}
+.custom-slide img {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+}
+.custom-slide .play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 5px 9px;
+  width: 30px;
+  height: 30px;
+}
+</style>
+
+<div class="popular-video mx-auto">
+      <div class="mb-3">
+              <div class="section-title">ਇੰਟਰਨੈਸ਼ਨਲ ਡੈਸਕ</div>
+              <div class="double-underline"></div>
+      </div>
+  <!-- Main Video -->
+  <div class="main-video" id="mainVideoContainer">
+    {% if videos %}
+      {% with vid=videos.0.video_url %}
+        {% if "watch?v=" in vid %}
+          {% with vid_id=vid|cut:"https://www.youtube.com/watch?v=" %}
+            <iframe
+              id="mainVideo"
+              height="250"
+              src="https://www.youtube.com/embed/{{ vid_id }}"
+              title="{{ videos.0.video_title }}"
+              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+            </iframe>
+
+          {% endwith %}
+        {% else %}
+          <iframe
+            id="mainVideo"
+            height="250"
+            src="https://www.youtube.com/embed/{{ vid }}"
+            title="{{ videos.0.video_title }}"
+            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+          </iframe>
+          
+        {% endif %}
+      {% endwith %}
+    {% endif %}
+  </div>
+
+  <!-- Thumbnail Slider -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      {% for CatVid in videos %}
+        {% if "watch?v=" in CatVid.video_url %}
+          {% with vid_id=CatVid.video_url|cut:"https://www.youtube.com/watch?v=" %}
+            <div class="swiper-slide custom-slide">
+              <a href="/video/{{ CatVid.slug }}"
+                class="thumb-video"
+                data-video="{{ vid_id }}"
+                data-title="{{ CatVid.video_title }}">
+                <img src="https://img.youtube.com/vi/{{ vid_id }}/hqdefault.jpg"
+                    alt="{{ CatVid.video_title }}"
+                    title="{{ CatVid.video_title }}"
+                    loading="lazy">
+                <div class="play-btn">&#9658;</div>
+              </a>
+            </div>
+          {% endwith %}
+        {% else %}
+        
+          <div class="swiper-slide custom-slide">
+            <a href="/video/{{ CatVid.slug }}"
+              class="thumb-video"
+              data-video="{{ CatVid.video_url }}"
+              data-title="{{ CatVid.video_title }}">
+              <img src="https://img.youtube.com/vi/{{ CatVid.video_url }}/hqdefault.jpg"
+                  alt="{{ CatVid.video_title }}"
+                  title="{{ CatVid.video_title }}"
+                  loading="lazy">
+              <div class="play-btn">&#9658;</div>
+            </a>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // ✅ Initialize Swiper
+  var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 3,
+    spaceBetween: 5,
+    loop: true,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false
+    },
+    slideToClickedSlide: true,
+    watchSlidesProgress: true,
+  });
+
+  // Note: Thumbnail clicks now follow their href (e.g. /video/{{ CatVid.slug }})
+  // so we do NOT intercept clicks here. Swiper only handles sliding.
+});
+</script>

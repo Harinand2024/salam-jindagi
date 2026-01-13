@@ -1,0 +1,427 @@
+{% load static %}
+<div class="container ">
+  <div class="row mt-3 ">
+    <div class="col-lg-3 col-md-12 col-sm-12 mb-3">
+      <div class="block-content card-background p-3">
+        <div class="mb-3">
+          <div class="section-title">ਪੰਜਾਬ ਪਲਸ</div>
+          <div class="double-underline"></div>
+        </div>
+        <div class="block-content card-background">
+        {% for news in LatestNews|slice:"0:1" %}
+        <article class="align-items-stretch py-2 mb-3 border-bottom">
+
+          <div class="col-lg-12 col-12 p-0">
+            <div class="b-news mb-1">
+              <a class="fw-bold" href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
+                {{ news.post_title|truncatechars:246 }}
+              </a>
+            </div>
+            <div class="ratio ratio-16x9 ">
+              {% if news.video_file %}
+              <video class="w-100 h-100 object-fit-cover" preload="none" loop playsinline autoplay muted>
+                <source src="{{ news.video_file.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              {% else %}
+               <a class="fw-bold" href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
+              <img src="{{ news.post_image.url }}" alt="{{ news.post_title }}" title="{{ news.post_title }}"
+                class="img-fluid rounded w-100 h-100 object-fit-cover" loading="lazy" /></a>
+              {% endif %}
+            </div>
+            <div class="post-excerpt-box mt-3">
+              <h6>{{ news.post_short_des|truncatechars:180 }}</h6>
+            </div>
+            <div class="d-flex align-items-center small  mt-2">
+              <span>{{ news.post_date }}</span>
+              <div class="share-icons-container  mx-2">
+                {% include 'share.html' %}
+              </div>
+            </div>
+          </div>
+
+        </article>
+        {% endfor %}
+      </div>
+        {% for news in bnews %}
+        <article class="row g-3 align-items-stretch border-bottom pb-3 mb-3 ">
+          <div class="col-lg-12 col-12 d-flex flex-column justify-content-between">
+            <div class="t-news mb-1">
+              <a class="fw-bold" href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
+                {{ news.post_title|truncatechars:180 }}
+              </a>
+            </div>
+            <div class="d-flex align-items-center small  mt-1">
+              <span>{{ news.post_date }}</span>
+              <div class="share-icons-container  mx-2">
+                {% include 'share.html' %}
+              </div>
+            </div>
+          </div>
+
+
+        </article>
+        {% endfor %}
+      </div>
+      <div class="text-center my-3">
+        <img src="{% static 'assets/img/ads1.jpg' %}" alt="Advertisement" class="img-fluid">
+      </div>
+      
+    </div>
+
+    <div class="col-lg-6 col-md-12 col-sm-12 mb-3 row-p-0">
+      <div class="card-background border-bottom mt-3">
+        <div class="mb-3">
+          <div class="section-title">ਲੇਟੈਸਟ ਅਪਡੇਟਸ</div>
+          <div class="double-underline"></div>
+        </div>
+        <div class="slider-container-top">
+          <div class="trending-swiper">
+            <div class="swiper-wrapper">
+              {% for CatVid in videos %}
+                  <div class="swiper-slide">
+                    <a href="/video/{{ CatVid.slug|escape }}">
+                      <iframe 
+                        class="video-iframe"
+                        width="100%"
+                        height="363"
+                        loading="lazy"
+                        src="https://www.youtube.com/embed/{{ CatVid.video_url|escape }}?enablejsapi=1&rel=0&modestbranding=1&autoplay=0&mute=1"
+                        title="{{ CatVid.video_title|escape }}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        referrerpolicy="strict-origin-when-cross-origin">
+                      </iframe>
+                    </a>
+
+                    <div class="dxv-overlay bg-gray">
+                      <span class="category">{{ CatVid.News_Category|default:"Video" }}</span>
+                      <a href="/video/{{ CatVid.slug|escape }}">
+                        <h2 class="title1">{{ CatVid.video_title|truncatechars:160 }}</h2>
+                      </a>
+                      <span>Post Date: {{ CatVid.video_date }}</span>
+                    </div>
+                    <p><a href="/all-video-news/all" class="btn btn-danger">More News</a></p>
+                  </div>
+                  
+                {% endfor %}
+
+
+            </div>
+          </div>
+          <!-- Navigation Buttons -->
+          <div class="swiper-button-prev " id="prevBtn"></div>
+          <div class="swiper-button-next" id="skipBtn"></div>
+        </div>
+      </div>
+
+     <div class="block-content card-background">
+          {% for news in LatestNews|slice:"1:5" %}
+          <article class="row align-items-stretch mt-2 border-bottom pb-3 mb-3">
+            
+            <!-- 🖼️ Left Side: Image or Video -->
+            <div class="col-md-3 col-12 mb-2 mb-md-0">
+              <div class="ratio ratio-16x9">
+                {% if news.video_file %}
+                <video class="w-100 h-100 object-fit-cover rounded" preload="none" loop playsinline autoplay muted>
+                  <source src="{{ news.video_file.url }}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                {% else %}
+                <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
+                  <img src="{{ news.post_image.url }}" alt="{{ news.post_title }}" title="{{ news.post_title }}"
+                      class="img-fluid rounded w-100 h-100 object-fit-cover" loading="lazy" />
+                </a>
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- 📰 Right Side: Content -->
+            <div class="col-md-9 col-12 d-flex flex-column justify-content-between">
+              <div>
+                <div class="title1 mb-1">
+                  <a class="" href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
+                    {{ news.post_title|truncatechars:180 }}
+                  </a>
+                </div>
+            
+              </div>
+              
+              <div class="d-flex align-items-center small mt-2">
+                <span>{{ news.post_date }}</span>
+                <div class="share-icons-container mx-2">
+                  {% include 'share.html' %}
+                </div>
+              </div>
+            </div>
+
+          </article>
+          {% endfor %}
+        </div>
+
+
+      <div class="text-center mt-3">
+        <img src="/static/assets/img/ads3.jpg" alt="Advertisement" class="img-fluid">
+      </div>
+     
+    </div>
+
+    <!-- Wrapper for Trending News Slider -->
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <!-- Top Ad -->
+        <div class="text-center mt-5">
+          <img src="{% static 'assets/img/ads1.jpg' %}" alt="Advertisement" class="img-fluid">
+        </div>
+
+        <!-- Trending Title -->
+        <div class="mt-3">
+          <div class="section-title">ਟਰੈਂਡਿੰਗ ਡੈਸਕ</div>
+          <div class="double-underline"></div>
+        </div>
+
+        <!-- Trending News List -->
+        <div>
+          {% for Blog in trendpost|slice:"0:4" %}
+          <div class="post-block-style-wrapper post-block-template-four my-3 card-background p-3  bg-light">
+            <div class="row">
+              <!-- 📰 Left: Content -->
+              <div class="col-lg-12 col-md-8">
+                <div class="post-block-content-wrap">
+                  <h2 class="title1 mb-1">
+                    <a href="/{{ Blog.newsfrom.slug }}/{{ Blog.post_cat.sub_cat.cat_slug }}/{{ Blog.slug }}" class="text-decoration-none">
+                      {{ Blog.post_title|truncatechars:160 }}
+                    </a>
+                  </h2>
+                  <div class="d-flex align-items-center small">
+                    <span>{{ Blog.schedule_date|date:"M d, Y" }}</span>
+                    <span class="mx-1">|</span>
+                    <span>{{ Blog.schedule_date|time:"H:i" }}</span>
+                    <div class="share-icons-container mx-2">
+                        {% include 'share.html' %}
+                      </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+              <!-- 🖼️ Right: Image -->
+              <!-- <div class="col-lg-12 col-md-4">
+                <a href="/{{ Blog.newsfrom.slug }}/{{ Blog.post_cat.sub_cat.cat_slug }}/{{ Blog.slug }}">
+                  <img src="{{ Blog.post_image.url }}" 
+                      alt="{{ Blog.post_title }}" 
+                      title="{{ Blog.post_title }}" 
+                      class="img-fluid rounded object-fit-cover w-100 h-100" 
+                      style="aspect-ratio: 1 / 1;" 
+                      loading="lazy">
+                </a>
+              </div> -->
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="mt-5">
+          {% include 'reels-news.html' %}
+        </div>
+        
+    </div>
+
+
+  </div>
+</div>
+
+
+</div>
+<!-- Slick Slider CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+
+<!-- jQuery & Slick JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script> <!-- YouTube Iframe API -->
+
+<script>
+  let players = [];
+  let swiper;
+
+  // ✅ YouTube API Ready
+  function onYouTubeIframeAPIReady() {
+    const iframes = document.querySelectorAll('.video-iframe');
+    iframes.forEach((iframe, index) => {
+      players[index] = new YT.Player(iframe, {
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    });
+  }
+
+  // ✅ Pause all at start, play first muted
+  function onPlayerReady(event) {
+    players.forEach(player => player && player.pauseVideo());
+    if (players[0]) {
+      players[0].mute();
+      players[0].playVideo();
+    }
+  }
+
+  // ✅ On video end → move to next slide
+  function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.ENDED) {
+      // 🛠 Added safety check
+      if (typeof swiper !== "undefined" && swiper.slideNext) {
+        goToNextSlide();
+      }
+    }
+  }
+
+  // ✅ Safe next slide
+  function goToNextSlide() {
+    if (!swiper) return;
+    swiper.slideNext();
+    playCurrentSlideVideo();
+  }
+
+  // ✅ Safe prev slide
+  function goToPrevSlide() {
+    if (!swiper) return;
+    swiper.slidePrev();
+    playCurrentSlideVideo();
+  }
+
+  // ✅ Play only active slide’s video
+  function playCurrentSlideVideo() {
+    const currentIndex = swiper ? swiper.realIndex : 0;
+    players.forEach(p => p && p.pauseVideo && p.pauseVideo());
+    setTimeout(() => {
+      if (players[currentIndex]) {
+        players[currentIndex].mute();
+        players[currentIndex].playVideo();
+      }
+    }, 500);
+  }
+
+  // ✅ Initialize Swiper safely after DOM load
+  document.addEventListener('DOMContentLoaded', function () {
+    swiper = new Swiper('.trending-swiper', {
+      loop: true,
+      autoplay: false,
+      on: {
+        slideChange: playCurrentSlideVideo
+      }
+    });
+
+    // Buttons (only if exist)
+    const nextBtn = document.getElementById('skipBtn');
+    const prevBtn = document.getElementById('prevBtn');
+
+    if (nextBtn) nextBtn.addEventListener('click', goToNextSlide);
+    if (prevBtn) prevBtn.addEventListener('click', goToPrevSlide);
+  });
+</script>
+
+
+<!-- Initialize Slider -->
+<script>
+  $(document).ready(function () {
+    $('.hnews-slider').slick({
+      autoplay: true,
+      autoplaySpeed: 3000,
+      arrows: false,
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      adaptiveHeight: true
+    });
+  });
+</script>
+
+<style>
+  .title1 {
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+  }     
+  .title1 a {
+    text-decoration: none !important;
+    transition: color 0.3s ease;
+  }     
+  .title1 a:hover {
+    text-decoration: none !important;  
+    color: #ed1c24 !important;
+  }
+
+  /* 🎨 Modern Card Shadows & Design */
+  .block-content,
+  .card-background {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .block-content:hover,
+  .card-background:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+
+  article {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  article:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+  }
+
+  .ratio img,
+  .ratio video {
+    border-radius: 8px;
+    transition: all 0.4s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  article:hover .ratio img,
+  article:hover .ratio video {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .post-block-style-wrapper {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #fff;
+  }
+
+  .post-block-style-wrapper:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+  }
+
+  .section-title {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    article {
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+    
+    article:hover {
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      transform: translateY(-1px);
+    }
+  }
+</style>

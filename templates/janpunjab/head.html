@@ -1,0 +1,376 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pa-IN">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="copyright" content="Markazia Solutions. All rights reserved.">
+<meta name="distribution" content="global">
+<meta name="author" content="Official Correspondence">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:site_name" content="Jan Punjab News">
+<meta property="og:locale" content="pa_IN">
+<meta property="og:image:type" content="image/png">
+<meta property="fb:pages" content="822129310993041">
+<meta name="twitter:site" content="@janpunjabnews">
+<meta name="twitter:card" content="summary_large_image">
+  
+
+  {% if indseo == 'ndetail' %}
+  <title>{{Blogdetails.post_title}}</title>
+  <meta property="og:title" content="{{Blogdetails.post_title}}" />
+  <meta property="twitter:title" content="{{Blogdetails.post_title}}" />
+  <meta name="description" content="{{Blogdetails.post_short_des }} Jan Punjab" />
+  <meta property="og:description" content="{{Blogdetails.post_short_des }} Jan Punjab" />
+  <meta property="twitter:description" content="{{Blogdetails.post_short_des }} Jan Punjab" />
+  <meta name="news_keywords" content="Jan Punjab, breaking news, 
+{% for tag in Blogdetails.tags.all %}{{tag.name}},
+{% endfor %}
+  " />
+  <meta property="og:url" content="https://www.janpunjab.com{{ request.path }}" />
+  <meta property="twitter:url" content="https://www.janpunjab.com{{ request.path }}" />
+  <meta property="og:image" content="https://www.janpunjab.com/upload/{{Blogdetails.post_image}}" />
+  <meta name="twitter:image" content="https://www.janpunjab.com/upload/{{Blogdetails.post_image}}" />
+  <link rel="canonical" href="https://www.janpunjab.com{{ request.path }}" />
+  
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "{{ Blogdetails.post_title }}",
+      "description": "{{ Blogdetails.post_short_des }}",
+      "url": "https://www.janpunjab.com/{{ Blogdetails.slug }}",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.janpunjab.com/{{ Blogdetails.slug }}"
+      },
+      "image": ["{% if Blogdetails.post_image %}
+            {{ request.scheme }}://{{ request.get_host }}{{ Blogdetails.post_image.url }}
+            {% else %}
+            https://www.janpunjab.com/static/assets/img/default-news.jpg
+            {% endif %}"],
+      "thumbnailUrl": "{% if Blogdetails.post_image %}{{ request.scheme }}://{{ request.get_host }}{{ Blogdetails.post_image.url }}{% else %}https://www.janpunjab.com/static/assets/img/default-news.jpg{% endif %}",
+      "author": {
+        "@type": "Person",
+        "name": "{% if Blogdetails.author %}{{ Blogdetails.author.first_name|default:""|capfirst }} {{ Blogdetails.author.last_name|default:""|capfirst }}{% elif Blogdetails.journalist %}{{ Blogdetails.journalist.first_name|default:""|capfirst }}{{ Blogdetails.journalist.last_name|default:""|capfirst }}{% else %}From Admin Desk{% endif %}"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "janpunjab",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.janpunjab.com/upload/logo/logo-discoverd.png",
+          "width": 300,
+          "height": 60
+        }
+      },
+      "datePublished": "{{ Blogdetails.post_date|date:'c' }}",
+      "dateModified": "{{ Blogdetails.updated_at|date:'c' }}",
+      "inLanguage": "pa-IN",
+      "wordCount": {{ Blogdetails.post_des|striptags|length }},
+      "articleBody": "{{ Blogdetails.post_des|striptags }}"
+    }
+    </script>
+
+  {% elif indseo == 'video' %}
+  <title>{{Vnews.video_title}}</title>
+  <meta property="og:title" content="{{Vnews.video_title}}" />
+  <meta property="twitter:title" content="{{Vnews.video_title}}" />
+  <meta name="description" content="{{Vnews.video_short_des}}" />
+  <meta property="og:description" content="{{Vnews.video_short_des}}" />
+  <meta property="twitter:description" content="{{Vnews.video_short_des}}" />
+  <meta name="news_keywords" content="Jan Punjab, breaking news, {{Vnews.video_title}}" />
+  <meta property="og:url" content="https://www.janpunjab.com{{ request.path }}" />
+  <meta name="twitter:url" content="https://www.janpunjab.com{{ request.path }}" />
+  <meta property="og:image" content="https://img.youtube.com/vi/{{Vnews.video_url}}/mqdefault.jpg" />
+  <meta name="twitter:image" content="https://img.youtube.com/vi/{{Vnews.video_url}}/mqdefault.jpg" />
+  <link rel="canonical" href="https://www.janpunjab.com{{ request.path }}" />
+  {% elif indseo == 'voicesofuae' %}
+  <title>inspiring achievements of individuals from diverse fields and backgrounds in the UAE</title>
+  <meta property="og:title"
+    content="inspiring achievements of individuals from diverse fields and backgrounds in the UAE" />
+  <meta property="twitter:title"
+    content="inspiring achievements of individuals from diverse fields and backgrounds in the UAE" />
+  <meta name="description"
+    content="Celebrating Achievers Across Fields The campaign aims to highlight and celebrate the inspiring achievements of individuals from diverse fields and backgrounds in the UAE." />
+  <meta property="og:description"
+    content="Celebrating Achievers Across Fields The campaign aims to highlight and celebrate the inspiring achievements of individuals from diverse fields and backgrounds in the UAE." />
+  <meta property="twitter:description"
+    content="Celebrating Achievers Across Fields The campaign aims to highlight and celebrate the inspiring achievements of individuals from diverse fields and backgrounds in the UAE." />
+  <meta name="news_keywords"
+    content="Celebrating Achievers Across Fields The campaign aims to highlight and celebrate the inspiring achievements of individuals from diverse fields and backgrounds in the UAE." />
+  <meta property="og:url" content="https://www.janpunjab.com{{ request.path }}" />
+  <meta name="twitter:url" content="https://twitter.com/{{ request.path }}" />
+  <meta property="og:image" content="https://www.janpunjab.com/static/assets/img/voice-of-uae-og.jpg" />
+  <meta name="twitter:image" content="https://www.janpunjab.com/static/assets/img/voice-of-uae-og.jpg" />
+  <link rel="canonical" href="https://www.janpunjab.com{{ request.path }}" />
+
+  
+  {% elif pageurl == 'journalist_page' %}
+  <title>{{indseo.metatitle}}-{{ journalist.first_name }} {{ journalist.last_name }}</title>
+  <meta property="og:title" content="{{indseo.metatitle}}-{{ journalist.first_name }} {{ journalist.last_name }}" />
+  <meta property="twitter:title" content="{{indseo.metatitle}}-{{ journalist.first_name }} {{ journalist.last_name }}" />
+  <meta name="description" content="{{indseo.metadescription}}-{{ journalist.first_name }} {{ journalist.last_name }}" />
+  <meta property="og:description" content="{{indseo.metadescription}}-{{ journalist.first_name }} {{ journalist.last_name }}" />
+  <meta property="twitter:description" content="{{indseo.metadescription}}-{{ journalist.first_name }} {{ journalist.last_name }}" />
+  <meta name="news_keywords" content="{{indseo.metakeyword}}-{{ journalist.first_name }} {{ journalist.last_name }}" />
+  <meta property="og:url" content="https://www.janpunjab.com{{ request.path }}" />
+  <meta name="twitter:url" content="https://twitter.com{{ request.path }}" />
+  {% if journalist.profile_picture %}
+    <meta property="og:image"
+          content="https://www.janpunjab.com{{ journalist.profile_picture.url }}" />
+    <meta name="twitter:image"
+          content="https://www.janpunjab.com{{ journalist.profile_picture.url }}" />
+  {% else %}
+    <meta property="og:image"
+          content="https://www.janpunjab.com{% static 'assets/img/user.jpg' %}" />
+    <meta name="twitter:image"
+          content="https://www.janpunjab.com{% static 'assets/img/user.jpg' %}" />
+  {% endif %}
+
+  <link rel="canonical" href="https://www.janpunjab.com{{ request.path }}" />
+
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "AUTHOR NAME",
+      "jobTitle": "Journalist",
+      "worksFor": {
+        "@type": "Organization",
+        "@id": "https://www.janpunjab.com/#organization"
+      }
+    }
+    </script>
+    
+    
+  {% else %}
+  
+  <title>{{indseo.metatitle}}</title>
+  <meta property="og:title" content="{{indseo.metatitle}}" />
+  <meta property="twitter:title" content="{{indseo.metatitle}}" />
+  <meta name="description" content="{{indseo.metadescription}}" />
+  <meta property="og:description" content="{{indseo.metadescription}}" />
+  <meta property="twitter:description" content="{{indseo.metadescription}}" />
+  <meta name="news_keywords" content="{{indseo.metakeyword}}" />
+  <meta property="og:url" content="https://www.janpunjab.com{{ request.path }}" />
+  <meta name="twitter:url" content="https://twitter.com/{{ request.path }}" />
+  <meta property="og:image"
+    content="https://www.janpunjab.com/upload/logo/ogimage-home.jpg" />
+  <meta name="twitter:image"
+    content="https://www.janpunjab.com/upload/logo/ogimage-home.jpg" />
+  <link rel="canonical" href="https://www.janpunjab.com{{ request.path }}" />
+
+
+{% if indseo.pageslug == 'https://www.janpunjab.com/' %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NewsMediaOrganization",
+    "@id": "https://www.janpunjab.com/#newsmedia",
+    "name": "Jan Punjab News",
+    "url": "https://www.janpunjab.com/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.janpunjab.com/upload/logo/logo-discoverd.png"
+    },
+    "inLanguage": "pa-IN",
+    "areaServed": {
+      "@type": "Country",
+      "name": "India"
+    },
+    "publishingPrinciples": "https://www.janpunjab.com/about-us/"
+  }
+  </script>
+
+{% else %}
+{% if current_subcategory %}
+<!-- #CATEGORY PAGE – BREADCRUMB SCHEMA -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.janpunjab.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ current_subcategory.subcat_name }}",
+        "item": "https://www.janpunjab.com{{ request.path }}"
+      }
+    ]
+  }
+  </script>
+{% endif %}
+{% endif %}
+
+  {% endif %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/jpapp/css/style.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/jpapp/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bellefair&family=Coda:wght@400;800&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/jpapp/fonts/stylesheet_roboto.css' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'assets/jpapp/img/favicon.png' %}">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script src="{% static 'assets/jpapp2/index.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'assets/jpapp2/index.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'assets/jpapp2/hnews.css' %}">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://www.janpunjab.com/#organization",
+      "name": "Jan Punjab News",
+      "url": "https://www.janpunjab.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.janpunjab.com/upload/logo/logo-discoverd.png"
+      },
+      "sameAs": [
+        "https://www.facebook.com/janpunjabnews/",
+        "https://x.com/janpunjabnews/",
+        "https://www.instagram.com/janpunjabnews/",
+        "https://www.youtube.com/@janpunjabnews",
+        "https://www.linkedin.com/company/jan-punjab-news/"
+      ]
+    }
+    </script>
+  <style>
+    /* Hindi */
+    html[lang="hi"] body a {
+      font-size: 1em !important;
+    }
+
+    /* Default English */
+    html[lang="en"] body a {
+      font-size: 0.8em !important;
+    }
+
+
+    :root {
+  --background-color: {{ profile_setting.background_theme_light|default:"#ffffff !important" }};
+  --text-color: #000000;
+  --primary-color: #0d6efd;
+}
+
+body.dark-mode {
+  --background-color: {{ profile_setting.background_theme_dark|default:"#121212" }};
+  --text-color: #ffffff;
+  --primary-color: #0d6efd;
+}
+
+body {
+  background-color: var(--background-color) !important;
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.Container_background {
+      background-color: { {
+          profile_setting.container_background|default_if_none: "#fcf8e7"
+        }
+      }
+
+      ;
+    }
+
+    .items_background {
+      background-color: {
+          {
+          profile_setting.items_background|default_if_none: "#ffffff"
+        }
+      }
+
+      ;
+    }
+
+    {% if profile_setting.body_img %}
+    .body_img {
+        background-image: url('{{ profile_setting.body_img.url }}');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    {% endif %}
+
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css" />
+  {% if is_mobile %}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ti-icons/css/themify-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'mobile/style.css' %}">
+  <link rel="stylesheet" href="{% static 'mobile/mdxbstyle.css' %}">
+  <link rel="manifest" href="{% static 'mobile/manifest.json' %}">
+  {% endif %}
+
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P24H6XNV');</script>
+<!-- End Google Tag Manager -->
+<meta name="google-site-verification" content="cUV_Y-xJkTwuE3d2rV21-EuCKjSKvqxAG0F3mySEKjg" />
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggle = document.getElementById("theme-toggle");
+      const body = document.body;
+
+      // Load saved preference
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
+        body.classList.add("dark-mode");
+        toggle.checked = true;
+      }
+
+      toggle.addEventListener("change", function () {
+        if (this.checked) {
+          body.classList.add("dark-mode");
+          localStorage.setItem("theme", "dark");
+        } else {
+          body.classList.remove("dark-mode");
+          localStorage.setItem("theme", "light");
+        }
+      });
+    });
+
+  </script>
+</head>
+<body>
+ <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P24H6XNV"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+  <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+

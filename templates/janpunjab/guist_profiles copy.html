@@ -1,0 +1,45 @@
+{% load static %}
+<div class="row m-3">
+    <div class="heading-text">Reporter</div>
+    {% for profile in profiles %}
+        <div class="col-lg-2 col-md-6 col-sm-12">
+            <div class="article-card">
+                <div class="image-section">
+                    <a href="{% url 'journalist_profile' profile.username %}">
+                        {% if profile.profile_picture %}
+                            <img src="{{ profile.profile_picture.url }}" alt="{{ profile.username }}"
+                                title="{{ profile.username }}" loading="lazy" class="article-image profile-image" />
+                        {% else %}
+                            <img src="{% static 'static/assets/img/user.jpg' %}" alt="{{ profile.username }}"
+                                title="{{ profile.username }}" loading="lazy" class="article-image profile-image" />
+                        {% endif %}
+                    </a>
+
+                    <div class="content-section items_background">
+                        <div class="profile-name-badge">
+                            {% if profile.registration_type == 'journalist' %}
+                                <a href="{% url 'journalist_profile' profile.username %}" class="profile-name-link">
+                                    {{ profile.first_name }} {{ profile.last_name|default:"" }}
+                                </a>
+                            {% else %}
+                                <a href="{% url 'journalist_profile' profile.username %}" class="profile-name-link">
+                                    {{ profile.organisation_name|truncatechars:30 }}
+                                </a>
+                            {% endif %}
+                        </div>
+
+                        <div class="profile-info-container">
+                            <a href="{% url 'journalist_profile' profile.username %}" class="profile-info-item">
+                                <h2 class="profile-info-text">{{ profile.registration_type|capfirst }}</h2>
+                            </a>
+
+                            <a href="{% url 'journalist_profile' profile.username %}" class="profile-info-item">
+                                <h2 class="profile-info-text nationality">{{ profile.nationality|default:"Punjab" }}</h2>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
