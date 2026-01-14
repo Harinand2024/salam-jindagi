@@ -64,17 +64,36 @@
                 <!-- About -->
                 <div class="ul-footer-about">
                     <a href="/">
-                        <img src="{% static 'assets/salamjindagi/img/logo-white.svg' %}" alt="logo" class="logo">
+                        <img src="{{ profile_setting.logo_dark.url }}" class="logo logo-light" style="max-height:60px; margin-bottom:20px;">
                     </a>
                     <p class="ul-footer-about-txt">
                         Phasellus ultricies aliquam volutpat ullamcorper laoreet neque,
                         a lacinia curabitur lacinia mollis
                     </p>
                     <div class="ul-footer-socials">
-                        <a href="#"><i class="flaticon-facebook"></i></a>
-                        <a href="#"><i class="flaticon-twitter"></i></a>
-                        <a href="#"><i class="flaticon-linkedin-big-logo"></i></a>
-                        <a href="#"><i class="flaticon-youtube"></i></a>
+                        <ul class="list-unstyled d-flex gap-3">
+                        {% if profile_setting.facbook %}
+                            <li><a href="{{ profile_setting.facbook }}" target="_blank" class="text-white fs-5">
+                            <i class="flaticon-facebook"></i></a></li>
+                        {% endif %}
+                        {% if profile_setting.twitter %}
+                            <li><a href="{{ profile_setting.twitter }}" target="_blank" class="text-white fs-5">
+                            <i class="flaticon-twitter"></i></a></li>
+                        {% endif %}
+                        {% if profile_setting.instagram %}
+                            <li><a href="{{ profile_setting.instagram }}" target="_blank" class="text-white fs-5">
+                            <i class="flaticon-instagram"></i></a></li>
+                        {% endif %}
+                        {% if profile_setting.youtube %}
+                            <li><a href="{{ profile_setting.youtube }}" target="_blank" class="text-white fs-5">
+                            <i class="flaticon-youtube"></i></a></li>
+                        {% endif %}
+                        {% if profile_setting.linkedin %}
+                            <li><a href="{{ profile_setting.linkedin }}" target="_blank" class="text-white fs-5">
+                            <i class="flaticon-linkedin-big-logo"></i></a></li>
+                        {% endif %}
+                        </ul>
+                        
                     </div>
                 </div>
 
@@ -82,11 +101,10 @@
                 <div class="ul-footer-widget">
                     <h3 class="ul-footer-widget-title">Quick Links</h3>
                     <div class="ul-footer-widget-links">
-                        <a href="/about/">About Us</a>
-                        <a href="/services/">Our Services</a>
-                        <a href="/blog/">Our Blogs</a>
-                        <a href="/faq/">FAQ’s</a>
-                        <a href="/contact/">Contact Us</a>
+                        {% for page in pages %}
+                            <a href="{% url 'cms' page.slug %}" class="text-white text-decoration-none link-hover">{{ page.pagename }}</a>
+                        {% endfor %}
+                        <a href="{% url 'sitemap' %}" class="text-white text-decoration-none link-hover">Sitemap</a>
                     </div>
                 </div>
 
