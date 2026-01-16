@@ -11,7 +11,7 @@
     <div class="profile-info text-center">
       <img class="mx-2 rounded-circle profile-img"
         style="object-fit: cover; border: 2px solid #FFCC00 !important;"
-        src="{% if journalist.profile_picture %}{{ journalist.profile_picture.url }}{% else %}{% static 'assets/jpapp/img/user_random.jpg' %}{% endif %}"
+        src="{% if journalist.profile_picture %}{{ journalist.profile_picture.url }}{% else %}{% static 'assets/szapp/img/user_random.jpg' %}{% endif %}"
         alt="Journalist Profile">
       <div class="profile-text text-capitalize">
         <h5 class="name">{{ journalist.first_name }} {{ journalist.last_name }}</h5>

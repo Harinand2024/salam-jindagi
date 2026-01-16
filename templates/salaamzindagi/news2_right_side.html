@@ -16,7 +16,7 @@
             <a href="{% url 'journalist_profile' gallery.journalist.username %}">
               <div class="profile-pic">
               <img class="rounded-circle" width="40" height="40"
-                src="{% if gallery.journalist.profile_picture %}{{ gallery.journalist.profile_picture.url }}{% else %}{% static 'assets/jpapp/img/user_random.jpg' %}{% endif %}"
+                src="{% if gallery.journalist.profile_picture %}{{ gallery.journalist.profile_picture.url }}{% else %}{% static 'assets/szapp/img/user_random.jpg' %}{% endif %}"
                 >
                 </div>
             </a>
@@ -34,7 +34,7 @@
           data-bs-target="#galleryModal"
           data-img="{{ gallery.image.url }}"
           data-name="{{ gallery.journalist.first_name }} {{ gallery.journalist.last_name }}"
-          data-profile="{% if gallery.journalist.profile_picture %}{{ gallery.journalist.profile_picture.url }}{% else %}{% static 'assets/jpapp/img/user_random.jpg' %}{% endif %}"
+          data-profile="{% if gallery.journalist.profile_picture %}{{ gallery.journalist.profile_picture.url }}{% else %}{% static 'assets/szapp/img/user_random.jpg' %}{% endif %}"
           data-profile-link="{% url 'journalist_profile' gallery.journalist.username %}"
           data-timeago="{{ gallery.updated_at|timesince }}">
       </div>

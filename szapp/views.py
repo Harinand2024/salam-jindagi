@@ -32,10 +32,23 @@ from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 from django_user_agents.utils import get_user_agent
 
+# ================== HELPER FUNCTION ==================
+
+def get_ads_by_slug(slug, limit=1):
+    cat = ad_category.objects.filter(ads_cat_slug=slug).first()
+    if not cat:
+        return []
+    return ad.objects.filter(
+        ads_cat_id=cat.id,
+        is_active=1
+    ).order_by('-id')[:limit]
+
+# =====================================================
 
 # home-pahe---------
 def home(request):
-    seo=seo_optimization.objects.get(pageslug='https://www.janpunjab.com/')
+    # seo=seo_optimization.objects.get(pageslug='https://www.janpunjab.com/')
+    seo = seo_optimization.objects.filter(pageslug='https://www.janpunjab.com/').first()
     current_datetime = datetime.now()
     blogdata=NewsPost.objects.filter(schedule_date__lt=current_datetime,is_active=1,status='active').order_by('-id')[:10]
     mainnews=NewsPost.objects.filter(schedule_date__lt=current_datetime,status='active').order_by('order')[:4]
@@ -78,36 +91,75 @@ def home(request):
     reel=VideoNews.objects.filter(is_active='active',video_type='reel').order_by('-id')[:16]
     vidarticales=VideoNews.objects.filter(articles=1,is_active='active',video_type='video').order_by('order')[:3]
 # --------------ad-manage-meny--------------
-    lfsid=ad_category.objects.get(ads_cat_slug='left-fest-square')
-    leftsquqre=ad.objects.filter(ads_cat_id=lfsid.id, is_active=1).order_by('-id') [:4]
+    # lfsid=ad_category.objects.get(ads_cat_slug='left-fest-square')
+    # lfsid = ad_category.objects.filter(ads_cat_slug='left-fest-square').first()
+    # leftsquqre=ad.objects.filter(ads_cat_id=lfsid.id, is_active=1).order_by('-id') [:4]
+    lfsid = ad_category.objects.filter(
+    ads_cat_slug='left-fest-square'
+    ).first()
+
+    if lfsid:
+        leftsquqre = ad.objects.filter(
+            ads_cat_id=lfsid.id,
+            is_active=1
+        ).order_by('-id')[:4]
+    else:
+        leftsquqre = []
+
+    adtopleft   = get_ads_by_slug('topleft-600x80', 1)
+    adtopright  = get_ads_by_slug('topright-600x80', 1)
+    adtop       = get_ads_by_slug('leaderboard', 1)
+    adleft      = get_ads_by_slug('skyscraper', 1)
+    adright     = get_ads_by_slug('mrec', 1)
+    festive     = get_ads_by_slug('festivebg', 1)
+
+    # header ads
+    tophead     = get_ads_by_slug('topad', 1)
+    popupad    = get_ads_by_slug('popup', 1)
+
+    # ads using FK slug (ye already safe the)
+    topright = ad.objects.filter(
+        ads_cat__ads_cat_slug='topright',
+        is_active=True
+    ).order_by('-id')[:1]
+
+    topleft = ad.objects.filter(
+        ads_cat__ads_cat_slug='lefttop520x150',
+        is_active=True
+    ).order_by('-id')[:1]
+
+    midle = ad.objects.filter(
+        ads_cat__ads_cat_slug='middle',
+        is_active=True
+    ).order_by('-id')[:1]
+
+    # adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    # adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
-    adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
+    # adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
+    # adtopright=ad.objects.filter(ads_cat_id=adtrid.id, is_active=1).order_by('-id') [:1]
     
-    adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
-    adtopright=ad.objects.filter(ads_cat_id=adtrid.id, is_active=1).order_by('-id') [:1]
+    # adtopid=ad_category.objects.get(ads_cat_slug='leaderboard')
+    # adtop=ad.objects.filter(ads_cat_id=adtopid.id, is_active=1).order_by('-id') [:1]
     
-    adtopid=ad_category.objects.get(ads_cat_slug='leaderboard')
-    adtop=ad.objects.filter(ads_cat_id=adtopid.id, is_active=1).order_by('-id') [:1]
+    # adleftid=ad_category.objects.get(ads_cat_slug='skyscraper')
+    # adleft=ad.objects.filter(ads_cat_id=adleftid.id, is_active=1).order_by('-id') [:1]
     
-    adleftid=ad_category.objects.get(ads_cat_slug='skyscraper')
-    adleft=ad.objects.filter(ads_cat_id=adleftid.id, is_active=1).order_by('-id') [:1]
+    # adrcol=ad_category.objects.get(ads_cat_slug='mrec')
+    # adright=ad.objects.filter(ads_cat_id=adrcol.id, is_active=1).order_by('-id') [:1]
     
-    adrcol=ad_category.objects.get(ads_cat_slug='mrec')
-    adright=ad.objects.filter(ads_cat_id=adrcol.id, is_active=1).order_by('-id') [:1]
+    # festbg=ad_category.objects.get(ads_cat_slug='festivebg')
+    # festive=ad.objects.filter(ads_cat_id=festbg.id, is_active=1).order_by('-id') [:1]
+    # # header--to--ad---
+    # topad=ad_category.objects.get(ads_cat_slug='topad')
+    # tophead=ad.objects.filter(ads_cat_id=topad.id, is_active=1).order_by('-id') [:1]
     
-    festbg=ad_category.objects.get(ads_cat_slug='festivebg')
-    festive=ad.objects.filter(ads_cat_id=festbg.id, is_active=1).order_by('-id') [:1]
-    # header--to--ad---
-    topad=ad_category.objects.get(ads_cat_slug='topad')
-    tophead=ad.objects.filter(ads_cat_id=topad.id, is_active=1).order_by('-id') [:1]
+    # popup=ad_category.objects.get(ads_cat_slug='popup')
+    # popupad=ad.objects.filter(ads_cat_id=popup.id, is_active=1).order_by('-id') [:1]
     
-    popup=ad_category.objects.get(ads_cat_slug='popup')
-    popupad=ad.objects.filter(ads_cat_id=popup.id, is_active=1).order_by('-id') [:1]
-    
-    topright = ad.objects.filter(ads_cat__ads_cat_slug='topright', is_active=True).order_by('-id')[:1]
-    topleft = ad.objects.filter(ads_cat__ads_cat_slug='lefttop520x150', is_active=True).order_by('-id')[:1]
-    midle = ad.objects.filter(ads_cat__ads_cat_slug='middle', is_active=True).order_by('-id')[:1]
+    # topright = ad.objects.filter(ads_cat__ads_cat_slug='topright', is_active=True).order_by('-id')[:1]
+    # topleft = ad.objects.filter(ads_cat__ads_cat_slug='lefttop520x150', is_active=True).order_by('-id')[:1]
+    # midle = ad.objects.filter(ads_cat__ads_cat_slug='middle', is_active=True).order_by('-id')[:1]
     
 # -------------end-ad-manage-meny--------------    
     # slider=NewsPost.objects.filter(id=1).order_by('id')[:5] use for filter value
@@ -162,6 +214,7 @@ def home(request):
         return render(request, 'mobile/index.html',data)
     else:
         return render(request,'index.html',data)
+        
     
 
 # News-details-page----------
@@ -184,9 +237,20 @@ def newsdetails(request,newsfrom,category_slug,slug):
     podcast=VideoNews.objects.filter(is_active='active').order_by('-id') [:1]
     vidarticales=VideoNews.objects.filter(articles=1,is_active='active',video_type='video').order_by('order')[:2]
     # --------------ad-manage-meny--------------
-    lfsid=ad_category.objects.get(ads_cat_slug='left-fest-square')
-    leftsquqre=ad.objects.filter(ads_cat_id=lfsid.id, is_active=1).order_by('-id') [:4]
-    
+    # lfsid=ad_category.objects.get(ads_cat_slug='left-fest-square')
+    # leftsquqre=ad.objects.filter(ads_cat_id=lfsid.id, is_active=1).order_by('-id') [:4]
+    lfsid = ad_category.objects.filter(
+    ads_cat_slug='left-fest-square'
+    ).first()
+
+    if lfsid:
+        leftsquqre = ad.objects.filter(
+            ads_cat_id=lfsid.id,
+            is_active=1
+        ).order_by('-id')[:4]
+    else:
+        leftsquqre = []
+
     adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     

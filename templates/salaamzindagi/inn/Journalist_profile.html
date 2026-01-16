@@ -15,7 +15,7 @@
                     <div class="align-item-center">
                         <div class="position-relative rounded overflow-hidden" style="height: 250px;">
                             <!-- Banner Image -->
-                            <img src="{% if journalist.banner %}{{ journalist.banner.url }}{% else %}{% static 'assets/jpapp/img/defoult_banner.jpg' %}{% endif %}"
+                            <img src="{% if journalist.banner %}{{ journalist.banner.url }}{% else %}{% static 'assets/szapp/img/defoult_banner.jpg' %}{% endif %}"
                                 id="bannerImage" class="w-100 h-100 object-fit-cover" alt="Banner" />
 
                             <!-- Edit Icon -->
@@ -28,7 +28,7 @@
                         <div class="align-item-center">
                             <div class="service-details">
                                 <img id="profileImage" style="object-fit: cover;"
-                                    src="{% if journalist.profile_picture %}{{ journalist.profile_picture.url }}{% else %}{% static 'assets/jpapp/img/user_random.jpg' %}{% endif %}"
+                                    src="{% if journalist.profile_picture %}{{ journalist.profile_picture.url }}{% else %}{% static 'assets/szapp/img/user_random.jpg' %}{% endif %}"
                                     alt="Journalist Profile">
                                 <input type="file" id="imageUpload" class="d-none" accept="image/*">
                                 <div class="service-hover-text">

@@ -75,7 +75,7 @@
                                 <div class="d-flex align-items-center gap-2">
                                     <div class="profile-pic">
                                         <img style="border-radius: 50% !important;"
-                                            src="{% if journalist.profile_picture %}{{ journalist.profile_picture.url }}{% else %}{% static 'assets/jpapp/img/user_random.jpg' %}{% endif %}"
+                                            src="{% if journalist.profile_picture %}{{ journalist.profile_picture.url }}{% else %}{% static 'assets/szapp/img/user_random.jpg' %}{% endif %}"
                                             alt="">
                                     </div>
                                     <div>
@@ -179,7 +179,7 @@
                 {% csrf_token %}
                 <div class="modal-body">
                     <div class="d-flex align-items-center mb-3">
-                        <img src="{% if journalist.profile_picture %}{{ journalist.profile_picture.url }}{% else %}{% static 'assets/jpapp/img/user_random.jpg' %}{% endif %}"
+                        <img src="{% if journalist.profile_picture %}{{ journalist.profile_picture.url }}{% else %}{% static 'assets/szapp/img/user_random.jpg' %}{% endif %}"
                             class="rounded-circle me-2" width="40" height="40">
                         <div>
                             <strong>{{ journalist.first_name }} {{ journalist.last_name }}</strong><br>

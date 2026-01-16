@@ -1,5 +1,5 @@
 """
-URL configuration for jpapp project.
+URL configuration for szapp project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -16,17 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from jpapp import views
+from szapp import views
 from django.conf import settings
 from django.conf.urls.static import static
-#from jpapp.sitemap import BlogSitemap,StaticSitemap
+#from szapp.sitemap import BlogSitemap,StaticSitemap
 #from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import TemplateView, RedirectView
 
 #sitmap start
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
-from jpapp.sitemaps import custom_sitemap_index, sitemap_news, sitemap_images, sitemap_images_by_month, sitemap_videos, sitemap_videos_by_month, sitemap_article, sitemap_article_by_month, sitemap_archive, sitemap_archive_by_month, sitemap_tags, sitemap_tag_detail, sitemap_static, sitemap_categories, sitemap_category_detail
+from szapp.sitemaps import custom_sitemap_index, sitemap_news, sitemap_images, sitemap_images_by_month, sitemap_videos, sitemap_videos_by_month, sitemap_article, sitemap_article_by_month, sitemap_archive, sitemap_archive_by_month, sitemap_tags, sitemap_tag_detail, sitemap_static, sitemap_categories, sitemap_category_detail
 #sitmap end
 
 
@@ -123,7 +123,7 @@ urlpatterns = [
     #path('video/<slug>', views.videocategory, name="videocategory"),
     # path('<data>', views.pagename),
     
-    path('jpadmin/', admin.site.urls),
+    path('szadmin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls'))
 ]
 
