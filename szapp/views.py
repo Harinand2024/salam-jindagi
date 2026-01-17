@@ -31,6 +31,7 @@ from journalist.models import Journalist
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 from django_user_agents.utils import get_user_agent
+from blog.models import BlogPost
 
 # ================== HELPER FUNCTION ==================
 
@@ -65,6 +66,7 @@ def home(request):
     tags = Tag.objects.filter(is_active=1).order_by('-id')[:10]
     profiles = Journalist.objects.filter(status='active').exclude(registration_type='journalist').order_by('-id')[:6]
     Category = category.objects.filter(cat_status='active').order_by('order')[:12]
+    blogs = BlogPost.objects.filter(status=True).order_by('-created_at')[:6]
     grouped_postsdata = {}
 
     for cat in Category:
@@ -169,6 +171,7 @@ def home(request):
     data={
             'indseo':seo,
             'LatestNews':blogdata,
+            'blogs': blogs,
             'mainnews':mainnews,
             'events':events,
             'bplogo':bp,

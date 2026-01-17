@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'setting',
     'django_user_agents',
     'parler',
+    'blog',
     #'django_crontab',
     #'embed_video',
 
@@ -100,6 +101,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'setting.context.setting_context',
                 'setting.context.cms_context',
+                'szapp.context_processors.header_categories',
+                
             ],
         },
     },

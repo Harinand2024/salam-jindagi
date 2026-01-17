@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+<!-- BREADCRUMB -->
+<section class="ul-breadcrumb ul-section-spacing">
+    <div class="ul-container">
+        <h2 class="ul-breadcrumb-title">{{ blog.post_title }}</h2>
+        <ul class="ul-breadcrumb-nav">
+            <li><a href="/">Home</a></li>
+            <li><span class="separator"><i class="flaticon-right"></i></span></li>
+            <li>{{ blog.post_cat.cat_name }}</li>
+        </ul>
+    </div>
+</section>
+
+<!-- BLOG DETAILS -->
+<section class="ul-section-spacing">
+    <div class="ul-container">
+        <div class="row gy-5 flex-column-reverse flex-md-row">
+
+            <!-- SIDEBAR -->
+            <div class="col-lg-4 col-md-5">
+                <div class="ul-inner-sidebar">
+
+                    <!-- CATEGORY -->
+                    <div class="ul-inner-sidebar-widget categories">
+                        <h3 class="ul-inner-sidebar-widget-title">Category</h3>
+                        <div class="ul-inner-sidebar-widget-content">
+                            <div class="ul-inner-sidebar-categories">
+                                <a href="#">
+                                    {{ blog.post_cat.cat_name }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- META -->
+                    <div class="ul-inner-sidebar-widget">
+                        <h3 class="ul-inner-sidebar-widget-title">Post Info</h3>
+                        <ul class="list-unstyled">
+                            <li><strong>Author:</strong> {{ blog.reporter.name|default:"Admin" }}</li>
+                            <li><strong>Date:</strong> {{ blog.created_at|date:"d M Y" }}</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- BLOG CONTENT -->
+            <div class="col-lg-8 col-md-7">
+                <div class="ul-blog-details ul-blog-inner">
+
+                    <!-- IMAGE -->
+                    <div class="ul-blog-img mb-4">
+                        <img src="{{ blog.post_image.url }}" alt="{{ blog.post_title }}">
+                    </div>
+
+                    <!-- META -->
+                    <div class="ul-blog-infos mb-3">
+                        <div class="ul-blog-info">
+                            <span class="icon"><i class="flaticon-account"></i></span>
+                            <span class="text">By {{ blog.reporter.name|default:"Admin" }}</span>
+                        </div>
+
+                        <div class="ul-blog-info">
+                            <span class="icon"><i class="flaticon-price-tag"></i></span>
+                            <span class="text">{{ blog.post_cat.cat_name }}</span>
+                        </div>
+
+                        <div class="ul-blog-info">
+                            <span class="icon"><i class="flaticon-calendar"></i></span>
+                            <span class="text">{{ blog.created_at|date:"d M Y" }}</span>
+                        </div>
+                    </div>
+
+                    <!-- TITLE -->
+                    <h1 class="ul-blog-title mb-4">
+                        {{ blog.post_title }}
+                    </h1>
+
+                    <!-- CONTENT -->
+                    <div class="ul-blog-details-txt">
+                        {{ blog.description|safe }}
+                    </div>
+
+                    <!-- SHARE -->
+                    <div class="ul-blog-details-actions mt-5">
+                        <div class="shares-wrapper">
+                            <h4 class="actions-title">Share:</h4>
+                            <div class="share-options">
+                                <a href="#"><i class="flaticon-facebook"></i></a>
+                                <a href="#"><i class="flaticon-twitter"></i></a>
+                                <a href="#"><i class="flaticon-linkedin-big-logo"></i></a>
+                                <a href="#"><i class="flaticon-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

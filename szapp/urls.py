@@ -24,7 +24,6 @@ from django.conf.urls.static import static
 from django.views.generic.base import TemplateView, RedirectView
 
 #sitmap start
-from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from szapp.sitemaps import custom_sitemap_index, sitemap_news, sitemap_images, sitemap_images_by_month, sitemap_videos, sitemap_videos_by_month, sitemap_article, sitemap_article_by_month, sitemap_archive, sitemap_archive_by_month, sitemap_tags, sitemap_tag_detail, sitemap_static, sitemap_categories, sitemap_category_detail
 #sitmap end
@@ -66,7 +65,7 @@ urlpatterns = [
     path('voices-of-uae', views.voicesofuae, name='voices-of-uae'),
     path('cms/<slug:slug>/', views.cms_detail, name='cms'),
     path('setting', views.Settings, name='setting'),
-    
+    path("blog/", include("blog.urls")),
     #path('sitemap.xml',sitemap,{'sitemaps':sitemaps},name='django.contrib.sitemaps.views.sitemap'),
     # path("robots.txt",TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),),
     path("robots.txt", views.robots_txt, name="robots_txt"),

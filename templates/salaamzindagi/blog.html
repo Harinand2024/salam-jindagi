@@ -1,0 +1,96 @@
+{% load static %}
+<!-- BLOG SECTION START -->
+<section class="ul-blogs ul-section-spacing">
+    <div class="ul-blogs-container wow animate__fadeInUp">
+        <div class="row gy-3">
+
+            <!-- section heading -->
+            <div class="col-sm-5">
+                <div class="ul-section-heading">
+                    <div class="left">
+                        <span class="ul-section-sub-title">Latest Blog</span>
+                        <h2 class="ul-section-title">Read Our Latest News</h2>
+                        <p class="ul-section-descr">
+                            We help companies develop powerful corporate social responsibility,
+                            grantmaking, and employee engagement strategies.
+                        </p>
+
+                        <div class="ul-blogs-slider-nav ul-slider-nav">
+                            <button class="prev"><i class="flaticon-back"></i></button>
+                            <button class="next"><i class="flaticon-next"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- blog slider -->
+            <div class="col-sm-7">
+                <div class="ul-blogs-slider swiper">
+                    <div class="swiper-wrapper">
+
+                        {% if blogs %}
+                            {% for blog in blogs %}
+                            <div class="swiper-slide">
+                                <div class="ul-blog">
+
+                                    <div class="ul-blog-img">
+                                        <a href="{% url 'blog:blog_detail' blog.slug %}">
+                                            <img src="{{ blog.post_image.url }}" alt="{{ blog.post_title }}">
+                                        </a>
+
+                                        <div class="date">
+                                            <span class="number">{{ blog.schedule_date|date:"d" }}</span>
+                                            <span class="txt">{{ blog.schedule_date|date:"M" }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="ul-blog-txt">
+                                        <div class="ul-blog-infos">
+
+                                            <div class="ul-blog-info">
+                                                <span class="icon">
+                                                    <i class="flaticon-account"></i>
+                                                </span>
+                                                <span class="text">
+                                                    By {{ blog.reporter.name|default:"Admin" }}
+                                                </span>
+                                            </div>
+
+                                            <div class="ul-blog-info">
+                                                <span class="icon">
+                                                    <i class="flaticon-price-tag"></i>
+                                                </span>
+                                                <span class="text">
+                                                    {{ blog.post_cat.cat_name }}
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                        <a href="{% url 'blog:blog_detail' blog.slug %}" class="ul-blog-title">
+                                            {{ blog.post_title }}
+                                        </a>
+
+                                        <a href="{% url 'blog:blog_detail' blog.slug %}" class="ul-blog-btn">
+                                            Read More
+                                            <span class="icon">
+                                                <i class="flaticon-next"></i>
+                                            </span>
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>No blogs found</p>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- BLOG SECTION END -->
