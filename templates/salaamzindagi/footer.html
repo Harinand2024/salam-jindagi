@@ -16,9 +16,9 @@
                     </div>
                     <div class="ul-footer-top-contact-info-txt">
                         <span class="ul-footer-top-contact-info-label">Address</span>
-                        <h5 class="ul-footer-top-contact-info-address">
-                            4648 Rocky Road Philadelphia PA, 1920
-                        </h5>
+                        <h6 class="ul-footer-top-contact-info-address">
+                            227/1 Acme Heights Ext 2,  Sector 117, <br/> Mohali, SAS Nagar, Punjab
+                        </h6>
                     </div>
                 </div>
 
@@ -31,9 +31,9 @@
                     </div>
                     <div class="ul-footer-top-contact-info-txt">
                         <span class="ul-footer-top-contact-info-label">Send Email</span>
-                        <h5 class="ul-footer-top-contact-info-address">
-                            <a href="mailto:info@example.com">info@example.com</a>
-                        </h5>
+                        <h6 class="ul-footer-top-contact-info-address">
+                            <a href="mailto:info@salaamzindagi.org">info@salaamzindagi.org</a>
+                        </h6>
                     </div>
                 </div>
 
@@ -46,9 +46,9 @@
                     </div>
                     <div class="ul-footer-top-contact-info-txt">
                         <span class="ul-footer-top-contact-info-label">Call Emergency</span>
-                        <h5 class="ul-footer-top-contact-info-address">
-                            <a href="tel:+88012365499">+88 0123 654 99</a>
-                        </h5>
+                        <h6 class="ul-footer-top-contact-info-address">
+                            <a href="tel:+88012365499">+91 9888771169</a>
+                        </h6>
                     </div>
                 </div>
 
@@ -67,46 +67,53 @@
                         <img src="{{ profile_setting.logo_dark.url }}" class="logo logo-light" style="max-height:60px; margin-bottom:20px;">
                     </a>
                     <p class="ul-footer-about-txt">
-                        Phasellus ultricies aliquam volutpat ullamcorper laoreet neque,
-                        a lacinia curabitur lacinia mollis
+                        Salaam Zindagi is committed to supporting underprivileged communities by providing essential services such as disaster relief, education, and healthcare. Join us in creating a positive impact and changing lives for the better
                     </p>
                     <div class="ul-footer-socials">
                         <ul class="list-unstyled d-flex gap-3">
-                        {% if profile_setting.facbook %}
+                            {% if profile_setting.facbook %}
                             <li><a href="{{ profile_setting.facbook }}" target="_blank" class="text-white fs-5">
-                            <i class="flaticon-facebook"></i></a></li>
-                        {% endif %}
-                        {% if profile_setting.twitter %}
+                                <i class="flaticon-facebook"></i></a></li>
+                            {% endif %}
+
+                            {% if profile_setting.twitter %}
                             <li><a href="{{ profile_setting.twitter }}" target="_blank" class="text-white fs-5">
-                            <i class="flaticon-twitter"></i></a></li>
-                        {% endif %}
-                        {% if profile_setting.instagram %}
+                                <i class="flaticon-twitter"></i></a></li>
+                            {% endif %}
+
+                            {% if profile_setting.instagram %}
                             <li><a href="{{ profile_setting.instagram }}" target="_blank" class="text-white fs-5">
-                            <i class="flaticon-instagram"></i></a></li>
-                        {% endif %}
-                        {% if profile_setting.youtube %}
+                                <i class="flaticon-instagram"></i></a></li>
+                            {% endif %}
+
+                            {% if profile_setting.youtube %}
                             <li><a href="{{ profile_setting.youtube }}" target="_blank" class="text-white fs-5">
-                            <i class="flaticon-youtube"></i></a></li>
-                        {% endif %}
-                        {% if profile_setting.linkedin %}
+                                <i class="flaticon-youtube"></i></a></li>
+                            {% endif %}
+
+                            {% if profile_setting.linkedin %}
                             <li><a href="{{ profile_setting.linkedin }}" target="_blank" class="text-white fs-5">
-                            <i class="flaticon-linkedin-big-logo"></i></a></li>
-                        {% endif %}
+                                <i class="flaticon-linkedin-big-logo"></i></a></li>
+                            {% endif %}
                         </ul>
+
                         
                     </div>
                 </div>
 
-                <!-- Quick Links -->
-                <div class="ul-footer-widget">
-                    <h3 class="ul-footer-widget-title">Quick Links</h3>
-                    <div class="ul-footer-widget-links">
-                        {% for page in pages %}
-                            <a href="{% url 'cms' page.slug %}" class="text-white text-decoration-none link-hover">{{ page.pagename }}</a>
-                        {% endfor %}
-                        <a href="{% url 'sitemap' %}" class="text-white text-decoration-none link-hover">Sitemap</a>
-                    </div>
-                </div>
+            <!-- Quick Links -->
+            <div class="ul-footer-widget">
+            <h3 class="ul-footer-widget-title">Quick Links</h3>
+            <div class="ul-footer-widget-links">
+                <a href="/" class="text-white text-decoration-none link-hover">Blog</a>
+                <a href="/" class="text-white text-decoration-none link-hover">Contact</a>
+                <a href="/" class="text-white text-decoration-none link-hover">About Us</a>
+                <a href="/" class="text-white text-decoration-none link-hover">Give Donation</a>
+                <a href="/" class="text-white text-decoration-none link-hover">Privacy Policy</a>
+                <a href="/" class="text-white text-decoration-none link-hover">Become Volunteer</a>
+                <a href="/" class="text-white text-decoration-none link-hover">Join our Events</a>
+            </div>
+            </div>
 
                 <!-- Recent Posts -->
                 <div class="ul-footer-widget ul-footer-recent-posts">
@@ -117,7 +124,7 @@
                         <div class="ul-blog-sidebar-post ul-footer-post">
                             <div class="img">
                                 
-                                <img src="{% static 'assets/salamjindagi/img/blog-2.jpg' %}">
+                                <img src="{% static 'assets/salamjindagi/img/blog-1.jpg' %}">
                             </div>
                             <div class="txt">
                                 <span class="date">
@@ -132,6 +139,19 @@
                         <div class="ul-blog-sidebar-post ul-footer-post">
                             <div class="img">
                                 <img src="{% static 'assets/salamjindagi/img/blog-2.jpg' %}">
+                            </div>
+                            <div class="txt">
+                                <span class="date">
+                                    <i class="flaticon-calendar"></i> May 12, 2025
+                                </span>
+                                <h4 class="title">
+                                    <a href="#">There are many variations of passages</a>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="ul-blog-sidebar-post ul-footer-post">
+                            <div class="img">
+                                <img src="{% static 'assets/salamjindagi/img/blog-3.jpg' %}">
                             </div>
                             <div class="txt">
                                 <span class="date">
@@ -150,11 +170,11 @@
                 <div class="ul-footer-widget ul-nwsltr-widget">
                     <h3 class="ul-footer-widget-title">Contact Us</h3>
                     <div class="ul-footer-widget-links ul-footer-contact-links">
-                        <a href="mailto:info@example.com">
-                            <i class="flaticon-mail"></i> info@example.com
+                        <a href="mailto:info@salaamzindagi.org">
+                            <i class="flaticon-mail"></i> info@salaamzindagi.org
                         </a>
-                        <a href="tel:1234567890">
-                            <i class="flaticon-telephone-call"></i> 123-456-7890
+                        <a href="tel:9888771169">
+                            <i class="flaticon-telephone-call"></i> +91 9888771169
                         </a>
                     </div>
 
@@ -184,8 +204,7 @@
         <div class="ul-footer-container">
             <div class="ul-footer-bottom-wrapper">
                 <p class="copyright-txt">
-                    &copy; <span id="footer-copyright-year"></span> Charitics.
-                    All rights reserved
+                    &copy; <span id="footer-copyright-year"></span>Salaam Zindagi. Made with  by Magnifying India
                 </p>
                 <div class="ul-footer-bottom-nav">
                     <a href="#">Terms & Conditions</a>

@@ -103,7 +103,7 @@
                     <nav class="ul-header-nav">
 
                         <a href="/">Home</a>
-
+                        
                         {% for link in Blogcat %}
                         <div class="has-sub-menu">
                             <a role="button">{{ link.cat_name }}</a>
@@ -122,7 +122,9 @@
                             </div>
                         </div>
                         {% endfor %}
-
+                        <a href="/">About Us</a>
+                        <a href="{% url 'contact-us' %}">Contact Us</a>
+                        <a href="/">Join Us</a>
                     </nav>
                 </div>
             </div>
@@ -138,7 +140,7 @@
                 <!-- Reporter Login -->
                 <a href="/auth/sign-in" class="ul-btn d-sm-inline-flex d-none">
                     <i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
-                    Reporter Login
+                    Login
                 </a>
 
                 <!-- Mobile Menu -->
