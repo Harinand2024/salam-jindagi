@@ -116,55 +116,39 @@
             </div>
 
                 <!-- Recent Posts -->
-                <div class="ul-footer-widget ul-footer-recent-posts">
-                    <h3 class="ul-footer-widget-title">Recent Posts</h3>
+                    <div class="ul-footer-widget ul-footer-recent-posts">
+                        <h3 class="ul-footer-widget-title">Recent Posts</h3>
 
-                    <div class="ul-blog-sidebar-posts">
+                        <div class="ul-blog-sidebar-posts">
 
-                        <div class="ul-blog-sidebar-post ul-footer-post">
-                            <div class="img">
-                                
-                                <img src="{% static 'assets/salamjindagi/img/blog-1.jpg' %}">
+                            {% for post in recent_posts %}
+                            <div class="ul-blog-sidebar-post ul-footer-post">
+                                <div class="img">
+                                    <a href="{% url 'blog:blog_detail' post.slug %}">
+                                        <img src="{{ post.post_image.url }}" alt="{{ post.post_title }}">
+                                    </a>
+                                </div>
+
+                                <div class="txt">
+                                    <span class="date">
+                                        <i class="flaticon-calendar"></i>
+                                        {{ post.created_at|date:"d M Y" }}
+                                    </span>
+
+                                    <h4 class="title">
+                                        <a href="{% url 'blog:blog_detail' post.slug %}">
+                                            {{ post.post_title|truncatechars:45 }}
+                                        </a>
+                                    </h4>
+                                </div>
                             </div>
-                            <div class="txt">
-                                <span class="date">
-                                    <i class="flaticon-calendar"></i> May 12, 2025
-                                </span>
-                                <h4 class="title">
-                                    <a href="#">There are many variations of passages</a>
-                                </h4>
-                            </div>
+                            {% empty %}
+                            <p>No recent posts</p>
+                            {% endfor %}
+
                         </div>
-
-                        <div class="ul-blog-sidebar-post ul-footer-post">
-                            <div class="img">
-                                <img src="{% static 'assets/salamjindagi/img/blog-2.jpg' %}">
-                            </div>
-                            <div class="txt">
-                                <span class="date">
-                                    <i class="flaticon-calendar"></i> May 12, 2025
-                                </span>
-                                <h4 class="title">
-                                    <a href="#">There are many variations of passages</a>
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="ul-blog-sidebar-post ul-footer-post">
-                            <div class="img">
-                                <img src="{% static 'assets/salamjindagi/img/blog-3.jpg' %}">
-                            </div>
-                            <div class="txt">
-                                <span class="date">
-                                    <i class="flaticon-calendar"></i> May 12, 2025
-                                </span>
-                                <h4 class="title">
-                                    <a href="#">There are many variations of passages</a>
-                                </h4>
-                            </div>
-                        </div>
-
                     </div>
-                </div>
+
 
                 <!-- Newsletter -->
                 <div class="ul-footer-widget ul-nwsltr-widget">

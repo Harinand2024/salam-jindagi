@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+<section class="ul-breadcrumb">
+    <div class="container text-center">
+        <h1 class="title text-white">Blogs</h1>
+        <!-- <ul class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li>Blogs</li>
+        </ul> -->
+    </div>
+</section>
+
+<section class="ul-blogs ul-section-spacing">
+    <div class="container">
+        <div class="row gy-4">
+
+            {% for blog in blogs %}
+            <div class="col-lg-4 col-md-6">
+                <div class="ul-blog ul-blog-2 mb-3">
+                    <div class="ul-blog-img">
+                        <a href="{% url 'blog:blog_detail' blog.slug %}">
+                            <img src="{{ blog.post_image.url }}" alt="{{ blog.post_title }}">
+                        </a>
+                        <div class="date">
+
+                            <span class="number">{{ blog.schedule_date|default:blog.created_at|date:"d" }}</span>
+                            <span class="txt">{{ blog.schedule_date|default:blog.created_at|date:"M" }}</span>
+                        </div>
+                    </div>
+
+                    <div class="ul-blog-txt">
+                        <div class="ul-blog-infos">
+                            <div class="ul-blog-info">
+                                <i class="flaticon-account"></i>
+                                By {{ blog.reporter.name|default:"Admin" }}
+                            </div>
+                            <div class="ul-blog-info">
+                                <i class="flaticon-price-tag"></i>
+                                {{ blog.post_cat.cat_name }}
+                            </div>
+                        </div>
+
+                        <a href="{% url 'blog:blog_detail' blog.slug %}" class="ul-blog-title">
+                            {{ blog.post_title|truncatewords:10 }}
+                        </a>
+
+                        <a href="{% url 'blog:blog_detail' blog.slug %}" class="ul-blog-btn">
+                            Read More <i class="flaticon-next"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        {% if blogs.has_other_pages %}
+        <div class="ul-pagination mt-5">
+            <ul>
+
+                <!-- PREVIOUS -->
+                {% if blogs.has_previous %}
+                <li>
+                    <a href="?page={{ blogs.previous_page_number }}">
+                        <i class="flaticon-back"></i>
+                    </a>
+                </li>
+                {% endif %}
+
+                <!-- PAGE NUMBERS -->
+                <li class="pages">
+                    {% for num in blogs.paginator.page_range %}
+                    {% if blogs.number == num %}
+                    <a href="?page={{ num }}" class="active">{{ num }}</a>
+                    {% else %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                    {% endif %}
+                    {% endfor %}
+                </li>
+
+                <!-- NEXT -->
+                {% if blogs.has_next %}
+                <li>
+                    <a href="?page={{ blogs.next_page_number }}">
+                        <i class="flaticon-next"></i>
+                    </a>
+                </li>
+                {% endif %}
+
+            </ul>
+        </div>
+        {% endif %}
+
+
+    </div>
+</section>
+
+{% endblock %}

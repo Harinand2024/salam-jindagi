@@ -52,6 +52,7 @@ urlpatterns = [
     path('thanks', views.thanks, name="thanks"),
     path('error', views.ErrorPage, name="error"),
     path('contact-us', views.Contactus, name="contact-us"),
+    path('about-us', views.Aboutus, name="about-us"),
     path('sitemap-page', views.SiteMap, name="sitemap-page"),
     path('advertise-with-us', views.advertise, name="advertise-with-us"),
     path('upcoming-events', views.UcEvents, name="upcoming-events"),
@@ -115,7 +116,6 @@ urlpatterns = [
     # Category details (more general, should come after newsdetails)
     path('<str:catlink>/<slug:slug>', views.catdetails, name="catdetails"),
     #dynemic-path-end
-    
     #path('logincheck', views.Logincheck, name="logincheck"),
     #admin-----link---end------
 

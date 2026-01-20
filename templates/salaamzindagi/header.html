@@ -9,6 +9,7 @@
 <!-- ================= SIDEBAR (MOBILE) ================= -->
 <div class="ul-sidebar">
 
+    <!-- Sidebar Header -->
     <div class="ul-sidebar-header">
         <div class="ul-sidebar-header-logo">
             <a href="/">
@@ -20,37 +21,12 @@
         </button>
     </div>
 
-    <!-- Mobile Menu -->
+    <!-- ✅ IMPORTANT: EMPTY CONTAINER (JS YAHIN MENU DALTA HAI) -->
     <div class="ul-sidebar-header-nav-wrapper d-block d-lg-none">
-        <nav class="ul-header-nav">
-
-            <a href="/">Home</a>
-
-            {% for link in Blogcat %}
-            <div class="has-sub-menu">
-                <a role="button">{{ link.cat_name }}</a>
-                <div class="ul-header-submenu">
-                    <ul>
-                        {% for sublink in link.sub_category_set.all %}
-                        {% if sublink.subcat_status == 'active' %}
-                        <li>
-                            <a href="/{{ link.cat_slug }}/{{ sublink.subcat_slug }}">
-                                {{ sublink.subcat_name }}
-                            </a>
-                        </li>
-                        {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            {% endfor %}
-
-            <a href="/reporters">Our Reporters</a>
-            <a href="/contact-us">Contact</a>
-        </nav>
+        <!-- desktop menu yahan inject hoga -->
     </div>
 
-    <!-- Sidebar Social -->
+    <!-- Sidebar Footer -->
     <div class="ul-sidebar-footer">
         <span class="ul-sidebar-footer-title">Follow us</span>
         <div class="ul-sidebar-footer-social">
@@ -74,14 +50,19 @@
 
 <!-- ================= SEARCH MODAL ================= -->
 <div class="ul-search-form-wrapper">
-    <button class="ul-search-closer"><i class="flaticon-close"></i></button>
+    <button class="ul-search-closer">
+        <i class="flaticon-close"></i>
+    </button>
     <form action="{% url 'search' %}" method="get" class="ul-search-form">
         <div class="ul-search-form-right">
             <input type="search" name="title" placeholder="Search here..." required>
-            <button type="submit"><i class="flaticon-search"></i></button>
+            <button type="submit">
+                <i class="flaticon-search"></i>
+            </button>
         </div>
     </form>
 </div>
+
 
 <!-- ================= HEADER ================= -->
 <header class="ul-header">
@@ -91,62 +72,55 @@
             <!-- LOGO -->
             <div class="logo-container">
                 <a href="/">
-                    <img src="{{ profile_setting.logo_dark.url }}" class="logo logo-light" style="max-height:60px; margin-bottom:20px;">
-                    <!-- <img src="{{ profile_setting.logo_light.url }}" class="logo logo-dark" style="max-height:60px;"> -->
-                    <!-- <img src="{% static 'assets/salamjindagi/img/logo.svg' %}" alt="logo" class="logo"> -->
+                    <img src="{{ profile_setting.logo_dark.url }}"
+                         class="logo logo-light"
+                         style="max-height:60px; margin-bottom:20px;">
                 </a>
             </div>
 
-            <!-- MAIN NAV -->
+            <!-- MAIN NAV (SOURCE FOR MOBILE SIDEBAR) -->
             <div class="ul-header-nav-wrapper">
                 <div class="to-go-to-sidebar-in-mobile">
                     <nav class="ul-header-nav">
 
                         <a href="/">Home</a>
-                        
-                        {% for link in Blogcat %}
+
                         <div class="has-sub-menu">
-                            <a role="button">{{ link.cat_name }}</a>
+                            <a role="button">Blog</a>
                             <div class="ul-header-submenu">
                                 <ul>
-                                    {% for sublink in link.sub_category_set.all %}
-                                    {% if sublink.subcat_status == 'active' %}
                                     <li>
-                                        <a href="/{{ link.cat_slug }}/{{ sublink.subcat_slug }}">
-                                            {{ sublink.subcat_name }}
-                                        </a>
+                                        <a href="{% url 'blog:blog_list' %}">Blogs</a>
                                     </li>
-                                    {% endif %}
-                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>
-                        {% endfor %}
-                        <a href="/">About Us</a>
+
+                        <a href="{% url 'about-us' %}">About Us</a>
                         <a href="{% url 'contact-us' %}">Contact Us</a>
                         <a href="/">Join Us</a>
+
                     </nav>
                 </div>
             </div>
 
-            <!-- ACTIONS -->
+            <!-- HEADER ACTIONS -->
             <div class="ul-header-actions">
 
-                <!-- Search -->
                 <button class="ul-header-search-opener">
                     <i class="flaticon-search"></i>
                 </button>
 
-                <!-- Reporter Login -->
-                <a href="/auth/sign-in" class="ul-btn d-sm-inline-flex d-none">
+                <a href="/auth/sign-in"
+                   class="ul-btn d-sm-inline-flex d-none">
                     <i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
                     Login
                 </a>
 
-                <!-- Mobile Menu -->
                 <button class="ul-header-sidebar-opener d-lg-none">
                     <i class="flaticon-menu"></i>
                 </button>
+
             </div>
 
         </div>

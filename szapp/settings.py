@@ -102,7 +102,7 @@ TEMPLATES = [
                 'setting.context.setting_context',
                 'setting.context.cms_context',
                 'szapp.context_processors.header_categories',
-                
+                'blog.context_processors.global_context',
             ],
         },
     },

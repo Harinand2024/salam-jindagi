@@ -40,8 +40,8 @@
                                     </a>
 
                                     <div class="date">
-                                        <span class="number">{{ blog.schedule_date|date:"d" }}</span>
-                                        <span class="txt">{{ blog.schedule_date|date:"M" }}</span>
+                                        <span class="number">{{ blog.schedule_date|default:blog.created_at|date:"d" }}</span>
+                                        <span class="txt">{{ blog.schedule_date|default:blog.created_at|date:"M" }}</span>
                                     </div>
                                 </div>
 

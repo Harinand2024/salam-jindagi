@@ -1,103 +1,116 @@
 {% extends 'base.html' %}
 {% block body %}
 {% load static %}
-<!-- Contact Start -->
- <div class="topspace"></div>
-<div class="container">
-    <div class="section-title mb-0 mt-5">
-        <h3 class="m-0 text-uppercase font-weight-bold py-3 border-bottom">Contact Us For Any Queries</h3>
-    </div>
-    <div class="row mt-3 mb-5">
-        <div class="col-lg-8 col-md-6 col-sm-12">
-            <div class="mb-4">
-                <h4 class=" font-weight-bold mb-1">Contact Info</h4>
-                <p class="mb-4 text-justify">We believe in the power of news to connect and empower people. szapp aspires
-                    to be more than just a news outlet, we aim to be a community hub where diverse perspectives are
-                    welcomed and constructive conversations are fostered. </p>
-                <div class="mb-3">
-                    <div class="d-flex align-items-center mb-2">
-                        <i class="fa fa-map-marker-alt  mr-2"></i>
-                        <h6 class="font-weight-bold mb-0">Our Office</h6>
+<main>
+        <!-- BREADCRUMBS SECTION START -->
+        <section class="ul-breadcrumb ul-section-spacing">
+            <div class="ul-container">
+                <h2 class="ul-breadcrumb-title">Contact us</h2>
+                <ul class="ul-breadcrumb-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><span class="separator"><i class="flaticon-right"></i></span></li>
+                    <li>Contact us</li>
+                </ul>
+            </div>
+        </section>
+        <!-- BREADCRUMBS SECTION END -->
+
+
+        <!-- CONTACT INFOS SECTION START -->
+        <div class="ul-contact-infos">
+            <div class="ul-section-spacing ul-container">
+                <div class="row row-cols-md-3 row-cols-2 row-cols-xxs-1 ul-bs-row">
+                    <!-- single info -->
+                    <div class="col">
+                        <div class="ul-contact-info">
+                            <div class="icon"><i class="flaticon-phone-call"></i></div>
+                            <div class="txt">
+                                <span class="title">Phone number</span>
+                                <a href="tel:+91 9888771169">+91 9888771169</a>
+                            </div>
+                        </div>
                     </div>
-                    {% if profile_setting.main_office_address %}
-                    <a href="https://www.google.com/maps/search/?api=1&query={{ profile_setting.main_office_address|urlencode }}"
-                        target="_blank">
-                        {{ profile_setting.main_office_address }}
-                    </a>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <div class="d-flex align-items-center mb-2">
-                        <i class="fa fa-envelope-open  mr-2"></i>
-                        <h6 class="font-weight-bold mb-0">Email Us</h6>
+                    <!-- single info -->
+                    <div class="col">
+                        <div class="ul-contact-info">
+                            <div class="icon"><i class="flaticon-comment"></i></div>
+                            <div class="txt">
+                                <span class="title">Email address</span>
+                                <a href="mailto:info@salaamzindagi.org">info@salaamzindagi.org</a>
+                            </div>
+                        </div>
                     </div>
-                    <a href="mailto:{{ profile_setting.email }}">{{ profile_setting.email }}</a>
-                </div>
-                <div class="mb-3">
-                    <div class="d-flex align-items-center mb-2">
-                        <i class="fa fa-phone-alt  mr-2"></i>
-                        <h6 class="font-weight-bold mb-0">Call Us</h6>
+                    <!-- single info -->
+                    <div class="col">
+                        <div class="ul-contact-info">
+                            <div class="icon"><i class="flaticon-location"></i></div>
+                            <div class="txt">
+                                <span class="title">Office Address</span>
+                                <span class="descr">227/1 Acme Heights Ext 2, Sector 117,
+Mohali, SAS Nagar, Punjab</span>
+                            </div>
+                        </div>
                     </div>
-                    <a href="tel:{{ profile_setting.phone_number1 }}">{{ profile_setting.phone_number1 }}</a>
                 </div>
             </div>
-            <h4 class="text-uppercase font-weight-bold mb-4">Contact Us</h4>
-            <form>
-                <div class="form-row">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group">
-                            <input type="text" class="form-control p-4" placeholder="Your Name" required="required" />
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group">
-                            <input type="email" class="form-control p-4" placeholder="Your Email" required="required" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control p-4" placeholder="Subject" required="required" />
-                </div>
-                <div class="form-group">
-                    <textarea class="form-control" rows="4" placeholder="Message" required="required"></textarea>
-                </div>
+        </div>
+        <!-- CONTACT INFOS SECTION END -->
+
+
+        <!-- MAPS SECTION START -->
+        <div class="ul-contact-map">
+            <iframe 
+            src="https://www.google.com/maps?q=227/1%20Acme%20Heights%20Ext%202%20Sector%20117%20Mohali%20Punjab&output=embed"
+            width="100%"
+            height="350"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <!-- MAPS SECTION END -->
+
+
+        <!-- CONTACT SECTION START -->
+        <section class="ul-inner-contact ul-section-spacing">
+            <div class="ul-section-heading justify-content-center text-center">
                 <div>
-                    <button class="btn btn-primary font-weight-semi-bold px-4"
-                        style="height: 50px; height: 50px;background: #478fc9;border-color: #478fc9;" type="submit">Send
-                        Message</button>
-                </div>
-            </form>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 p-4">
-
-            <div class="pb-4 text-center">
-                <h4 class="m-0 text-uppercase font-weight-bold"><i class="fa fa-map-marker-alt  mr-2"></i> Location</h4>
-            </div>
-            <div class="custom-map-wrapper">
-                {% if profile_setting.google_map %}
-                {{ profile_setting.google_map|safe }}
-                {% else %}
-                <p>Map is not available.</p>
-                {% endif %}
-            </div>
-
-            <div class="mt-3">
-                <div class="text-center border border-top-0">
-                    {% for adrcol in adright %}
-                    <a href="{{adrcol.ad_url}}" target="_blank"><img class="img-fluid w-100"
-                            src="../upload/{{adrcol.ad_image}}" alt="{{adrcol.ad_url}}"></a>
-                    {% endfor %}
-
+                    <span class="ul-section-sub-title">Contact us</span>
+                    <h2 class="ul-section-title">Feel Free To Write Us Anytime</h2>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<style>
-    .custom-map-wrapper iframe {
-        width: 100%;
-        height: 300px;
-        border: 0;
-    }
-</style>
+
+            <div class="ul-inner-contact-container">
+                <form action="#" class="ul-contact-form ul-form">
+                    <div class="row row-cols-2 row-cols-xxs-1 ul-bs-row">
+                        <div class="col">
+                            <div class="form-group">
+                                <input type="text" name="name" id="ul-contact-name" placeholder="Your Name">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <input type="email" name="email" id="ul-contact-email" placeholder="Email Address">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="text" name="subject" id="ul-contact-subject" placeholder="Subject">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <textarea name="message" id="ul-contact-msg" placeholder="Type your message"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button class="ul-btn"><i class="flaticon-fast-forward-double-right-arrows-symbol"></i> Get in Touch</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!-- CONTACT SECTION END -->
+    </main>
 {% endblock %}

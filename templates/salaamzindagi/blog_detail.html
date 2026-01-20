@@ -2,8 +2,9 @@
 {% load static %}
 
 {% block body %}
+<main>
 
-<!-- BREADCRUMB -->
+<!-- ================= BREADCRUMB ================= -->
 <section class="ul-breadcrumb ul-section-spacing">
     <div class="ul-container">
         <h2 class="ul-breadcrumb-title">{{ blog.post_title }}</h2>
@@ -15,87 +16,144 @@
     </div>
 </section>
 
-<!-- BLOG DETAILS -->
-<section class="ul-section-spacing">
+<!-- ================= BLOG DETAILS ================= -->
+<div class="ul-section-spacing">
     <div class="ul-container">
-        <div class="row gy-5 flex-column-reverse flex-md-row">
+        <div class="row ul-bs-row gy-5 flex-column-reverse flex-md-row">
 
-            <!-- SIDEBAR -->
+            <!-- ========== SIDEBAR ========== -->
             <div class="col-lg-4 col-md-5">
                 <div class="ul-inner-sidebar">
 
-                    <!-- CATEGORY -->
+                    <!-- Categories -->
                     <div class="ul-inner-sidebar-widget categories">
-                        <h3 class="ul-inner-sidebar-widget-title">Category</h3>
+                        <h3 class="ul-inner-sidebar-widget-title">Categories</h3>
                         <div class="ul-inner-sidebar-widget-content">
                             <div class="ul-inner-sidebar-categories">
-                                <a href="#">
-                                    {{ blog.post_cat.cat_name }}
+                                {% for cat in categories %}
+                                <a href="{% url 'blog:category_blogs' cat.cat_slug %}">
+                                    {{ cat.cat_name }} ({{ cat.blogs.count }})
                                 </a>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
 
-                    <!-- META -->
-                    <div class="ul-inner-sidebar-widget">
-                        <h3 class="ul-inner-sidebar-widget-title">Post Info</h3>
-                        <ul class="list-unstyled">
-                            <li><strong>Author:</strong> {{ blog.reporter.name|default:"Admin" }}</li>
-                            <li><strong>Date:</strong> {{ blog.created_at|date:"d M Y" }}</li>
-                        </ul>
+                    <!-- Recent Posts -->
+                    <div class="ul-inner-sidebar-widget posts">
+                        <h3 class="ul-inner-sidebar-widget-title">Recent Posts</h3>
+                        <div class="ul-inner-sidebar-widget-content">
+                            <div class="ul-inner-sidebar-posts">
+                                {% for post in recent_posts %}
+                                <div class="ul-inner-sidebar-post">
+                                    <div class="img">
+                                        <img src="{{ post.post_image.url }}" alt="{{ post.post_title }}">
+                                    </div>
+                                    <div class="txt">
+                                        <h4 class="title">
+                                            <a href="{% url 'blog:blog_detail' post.slug %}">
+                                                {{ post.post_title|truncatechars:50 }}
+                                            </a>
+                                        </h4>
+                                        <span class="date">{{ post.created_at|date:"d M Y" }}</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
 
                 </div>
             </div>
 
-            <!-- BLOG CONTENT -->
+            <!-- ========== BLOG CONTENT ========== -->
             <div class="col-lg-8 col-md-7">
-                <div class="ul-blog-details ul-blog-inner">
+                <div class="ul-blog-details ul-blog-inner mb-0">
 
-                    <!-- IMAGE -->
+                    <!-- Image -->
                     <div class="ul-blog-img mb-4">
                         <img src="{{ blog.post_image.url }}" alt="{{ blog.post_title }}">
                     </div>
 
-                    <!-- META -->
+                    <!-- Meta -->
                     <div class="ul-blog-infos mb-3">
                         <div class="ul-blog-info">
                             <span class="icon"><i class="flaticon-account"></i></span>
                             <span class="text">By {{ blog.reporter.name|default:"Admin" }}</span>
                         </div>
-
                         <div class="ul-blog-info">
                             <span class="icon"><i class="flaticon-price-tag"></i></span>
                             <span class="text">{{ blog.post_cat.cat_name }}</span>
                         </div>
-
                         <div class="ul-blog-info">
                             <span class="icon"><i class="flaticon-calendar"></i></span>
                             <span class="text">{{ blog.created_at|date:"d M Y" }}</span>
                         </div>
                     </div>
 
-                    <!-- TITLE -->
-                    <h1 class="ul-blog-title mb-4">
-                        {{ blog.post_title }}
-                    </h1>
+                    <!-- Title -->
+                    <h1 class="ul-blog-title mb-4">{{ blog.post_title }}</h1>
 
-                    <!-- CONTENT -->
+                    <!-- Content -->
                     <div class="ul-blog-details-txt">
                         {{ blog.description|safe }}
                     </div>
 
-                    <!-- SHARE -->
-                    <div class="ul-blog-details-actions mt-5">
-                        <div class="shares-wrapper">
-                            <h4 class="actions-title">Share:</h4>
-                            <div class="share-options">
-                                <a href="#"><i class="flaticon-facebook"></i></a>
-                                <a href="#"><i class="flaticon-twitter"></i></a>
-                                <a href="#"><i class="flaticon-linkedin-big-logo"></i></a>
-                                <a href="#"><i class="flaticon-instagram"></i></a>
-                            </div>
+                    <!-- Tags -->
+                   <div class="ul-blog-details-actions mt-2">
+                    {% if blog.tags.exists %}
+                    <div class="tags-wrapper">
+                        <h4 class="actions-title">Tags:</h4>
+
+                        <div class="ul-blog-sidebar-tags tags">
+                            {% for tag in blog.tags.all %}
+                                <a href="{% url 'blog:tag_blogs' tag.slug %}">
+                                    {{ tag.name }}{% if not forloop.last %} |{% endif %}
+                                </a>
+                            {% endfor %}
                         </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- share -->
+                    <div class="shares-wrapper">
+                        <h4 class="actions-title">Share:</h4>
+
+                        <div class="share-options">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank">
+                                <i class="flaticon-facebook"></i>
+                            </a>
+
+                            <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ blog.post_title }}" target="_blank">
+                                <i class="flaticon-twitter"></i>
+                            </a>
+
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank">
+                                <i class="flaticon-linkedin-big-logo"></i>
+                            </a>
+
+                            <a href="https://www.instagram.com/" target="_blank">
+                                <i class="flaticon-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                    <!-- Prev / Next -->
+                    <div class="ul-blog-details-actions mt-5 d-flex justify-content-between">
+                        {% if prev_blog %}
+                        <a href="{% url 'blog:blog_detail' prev_blog.slug %}" class="ul-btn">
+                            ← Previous
+                        </a>
+                        {% endif %}
+
+                        {% if next_blog %}
+                        <a href="{% url 'blog:blog_detail' next_blog.slug %}" class="ul-btn">
+                            Next →
+                        </a>
+                        {% endif %}
                     </div>
 
                 </div>
@@ -103,6 +161,32 @@
 
         </div>
     </div>
-</section>
+</div>
 
+</main>
+{% endblock %}
+
+{% block seo_schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ blog.post_title }}",
+  "image": "{{ blog.post_image.url }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ blog.reporter.name|default:'Admin' }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Salaam Zindagi",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ profile_setting.logo_dark.url }}"
+    }
+  },
+  "datePublished": "{{ blog.created_at|date:'Y-m-d' }}",
+  "dateModified": "{{ blog.created_at|date:'Y-m-d' }}"
+}
+</script>
 {% endblock %}
