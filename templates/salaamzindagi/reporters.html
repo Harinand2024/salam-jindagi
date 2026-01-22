@@ -1,19 +1,24 @@
 {% extends 'base.html' %}
 {% block body %}
 {% load static %}
-<div class="container my-4">
-  <div class="row">
-    <div class="col-12 mb-3">
-      <!-- <div class="section-title">Reporter Profiles</div>
-      <div class="double-underline"></div> -->
-      <h2 class="text-center fw-bold py-3 border-bottom ">
-        ਜਨਪੰਜਾਬ – ਪੰਜਾਬ ਤੋਂ ਦੁਨੀਆ ਤੱਕ, ਸਾਡੇ ਐਕਟੀਵ ਰਿਪੋਰਟਰ ਅਤੇ ਜਰਨਲਿਸਟ ਪ੍ਰੋਫ਼ਾਈਲਜ਼
-      </h2>
-    </div>
-  </div>
 
+<main>
+    <!-- BREADCRUMBS SECTION START -->
+    <section class="ul-breadcrumb ul-section-spacing">
+        <div class="ul-container">
+            <h2 class="ul-breadcrumb-title">Reporters</h2>
+            <ul class="ul-breadcrumb-nav">
+                <li><a href="/">Home</a></li>
+                <li><span class="separator"><i class="flaticon-right"></i></span></li>
+                <li>Reporters</li>
+            </ul>
+        </div>
+    </section>
+    <!-- BREADCRUMBS SECTION END -->
+<div class="container my-4">
   {% include 'guist_profiles.html' with profiles=profiles %}
 </div>
+</main>
 {% endblock %}
 
 

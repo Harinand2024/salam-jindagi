@@ -1,0 +1,73 @@
+{% load static %}
+
+<section class="ul-donations ul-section-spacing overflow-hidden">
+    <div class="ul-container">
+        <div class="ul-section-heading ul-donations-heading justify-content-between text-center">
+            <div class="left">
+                <span class="ul-section-sub-title"><span class="txt">Our Reporters</span></span>
+                <h2 class="ul-section-title">Latest Stories by Our Journalists</h2>
+            </div>
+            <!-- REPORTER IMAGES -->
+            <div class="flex-shrink-0">
+                <div class="ul-banner-stat">
+                    <div class="imgs">
+                        {% for profile in profiles %}
+                            <a href="{% url 'journalist_profile' profile.username %}">
+                                {% if profile.profile_picture %}
+                                    <img src="{{ profile.profile_picture.url }}" alt="{{ profile.username }}">
+                                {% else %}
+                                    <img src="{% static 'static/assets/img/user-1.jpg' %}">
+                                {% endif %}
+                            </a>
+                        {% endfor %}
+                        <span class="number">{{ profiles|length }}</span>
+                    </div>
+                    <span class="txt text-white">Active Reporters</span>
+                </div>
+            </div>
+            <div class="ul-slider-nav ul-donations-slider-nav">
+                <button class="prev"><i class="flaticon-back"></i></button>
+                <button class="next"><i class="flaticon-next"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔥 SLIDER : REPORTER WISE NEWS -->
+    <div class="ul-container wow animate__fadeInUp">
+        <div class="ul-donations-slider swiper overflow-visible">
+            <div class="swiper-wrapper">
+                {% for profile in profiles %}
+                    {% for news in profile.news_posts.all %}
+                        <div class="swiper-slide">
+                            <div class="ul-donation">
+                                <div class="ul-donation-img">
+                                    <a href="{% url 'newsdetails' news.newsfrom.slug news.post_cat.cat_slug news.slug %}">
+                                        <img src="{{ news.image.url }}">
+                                    </a>
+                                    <span class="tag">{{ profile.first_name }}</span>
+                                </div>
+
+                                <div class="ul-donation-txt">
+                                    <a href="{% url 'newsdetails' news.newsfrom.slug news.post_cat.cat_slug news.slug %}"
+                                    class="ul-donation-title">
+                                        {{ news.title|truncatechars:60 }}
+                                    </a>
+
+                                    <p class="ul-donation-descr">
+                                        {{ news.short_description|truncatechars:90 }}
+                                    </p>
+
+                                    <a href="{% url 'journalist_profile' profile.username %}"
+                                    class="ul-donation-btn">
+                                        More from {{ profile.first_name }}
+                                        <i class="flaticon-up-right-arrow"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

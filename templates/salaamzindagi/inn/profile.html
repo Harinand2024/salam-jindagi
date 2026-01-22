@@ -9,13 +9,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <!-- Google Font -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<div class="container my-2">
-
-    <div class="art-banner"
-        style="background-image: url('{% if journalist.banner %}{{ journalist.banner.url }}{% else %}/static/assets/szapp/img/defoult_banner.jpg{% endif %}');">
+<!-- BREADCRUMBS SECTION START -->
+<section class="ul-breadcrumb ul-section-spacing">
+    <div class="ul-container">
+        <h2 class="ul-breadcrumb-title">Journalists</h2>
+        <ul class="ul-breadcrumb-nav">
+            <li><a href="/">Home</a></li>
+            <li><span class="separator"><i class="flaticon-right"></i></span></li>
+            <li>Journalists</li>
+        </ul>
     </div>
-    <div class="d-flex">
+</section>
+<div class="container my-5">
+    <div class="d-flex mt-5 pt-5">
         <div class="art-profile-container shadow-lg">
             <div class="art-logo">
                 <a href="#">
@@ -61,44 +67,6 @@
                         {% endif %}
                     {% endif %}
                 </div>
-                <!-- <div class="dropdown">
-                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle">
-                        <i class="bi bi-share"></i> Share
-                    </button>
-
-                    <ul class="dropdown-menu dropdown-menu-end shadow">
-                        <li class="m-2">
-                            <a  href="#" target="_blank">
-                                <i class="fab fa-x-twitter bg-light-x me-2"></i> Twitter
-                            </a>
-                        </li>
-                        <li class="m-2">
-                            <a class="" href="#" target="_blank">
-                                <i class="bi bi-whatsapp me-2 text-success"></i> WhatsApp
-                            </a>
-                        </li>
-                        <li class="m-2">
-                            <a class="" href="#" target="_blank">
-                                <i class="fab fa-facebook-f me-2 text-primary"></i> Facebook
-                            </a>
-                        </li>
-                        <li class="m-2">
-                            <a class="" href="#" target="_blank">
-                                <i class="fab fa-linkedin me-2 text-primary"></i> Linkedin
-                            </a>
-                        </li>
-                        <li class="m-2">
-                            <a class="" href="#" target="_blank">
-                                <i class="fab fa-youtube me-2 text-danger"></i> Youtube
-                            </a>
-                        </li>
-                        <li class="m-2">
-                            <a class="" href="mailto:?subject=Check this out">
-                                <i class="bi bi-envelope me-2"></i> Email
-                            </a>
-                        </li>
-                    </ul>
-                </div> -->
             </div>
         </div>
     </div>
@@ -283,34 +251,6 @@
 
         </div>
     </div>
-
-    <!-- <div class="col-lg-4 col-md-4 col-sm-12">
-            <h5 class="fw-bold my-3">Articles</h5>
-            <div class="scroll-box">
-                {% for post in journalist_articales %}
-                <div class="d-flex mb-3">
-                    <div style="align-items: center; display: flex;" class="col-3 p-0">
-                        <a href="/{{ post.newsfrom.slug }}/{{ post.post_cat.sub_cat.cat_slug }}/{{ post.slug }}">
-                            <img src="{{ post.post_image.url }}" class="news-img rounded shadow-sm"
-                                alt="{{ post.post_title }}" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="col-9">
-                        <h6 class="mb-1"><a href="/{{ post.newsfrom.slug }}/{{ post.post_cat.sub_cat.cat_slug }}/{{ post.slug }}" class="fw-semibold text-decoration-none"
-                                target="_blank">{{ post.post_title|truncatechars:90 }}</a></h6>
-                        <div class="d-flex ">
-                            <small style="font-size: 10px;" class="text-secondary mr-4">{{ post.schedule_date|date }} |
-                                {{ post.schedule_date|time}}</small>
-                            <small style="font-size: 10px;" class="text-secondary mr-4"><i
-                                    class="far fa-eye mr-2"></i>{{post.post_status|add:post.viewcounter}}</small>
-                            <small style="font-size: 10px;" class="text-secondary "></i>
-                                {% include 'share.html' with posts=post %}</small>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div> -->
 </div>
 
 <!-- Modal -->
