@@ -4,9 +4,12 @@
     <div class="ul-container">
         <div class="ul-section-heading ul-donations-heading justify-content-between text-center">
             <div class="left">
-                <span class="ul-section-sub-title"><span class="txt">Our Reporters</span></span>
+                <span class="ul-section-sub-title">
+                    <a class="text" href="/reporters">Our Reporters</a>
+                </span>
                 <h2 class="ul-section-title">Latest Stories by Our Journalists</h2>
             </div>
+
             <!-- REPORTER IMAGES -->
             <div class="flex-shrink-0">
                 <div class="ul-banner-stat">
@@ -16,7 +19,7 @@
                                 {% if profile.profile_picture %}
                                     <img src="{{ profile.profile_picture.url }}" alt="{{ profile.username }}">
                                 {% else %}
-                                    <img src="{% static 'static/assets/img/user-1.jpg' %}">
+                                    <img src="{% static 'assets/img/user.jpg' %}">
                                 {% endif %}
                             </a>
                         {% endfor %}
@@ -25,6 +28,7 @@
                     <span class="txt text-white">Active Reporters</span>
                 </div>
             </div>
+
             <div class="ul-slider-nav ul-donations-slider-nav">
                 <button class="prev"><i class="flaticon-back"></i></button>
                 <button class="next"><i class="flaticon-next"></i></button>
@@ -32,42 +36,107 @@
         </div>
     </div>
 
-    <!-- 🔥 SLIDER : REPORTER WISE NEWS -->
+    <!-- 🔥 SLIDER : JOURNALIST NEWS -->
     <div class="ul-container wow animate__fadeInUp">
         <div class="ul-donations-slider swiper overflow-visible">
             <div class="swiper-wrapper">
-                {% for profile in profiles %}
-                    {% for news in profile.news_posts.all %}
-                        <div class="swiper-slide">
-                            <div class="ul-donation">
-                                <div class="ul-donation-img">
-                                    <a href="{% url 'newsdetails' news.newsfrom.slug news.post_cat.cat_slug news.slug %}">
-                                        <img src="{{ news.image.url }}">
-                                    </a>
-                                    <span class="tag">{{ profile.first_name }}</span>
-                                </div>
+                {% for news in usernews %}
+                <div class="swiper-slide">
+                    <div class="ul-donation">
 
-                                <div class="ul-donation-txt">
-                                    <a href="{% url 'newsdetails' news.newsfrom.slug news.post_cat.cat_slug news.slug %}"
-                                    class="ul-donation-title">
-                                        {{ news.title|truncatechars:60 }}
-                                    </a>
+                        <div class="ul-donation-img">
 
-                                    <p class="ul-donation-descr">
-                                        {{ news.short_description|truncatechars:90 }}
-                                    </p>
+                            {% if news.newsfrom and news.post_cat and news.post_cat.cat_slug and news.slug %}
+                                <a href="{% url 'newsdetails' news.newsfrom.slug news.post_cat.cat_slug news.slug %}">
+                            {% else %}
+                                <a href="#">
+                            {% endif %}
 
-                                    <a href="{% url 'journalist_profile' profile.username %}"
-                                    class="ul-donation-btn">
-                                        More from {{ profile.first_name }}
-                                        <i class="flaticon-up-right-arrow"></i>
-                                    </a>
-                                </div>
-                            </div>
+                                {% if news.post_image %}
+                                    <img src="{{ news.post_image.url }}" alt="{{ news.post_title }}">
+                                {% else %}
+                                    <img src="{% static 'assets/img/default-news.jpg' %}">
+                                {% endif %}
+
+                            </a>
+
+                            {% if news.journalist %}
+                                <span class="tag">{{ news.journalist.first_name }}</span>
+                            {% endif %}
                         </div>
-                    {% endfor %}
+
+                        <div class="ul-donation-txt">
+                            <h3 class="ul-donation-title text-left">
+                                {{ news.post_title|truncatechars:32}}
+                            </h3>
+
+                            <p class="ul-donation-descr text-left">
+                                {{ news.post_short_des|truncatechars:90 }}
+                            </p>
+
+                            {% if news.journalist %}
+                                <a href="{% url 'journalist_profile' news.journalist.username %}"
+                                class="ul-donation-btn">
+                                    More from {{ news.journalist.first_name }}
+                                    <i class="flaticon-up-right-arrow"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+                {% empty %}
+                <div class="swiper-slide">
+                    <div class="ul-donation text-center">
+                        <p>No news available</p>
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </div>
     </div>
 </section>
+<style>
+    .ul-banner-stat .imgs {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.ul-banner-stat .imgs a {
+    display: inline-block;
+    margin-left: -10px;
+    position: relative;
+    z-index: 1;
+}
+
+.ul-banner-stat .imgs a:first-child {
+    margin-left: 0;
+}
+
+.ul-banner-stat .imgs img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    background: #fff;
+}
+
+.ul-banner-stat .imgs .number {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #010711c1;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -10px;
+    border: 2px solid #fff;
+    z-index: 2;
+}
+
+</style>

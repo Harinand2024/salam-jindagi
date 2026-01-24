@@ -65,6 +65,12 @@ def home(request):
     user_news = NewsPost.objects.filter(schedule_date__lt=current_datetime, journalist_id__isnull=False, status='active').order_by('-id')[:10]
     tags = Tag.objects.filter(is_active=1).order_by('-id')[:10]
     profiles = Journalist.objects.filter(status='active').exclude(registration_type='journalist').order_by('-id')[:6]
+    # profiles = Journalist.objects.filter(status='active',registration_type='journalist').order_by('-created_at')[:6]
+    profiles = Journalist.objects.filter(
+        status='active',
+        registration_type='journalist'
+    ).order_by('-created_at')[:3]
+
     Category = category.objects.filter(cat_status='active').order_by('order')[:12]
     blogs = BlogPost.objects.filter(status=True).order_by('-created_at')[:6]
     grouped_postsdata = {}
@@ -135,7 +141,7 @@ def home(request):
         is_active=True
     ).order_by('-id')[:1]
 
-    # adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    # adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     # adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     
     # adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -220,96 +226,121 @@ def home(request):
         
     
 
-# News-details-page----------
-def newsdetails(request,newsfrom,category_slug,slug):
-    counter=NewsPost.objects.get(slug=slug)
-    counter.viewcounter=counter.viewcounter + 1
-    counter.save()
-    seo='ndetail'
-    current_datetime = datetime.now()
-    # Get the category and newstype objects by slug
+def newsdetails(request, newsfrom, category_slug, slug):
+
+    # ================= NEWS COUNTER =================
+    counter = get_object_or_404(NewsPost, slug=slug)
+    counter.viewcounter = counter.viewcounter + 1
+    counter.save(update_fields=['viewcounter'])
+
+    seo = 'ndetail'
+    current_datetime = timezone.now()   # ✅ timezone safe
+
+    # ================= BASIC OBJECTS =================
     category_obj = get_object_or_404(category, cat_slug=category_slug)
     newsfrom_obj = get_object_or_404(newstype, slug=newsfrom)
-    blogdetails=get_object_or_404(NewsPost, slug=slug, status='active')
-    blogdata=NewsPost.objects.filter(schedule_date__lt=current_datetime,is_active=1,status='active').order_by('-id') [:9]
-    mainnews=NewsPost.objects.filter(schedule_date__lt=current_datetime,is_active=1,status='active').order_by('-id') [:2]
-    articales=NewsPost.objects.filter(schedule_date__lt=current_datetime,articles=1,status='active').order_by('-id') [:3]
-    headline=NewsPost.objects.filter(schedule_date__lt=current_datetime,Head_Lines=1,status='active').order_by('-id')[:4]
-    trending=NewsPost.objects.filter(schedule_date__lt=current_datetime,trending=1,status='active').order_by('-id') [:8]
-    brknews=NewsPost.objects.filter(schedule_date__lt=current_datetime,BreakingNews=1,status='active').order_by('-id') [:8]
-    podcast=VideoNews.objects.filter(is_active='active').order_by('-id') [:1]
-    vidarticales=VideoNews.objects.filter(articles=1,is_active='active',video_type='video').order_by('order')[:2]
-    # --------------ad-manage-meny--------------
-    # lfsid=ad_category.objects.get(ads_cat_slug='left-fest-square')
-    # leftsquqre=ad.objects.filter(ads_cat_id=lfsid.id, is_active=1).order_by('-id') [:4]
-    lfsid = ad_category.objects.filter(
-    ads_cat_slug='left-fest-square'
-    ).first()
+    blogdetails = get_object_or_404(NewsPost, slug=slug, status='active')
 
-    if lfsid:
-        leftsquqre = ad.objects.filter(
-            ads_cat_id=lfsid.id,
-            is_active=1
-        ).order_by('-id')[:4]
-    else:
-        leftsquqre = []
+    # ================= NEWS QUERIES =================
+    blogdata = NewsPost.objects.filter(
+        schedule_date__lt=current_datetime,
+        is_active=1,
+        status='active'
+    ).order_by('-id')[:9]
 
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
-    adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
-    
-    adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
-    adtopright=ad.objects.filter(ads_cat_id=adtrid.id, is_active=1).order_by('-id') [:1]
-    
-    adtopid=ad_category.objects.get(ads_cat_slug='leaderboard')
-    adtop=ad.objects.filter(ads_cat_id=adtopid.id, is_active=1).order_by('-id') [:1]
-    
-    adleftid=ad_category.objects.get(ads_cat_slug='skyscraper')
-    adleft=ad.objects.filter(ads_cat_id=adleftid.id, is_active=1).order_by('-id') [:1]
-    
-    adrcol=ad_category.objects.get(ads_cat_slug='mrec')
-    adright=ad.objects.filter(ads_cat_id=adrcol.id, is_active=1).order_by('-id') [:1]
-    
-    festbg=ad_category.objects.get(ads_cat_slug='festivebg')
-    festive=ad.objects.filter(ads_cat_id=festbg.id, is_active=1).order_by('-id') [:1]
-    # festivetop
-    # festiveleft
-    # festiveright
-# -------------end-ad-manage-meny--------------    
-    # slider=NewsPost.objects.filter(id=1).order_by('id')[:5] use for filter value
-    Category=category.objects.filter(cat_status='active').order_by('order') [:12]
-    slider=NewsPost.objects.filter().order_by('-id')[:5]
-    latestnews=NewsPost.objects.all().order_by('-id')[:5]
+    mainnews = NewsPost.objects.filter(
+        schedule_date__lt=current_datetime,
+        is_active=1,
+        status='active'
+    ).order_by('-id')[:2]
+
+    articales = NewsPost.objects.filter(
+        schedule_date__lt=current_datetime,
+        articles=1,
+        status='active'
+    ).order_by('-id')[:3]
+
+    headline = NewsPost.objects.filter(
+        schedule_date__lt=current_datetime,
+        Head_Lines=1,
+        status='active'
+    ).order_by('-id')[:4]
+
+    trending = NewsPost.objects.filter(
+        schedule_date__lt=current_datetime,
+        trending=1,
+        status='active'
+    ).order_by('-id')[:8]
+
+    brknews = NewsPost.objects.filter(
+        schedule_date__lt=current_datetime,
+        BreakingNews=1,
+        status='active'
+    ).order_by('-id')[:8]
+
+    # ================= VIDEO =================
+    podcast = VideoNews.objects.filter(is_active='active').order_by('-id')[:1]
+    vidarticales = VideoNews.objects.filter(
+        articles=1,
+        is_active='active',
+        video_type='video'
+    ).order_by('order')[:2]
+
+    # ================= ADS (SAFE BLOCK) =================
+    def get_ads(slug, limit=1):
+        cat = ad_category.objects.filter(ads_cat_slug=slug).first()
+        if not cat:
+            return [] if limit > 1 else None
+        qs = ad.objects.filter(ads_cat_id=cat.id, is_active=1).order_by('-id')
+        return qs[:limit] if limit > 1 else qs.first()
+
+    leftsquqre = get_ads('left-fest-square', 4)
+    adtopleft  = get_ads('topleft-600x80')
+    adtopright = get_ads('topright-600x80')
+    adtop      = get_ads('leaderboard')
+    adleft     = get_ads('skyscraper')
+    adright    = get_ads('mrec')
+    festive    = get_ads('festivebg')
+
+    # ================= OTHER DATA =================
+    Category = category.objects.filter(cat_status='active').order_by('order')[:12]
+    slider = NewsPost.objects.all().order_by('-id')[:5]
+    latestnews = NewsPost.objects.all().order_by('-id')[:5]
+
     user_agent = get_user_agent(request)
     is_mobile = user_agent.is_mobile
-    data={
-            'indseo':seo,
-            'Blogdetails':blogdetails,
-            'BlogData':blogdata,
-            'mainnews':mainnews,
-            'Slider':slider,
-            'Blogcat':Category,
-            'latnews':latestnews,
-            'adtop':adtop,
-            'adleft':adleft,
-            'adright':adright,
-            'adtl':adtopleft,
-            'adtr':adtopright,
-            'bgad':festive,
-            'lfs':leftsquqre,
-            'Articale':articales,
-            'vidart':vidarticales,
-            'headline':headline,
-            'trendpost':trending,
-            'bnews':brknews,
-            'current_category': category_obj,
-            'current_subcategory': blogdetails.post_cat,
-            'vidnews':podcast,
-            'is_mobile': is_mobile,
-        }
-    return render(request,'news-details.html',data)
-    #return render(request, 'index.html')
-# News-details-page--end--------
 
+    # ================= CONTEXT =================
+    data = {
+        'indseo': seo,
+        'Blogdetails': blogdetails,
+        'BlogData': blogdata,
+        'mainnews': mainnews,
+        'Slider': slider,
+        'Blogcat': Category,
+        'latnews': latestnews,
+
+        'adtop': adtop,
+        'adleft': adleft,
+        'adright': adright,
+        'adtl': adtopleft,
+        'adtr': adtopright,
+        'bgad': festive,
+        'lfs': leftsquqre,
+
+        'Articale': articales,
+        'vidart': vidarticales,
+        'headline': headline,
+        'trendpost': trending,
+        'bnews': brknews,
+
+        'current_category': category_obj,
+        'current_subcategory': blogdetails.post_cat,
+        'vidnews': podcast,
+        'is_mobile': is_mobile,
+    }
+
+    return render(request, 'news-details.html', data)
 
 # News-pdf--------
 def GetNewsPdf(request):
@@ -347,7 +378,7 @@ def find_post_by_title(request):
     Category=category.objects.filter(cat_status='active').order_by('order') [:12]
     
     # --------------ad-manage-meny--------------
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     
     adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -476,7 +507,7 @@ def AllNews(request,slug):
     brknews=NewsPost.objects.filter(BreakingNews=1,status='active').order_by('-schedule_date') [:8]
     Category=category.objects.filter(cat_status='active').order_by('order') [:12]
 # --------------ad-manage-meny--------------
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     
     adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -566,7 +597,7 @@ def AllvideoNews(request,slug):
     podcast=VideoNews.objects.filter(is_active='active').order_by('-id') [:2]
     Category=category.objects.filter(cat_status='active').order_by('order') [:12]
 # --------------ad-manage-meny--------------
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     
     adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -638,7 +669,7 @@ def UcEvents(request):
     podcast=VideoNews.objects.filter(is_active='active').order_by('-id') [:2]
     Category=category.objects.filter(cat_status='active').order_by('order') [:12]
 # --------------ad-manage-meny--------------
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     
     adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -703,7 +734,7 @@ def eventdetails(request,slug):
     blogdata=NewsPost.objects.filter(is_active=1,status='active',post_cat=subcatid.id).order_by('-id') [:20]
     eventdata=NewsPost.objects.filter(Event=1,status='active').order_by('-id') [:100]
     
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
         
     mainnews=NewsPost.objects.filter(status='active').order_by('order')[:4]
@@ -717,7 +748,7 @@ def eventdetails(request,slug):
     podcast=VideoNews.objects.filter(is_active='active').order_by('-id') [:2]
     Category=category.objects.filter(cat_status='active').order_by('order') [:12]
 # --------------ad-manage-meny--------------
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     
     adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -792,7 +823,7 @@ def videonewsdetails(request,slug):
     brknews=NewsPost.objects.filter(schedule_date__lt=current_datetime,BreakingNews=1,status='active').order_by('-id') [:8]
     podcast=VideoNews.objects.filter(schedule_date__lt=current_datetime,is_active='active').order_by('-id') [:1]
     # --------------ad-manage-meny--------------
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     
     adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -884,7 +915,7 @@ def catdetails(request,catlink,slug):
 
 
     # --------------ad-manage-meny--------------
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     
     adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -1076,7 +1107,7 @@ def Userregistration(request):
     Category=category.objects.filter(cat_status='active').order_by('order') [:12]
     
     # --------------ad-manage-meny--------------
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     
     adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -1305,7 +1336,7 @@ def Userlogin(request):
         Category=category.objects.filter(cat_status='active').order_by('order') [:12]
 
         # --------------ad-manage-meny--------------
-        adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+        adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
         adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
         
         adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -1379,7 +1410,7 @@ def Userdashboard(request):
     Category=category.objects.filter(cat_status='active').order_by('order') [:12]
     Categories=category.objects.filter(cat_status='active').order_by('order') [:11]
     # --------------ad-manage-meny--------------
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
 
     adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -1433,7 +1464,7 @@ def ManagePost(request):
     Category=category.objects.filter(cat_status='active').order_by('order') [:12]
     Categories=category.objects.filter(cat_status='active').order_by('order') [:11]
     # --------------ad-manage-meny--------------
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
 
     adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -1543,7 +1574,7 @@ def Career(request):
             podcast=VideoNews.objects.filter(is_active='active').order_by('-id') [:1]
             Category=category.objects.filter(cat_status='active').order_by('order') [:12]
             # --------------ad-manage-meny--------------
-            adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+            adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
             adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
 
             adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -1661,7 +1692,7 @@ def Guestpost(request):
             Category=category.objects.filter(cat_status='active').order_by('order') [:12]
             Categories=category.objects.filter(cat_status='active').order_by('order') [:11]
             # --------------ad-manage-meny--------------
-            adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+            adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
             adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
 
             adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -1795,7 +1826,7 @@ def thanks(request):
     brknews=NewsPost.objects.filter(BreakingNews=1,status='active').order_by('-id') [:8]
     
     # --------------ad-manage-meny--------------
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     
     adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -1852,7 +1883,7 @@ def SiteMap(request):
     brknews=NewsPost.objects.filter(BreakingNews=1,status='active').order_by('-id') [:8]
     
     # --------------ad-manage-meny--------------
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     
     adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -1904,7 +1935,7 @@ def advertise(request):
     brknews=NewsPost.objects.filter(BreakingNews=1,status='active').order_by('-id') [:8]
     
     # --------------ad-manage-meny--------------
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     
     adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')
@@ -2036,7 +2067,7 @@ def cms_detail(request, slug):
     brknews=NewsPost.objects.filter(BreakingNews=1,status='active').order_by('-id') [:8]
     
     # --------------ad-manage-meny--------------
-    adtlid=ad_category.objects.get(ads_cat_slug='topleft-600x80')
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
     adtopleft=ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id') [:1]
     
     adtrid=ad_category.objects.get(ads_cat_slug='topright-600x80')

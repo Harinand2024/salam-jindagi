@@ -42,112 +42,310 @@
 <!-- STATS SECTION END -->
 
 
-<!-- RECENT EVENTS SECTION START -->
-<section class="ul-events ul-section-spacing pt-0">
+<!-- EVENTS / NEWS TABS SECTION START -->
+<section class="ul-about-tabs ul-events ul-section-spacing pt-0">
     <div class="ul-container">
+
         <!-- heading -->
         <div class="ul-section-heading align-items-center wow animate__fadeInUp">
             <div class="left">
-                <span class="ul-section-sub-title">Recent Events</span>
-                <h2 class="ul-section-title text-white">Join Recent Fundraising Event Schedule Of SalaamZindagi.</h2>
+                <span class="ul-section-sub-title">Recent Updates</span>
+                <h2 class="ul-section-title text-white">
+                    Join Recent Fundraising Event Schedule Of SalaamZindagi.
+                </h2>
             </div>
-            <a href="#" class="ul-btn"><i class="flaticon-fast-forward-double-right-arrows-symbol"></i> Donate Now</a>
+            <a href="#" class="ul-btn">
+                <i class="flaticon-fast-forward-double-right-arrows-symbol"></i> Donate Now
+            </a>
         </div>
 
-        <!-- events -->
-        <div class="ul-events-wrapper">
-            <div class="row ul-bs-row row-cols-lg-2 row-cols-1">
-                <!-- single event -->
-                <div class="col wow animate__fadeInUp">
-                    <div class="ul-event">
-                        <div class="ul-event-img">
-                            <img src="{% static 'assets/salamjindagi/img/event-img.jpg' %}" alt="Event Image">
-                            <span class="date">29 <span>July</span></span>
-                        </div>
-                        <div class="ul-event-txt">
-                            <h3 class="ul-event-title"><a href="#">Manager Disapproved of the Most Recent Work.</a></h3>
-                            <p class="ul-event-descr">Dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-                                aspernaturaut</p>
-                            <div class="ul-event-info">
-                                <span class="ul-event-info-title">Venue</span>
-                                <p class="ul-event-info-descr">350 5th AveNew York, NY 118 United States</p>
-                            </div>
-                            <a href="#" class="ul-btn"><i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
-                                Event Details</a>
-                        </div>
-                    </div>
-                </div>
+        <!-- TAB GROUP -->
+        <div class="tab-group">
+            <!-- TAB NAVS -->
+            <div class="tab-navs ul-about-tabs-nav mb-5">
+                <button class="tab-nav active" data-tab="tab-events">Latest News</button>
+                <button class="tab-nav" data-tab="tab-latest">Trending News</button>
+                <button class="tab-nav" data-tab="tab-breaking">Breaking News</button>
+                <button class="tab-nav" data-tab="tab-blogs">Article</button>
+            </div>
+            <!-- TAB CONTENTS -->
+            <!-- ================= TAB 1 : RECENT EVENTS ================= -->
+            <div id="tab-events" class="ul-tab ul-about-tab active">
+                <div class="ul-events-wrapper">
 
-                <!-- single event -->
-                <div class="col wow animate__fadeInUp">
-                    <div class="ul-event">
-                        <div class="ul-event-img">
-                            <img src="{% static 'assets/salamjindagi/img/blog-b-1.jpg' %}" alt="Event Image">
-                            <span class="date">29 <span>July</span></span>
-                        </div>
-                        <div class="ul-event-txt">
-                            <h3 class="ul-event-title"><a href="#">Manager Disapproved of the Most Recent Work.</a></h3>
-                            <p class="ul-event-descr">Dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-                                aspernaturaut</p>
-                            <div class="ul-event-info">
-                                <span class="ul-event-info-title">Venue</span>
-                                <p class="ul-event-info-descr">350 5th AveNew York, NY 118 United States</p>
-                            </div>
-                            <a href="#" class="ul-btn"><i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
-                                Event Details</a>
-                        </div>
-                    </div>
-                </div>
+                    <div class="row ul-bs-row row-cols-lg-2 row-cols-1">
 
-                <!-- single event -->
-                <div class="col wow animate__fadeInUp">
-                    <div class="ul-event">
-                        <div class="ul-event-img">
-                            <img src="{% static 'assets/salamjindagi/img/blog-2.jpg' %}" alt="Event Image">
-                            <span class="date">29 <span>July</span></span>
-                        </div>
-                        <div class="ul-event-txt">
-                            <h3 class="ul-event-title"><a href="#">Manager Disapproved of the Most Recent Work.</a></h3>
-                            <p class="ul-event-descr">Dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-                                aspernaturaut</p>
-                            <div class="ul-event-info">
-                                <span class="ul-event-info-title">Venue</span>
-                                <p class="ul-event-info-descr">350 5th AveNew York, NY 118 United States</p>
-                            </div>
-                            <a href="#" class="ul-btn"><i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
-                                Event Details</a>
-                        </div>
-                    </div>
-                </div>
+                        {% for news in LatestNews|slice:"0:4" %}
+                        <div class="col wow animate__fadeInUp">
+                            <div class="ul-event">
 
-                <!-- single event -->
-                <div class="col wow animate__fadeInUp">
-                    <div class="ul-event">
-                        <div class="ul-event-img">
-                            <img src="{% static 'assets/salamjindagi/img/blog-b-3.jpg' %}" alt="Event Image">
-                            <span class="date">29 <span>July</span></span>
-                        </div>
-                        <div class="ul-event-txt">
-                            <h3 class="ul-event-title"><a href="#">Manager Disapproved of the Most Recent Work.</a></h3>
-                            <p class="ul-event-descr">Dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-                                aspernaturaut</p>
-                            <div class="ul-event-info">
-                                <span class="ul-event-info-title">Venue</span>
-                                <p class="ul-event-info-descr">350 5th AveNew York, NY 118 United States</p>
+                                <!-- IMAGE -->
+                                <div class="ul-event-img">
+                                    {% if news.video_file %}
+                                    <video class="w-100 h-100 object-fit-cover" preload="none" loop playsinline autoplay
+                                        muted>
+                                        <source src="{{ news.video_file.url }}" type="video/mp4">
+                                    </video>
+                                    {% else %}
+                                    <a
+                                        href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
+                                        <img src="{{ news.post_image.url }}" alt="{{ news.post_title }}"title="{{ news.post_title }}">
+                                    </a>
+                                    {% endif %}
+
+                                    <!-- DATE -->
+                                    <span class="date">
+                                        {{ news.post_date|date:"d" }}
+                                        <span>{{ news.post_date|date:"M" }}</span>
+                                    </span>
+                                </div>
+
+                                <!-- CONTENT -->
+                                <div class="ul-event-txt">
+                                    <h3 class="ul-event-title">
+                                        <a
+                                            href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
+                                            {{ news.post_title|truncatechars:70 }}
+                                        </a>
+                                    </h3>
+
+                                    <p class="ul-event-descr">
+                                        {{ news.post_short_des|truncatechars:120 }}
+                                    </p>
+
+                                    <div class="ul-event-info">
+                                        <span class="ul-event-info-title">Source</span>
+                                        <p class="ul-event-info-descr">
+                                            {{ news.newsfrom.name }}
+                                        </p>
+                                    </div>
+
+                                    <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}"
+                                        class="ul-btn">
+                                        <i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
+                                        Read More
+                                    </a>
+                                </div>
+
                             </div>
-                            <a href="#" class="ul-btn"><i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
-                                Event Details</a>
                         </div>
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ================= TAB 2 : LATEST NEWS ================= -->
+            <div id="tab-latest" class="ul-tab ul-about-tab">
+                <div class="ul-events-wrapper">
+                 <div class="row ul-bs-row row-cols-lg-2 row-cols-1">
+
+                        {% for Blog in trendpost|slice:"0:4" %}
+                        <div class="col wow animate__fadeInUp">
+                            <div class="ul-event">
+
+                                <!-- IMAGE -->
+                                <div class="ul-event-img">
+                                    {% if news.video_file %}
+                                    <video class="w-100 h-100 object-fit-cover" preload="none" loop playsinline autoplay
+                                        muted>
+                                        <source src="{{ news.video_file.url }}" type="video/mp4">
+                                    </video>
+                                    {% else %}
+                                    <a
+                                        href="/{{ Blog.newsfrom.slug }}/{{ Blog.post_cat.sub_cat.cat_slug }}/{{ Blog.slug }}">
+                                        <img src="{{ Blog.post_image.url }}" alt="{{ Blog.post_title }}"
+                                            title="{{ Blog.post_title }}">
+                                    </a>
+                                    {% endif %}
+
+                                    <!-- DATE -->
+                                    <span class="date">
+                                        {{ Blog.post_date|date:"d" }}
+                                        <span>{{ Blog.post_date|date:"M" }}</span>
+                                    </span>
+                                </div>
+
+                                <!-- CONTENT -->
+                                <div class="ul-event-txt">
+                                    <h3 class="ul-event-title">
+                                        <a
+                                            href="/{{ Blog.newsfrom.slug }}/{{ Blog.post_cat.sub_cat.cat_slug }}/{{ Blog.slug }}">
+                                            {{ Blog.post_title|truncatechars:70 }}
+                                        </a>
+                                    </h3>
+
+                                    <p class="ul-event-descr">
+                                        {{ Blog.post_short_des|truncatechars:120 }}
+                                    </p>
+
+                                    <div class="ul-event-info">
+                                        <span class="ul-event-info-title">Source</span>
+                                        <p class="ul-event-info-descr">
+                                            {{ news.newsfrom.name }}
+                                        </p>
+                                    </div>
+
+                                    <a href="/{{ Blog.newsfrom.slug }}/{{ Blog.post_cat.sub_cat.cat_slug }}/{{ Blog.slug }}"
+                                        class="ul-btn">
+                                        <i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
+                                        Read More
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        {% endfor %}
+
                     </div>
                 </div>
             </div>
-        </div>
 
-    </div>
-    <!-- vectors -->
-    <div class="ul-events-vectors">
-        <img src="{% static 'assets/salamjindagi/img/events-vector-1.png' %}" alt="Events Image" class="vector-1">
-        <img src="{% static 'assets/salamjindagi/img/events-vector-2.svg' %}" alt="Events Image" class="vector-2">
+            <!-- ================= TAB 3 : BREAKING NEWS ================= -->
+            <div id="tab-breaking" class="ul-tab ul-about-tab">
+                <div class="ul-events-wrapper">
+                    <div class="row ul-bs-row row-cols-lg-2 row-cols-1">
+
+                        {% for news in bnews|slice:"0:4" %}
+                        <div class="col wow animate__fadeInUp">
+                            <div class="ul-event">
+
+                                <!-- IMAGE -->
+                                <div class="ul-event-img">
+                                    {% if news.video_file %}
+                                        <video class="w-100 h-100 object-fit-cover"
+                                            preload="none"
+                                            loop
+                                            playsinline
+                                            autoplay
+                                            muted>
+                                            <source src="{{ news.video_file.url }}" type="video/mp4">
+                                        </video>
+                                    {% else %}
+                                        <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
+                                            <img src="{{ news.post_image.url }}"
+                                                alt="{{ news.post_title }}"
+                                                title="{{ news.post_title }}">
+                                        </a>
+                                    {% endif %}
+
+                                    <!-- DATE -->
+                                    <span class="date">
+                                        {{ news.schedule_date|date:"d" }}
+                                        <span>{{ news.schedule_date|date:"M" }}</span>
+                                    </span>
+                                </div>
+
+                                <!-- CONTENT -->
+                                <div class="ul-event-txt">
+                                    <h3 class="ul-event-title">
+                                        <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
+                                            {{ news.post_title|truncatechars:70 }}
+                                        </a>
+                                    </h3>
+
+                                    <p class="ul-event-descr">
+                                        {{ news.post_short_des|truncatechars:120 }}
+                                    </p>
+
+                                    <div class="ul-event-info">
+                                        <span class="ul-event-info-title">Source</span>
+                                        <p class="ul-event-info-descr">
+                                            {{ news.newsfrom.name }}
+                                        </p>
+                                    </div>
+
+                                    <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}"
+                                    class="ul-btn">
+                                        <i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
+                                        Read More
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        {% empty %}
+                            <p>No breaking news available.</p>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ================= TAB 4 : BLOGS ================= -->
+            <div id="tab-blogs" class="ul-tab ul-about-tab">
+               <div class="ul-events-wrapper">
+                    <div class="row ul-bs-row row-cols-lg-2 row-cols-1">
+
+                        {% for news in bnews|slice:"0:4" %}
+                        <div class="col wow animate__fadeInUp">
+                            <div class="ul-event d-flex align-items-center">
+
+                                <!-- LEFT IMAGE -->
+                                <div class="ul-event-img position-relative flex-shrink-0">
+                                    {% if news.video_file %}
+                                        <video class="w-100 h-100 object-fit-cover"
+                                            preload="none"
+                                            loop
+                                            autoplay
+                                            muted
+                                            playsinline>
+                                            <source src="{{ news.video_file.url }}" type="video/mp4">
+                                        </video>
+                                    {% else %}
+                                        <img src="{{ news.post_image.url }}"
+                                            alt="{{ news.post_title }}"
+                                            title="{{ news.post_title }}">
+                                    {% endif %}
+
+                                    <!-- DATE BADGE -->
+                                    <span class="date">
+                                        {{ news.schedule_date|date:"d" }}
+                                        <span>{{ news.schedule_date|date:"M" }}</span>
+                                    </span>
+                                </div>
+
+                                <!-- RIGHT CONTENT -->
+                                <div class="ul-event-txt">
+
+                                    <h3 class="ul-event-title">
+                                        <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
+                                            {{ news.post_title|truncatechars:60 }}
+                                        </a>
+                                    </h3>
+
+                                    <p class="ul-event-descr">
+                                        {{ news.post_short_des|truncatechars:120 }}
+                                    </p>
+                                    <div class="ul-event-info">
+                                        <span class="ul-event-info-title">Source</span>
+                                        <p class="ul-event-info-descr">
+                                            {{ news.newsfrom.name }}
+                                        </p>
+                                    </div>
+
+                                    <!-- SAME READ MORE BUTTON -->
+                                    <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}"
+                                    class="ul-btn">
+                                        <i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
+                                        Read More
+                                    </a>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        {% empty %}
+                            <p>No breaking news available.</p>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </section>
-<!-- RECENT EVENTS SECTION END -->
+<!-- EVENTS / NEWS TABS SECTION END -->
