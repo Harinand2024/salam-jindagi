@@ -8,7 +8,6 @@
 
 <!-- ================= SIDEBAR (MOBILE) ================= -->
 <div class="ul-sidebar">
-
     <!-- Sidebar Header -->
     <div class="ul-sidebar-header">
         <div class="ul-sidebar-header-logo">
@@ -70,7 +69,7 @@
         <div class="ul-header-bottom-wrapper ul-header-container">
 
             <!-- LOGO -->
-            <div class="logo-container">
+            <div class="logo-container1">
                 <a href="/">
                     <img src="{{ profile_setting.logo_dark.url }}"
                          class="logo logo-light"
@@ -111,10 +110,10 @@
                     <i class="flaticon-search"></i>
                 </button>
 
-                <a href="/auth/sign-in"
+                <a href="{% url 'join-us' %}"
                    class="ul-btn d-sm-inline-flex d-none">
                     <i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
-                     Join With us
+                     Join With Us
                 </a>
 
                 <button class="ul-header-sidebar-opener d-lg-none">

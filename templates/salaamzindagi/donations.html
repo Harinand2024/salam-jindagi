@@ -43,27 +43,30 @@
                 {% for news in usernews %}
                 <div class="swiper-slide">
                     <div class="ul-donation">
-
                         <div class="ul-donation-img">
 
-                            {% if news.newsfrom and news.post_cat and news.post_cat.cat_slug and news.slug %}
-                                <a href="{% url 'newsdetails' news.newsfrom.slug news.post_cat.cat_slug news.slug %}">
-                            {% else %}
-                                <a href="#">
-                            {% endif %}
-
+                        {% if news.newsfrom and news.newsfrom.slug and news.post_cat and news.post_cat.cat_slug and news.slug %}
+                            <a href="{% url 'newsdetails' news.newsfrom.slug news.post_cat.cat_slug news.slug %}">
                                 {% if news.post_image %}
                                     <img src="{{ news.post_image.url }}" alt="{{ news.post_title }}">
                                 {% else %}
-                                    <img src="{% static 'assets/img/default-news.jpg' %}">
+                                    <img src="{% static 'assets/img/default-news.jpg' %}" alt="Default news image">
                                 {% endif %}
-
                             </a>
-
-                            {% if news.journalist %}
-                                <span class="tag">{{ news.journalist.first_name }}</span>
+                        {% else %}
+                            {% if news.post_image %}
+                                <img src="{{ news.post_image.url }}" alt="{{ news.post_title }}">
+                            {% else %}
+                                <img src="{% static 'assets/img/default-news.jpg' %}" alt="Default news image">
                             {% endif %}
-                        </div>
+                        {% endif %}
+
+                        {% if news.journalist %}
+                            <span class="tag">{{ news.journalist.first_name }}</span>
+                        {% endif %}
+
+                    </div>
+
 
                         <div class="ul-donation-txt">
                             <h3 class="ul-donation-title text-left">
@@ -71,7 +74,7 @@
                             </h3>
 
                             <p class="ul-donation-descr text-left">
-                                {{ news.post_short_des|truncatechars:90 }}
+                                {{ news.post_short_des|truncatechars:48 }}
                             </p>
 
                             {% if news.journalist %}

@@ -1092,6 +1092,64 @@ def Aboutus(request):
             'is_mobile': is_mobile,
         }
     return render(request,'about.html',data)
+def Joinus(request):
+    blogdata=NewsPost.objects.filter(is_active=1,status='active').order_by('-id') [:20]
+    mainnews=NewsPost.objects.filter(status='active').order_by('order')[:4]
+    articales=NewsPost.objects.filter(articles=1,status='active').order_by('-id') [:3]
+    vidarticales=VideoNews.objects.filter(articles=1,is_active='active',video_type='video').order_by('order')[:2]
+    headline=NewsPost.objects.filter(Head_Lines=1,status='active').order_by('-id') [:14]
+    trending=NewsPost.objects.filter(trending=1,status='active').order_by('-id') [:7]
+    brknews=NewsPost.objects.filter(BreakingNews=1,status='active').order_by('-id') [:8]
+    podcast=VideoNews.objects.filter(is_active='active').order_by('-id') [:1]
+    Category=category.objects.filter(cat_status='active').order_by('order') [:12]
+    
+    # -------------- ad-manage-safe ----------------
+    adtlid = ad_category.objects.filter(ads_cat_slug='topleft-600x80').first()
+    adtopleft = ad.objects.filter(ads_cat_id=adtlid.id, is_active=1).order_by('-id')[:1] if adtlid else []
+
+    adtrid = ad_category.objects.filter(ads_cat_slug='topright-600x80').first()
+    adtopright = ad.objects.filter(ads_cat_id=adtrid.id, is_active=1).order_by('-id')[:1] if adtrid else []
+
+    adtopid = ad_category.objects.filter(ads_cat_slug='leaderboard').first()
+    adtop = ad.objects.filter(ads_cat_id=adtopid.id, is_active=1).order_by('-id')[:1] if adtopid else []
+
+    adleftid = ad_category.objects.filter(ads_cat_slug='skyscraper').first()
+    adleft = ad.objects.filter(ads_cat_id=adleftid.id, is_active=1).order_by('-id')[:1] if adleftid else []
+
+    adrcol = ad_category.objects.filter(ads_cat_slug='mrec').first()
+    adright = ad.objects.filter(ads_cat_id=adrcol.id, is_active=1).order_by('-id')[:1] if adrcol else []
+
+    festbg = ad_category.objects.filter(ads_cat_slug='festivebg').first()
+    festive = ad.objects.filter(ads_cat_id=festbg.id, is_active=1).order_by('-id')[:1] if festbg else []
+    # -------------- end ad-manage-safe -------------
+
+    # slider=NewsPost.objects.filter(id=1).order_by('id')[:5] use for filter value
+    
+    slider=NewsPost.objects.filter().order_by('-id')[:5]
+    latestnews=NewsPost.objects.all().order_by('-id')[:5]
+    user_agent = get_user_agent(request)
+    is_mobile = user_agent.is_mobile
+    data={
+            'BlogData':blogdata,
+            'mainnews':mainnews,
+            'Slider':slider,
+            'Blogcat':Category,
+            'latnews':latestnews,
+            'adtop':adtop,
+            'adleft':adleft,
+            'adright':adright,
+            'adtl':adtopleft,
+            'adtr':adtopright,
+            'bgad':festive,
+            'Articale':articales,
+            'vidart':vidarticales,
+            'headline':headline,
+            'trendpost':trending,
+            'bnews':brknews,
+            'vidnews':podcast,
+            'is_mobile': is_mobile,
+        }
+    return render(request,'joinus.html',data)
 # cat-contact-page--end--------
 
 # cat-registration-page---------
