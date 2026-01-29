@@ -69,7 +69,7 @@
                 <button class="tab-nav" data-tab="tab-blogs">Article</button>
             </div>
             <!-- TAB CONTENTS -->
-            <!-- ================= TAB 1 : RECENT EVENTS ================= -->
+            <!-- ================= TAB 1 : LETEST NEWS ================= -->
             <div id="tab-events" class="ul-tab ul-about-tab active">
                 <div class="ul-events-wrapper">
 
@@ -79,32 +79,27 @@
                         <div class="col wow animate__fadeInUp">
                             <div class="ul-event">
 
-                                <!-- IMAGE -->
-                                <div class="ul-event-img">
+                                <div class="ul-event-img position-relative flex-shrink-0">
                                     {% if news.video_file %}
-                                    <video class="w-100 h-100 object-fit-cover" preload="none" loop playsinline autoplay
-                                        muted>
+                                    <video class="w-100 h-100 object-fit-cover"
+                                        preload="none" loop autoplay muted playsinline>
                                         <source src="{{ news.video_file.url }}" type="video/mp4">
                                     </video>
                                     {% else %}
-                                    <a
-                                        href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
-                                        <img src="{{ news.post_image.url }}" alt="{{ news.post_title }}"title="{{ news.post_title }}">
-                                    </a>
+                                    <img src="{{ news.post_image.url }}"
+                                        alt="{{ news.post_title }}"
+                                        title="{{ news.post_title }}">
                                     {% endif %}
 
-                                    <!-- DATE -->
                                     <span class="date">
-                                        {{ news.post_date|date:"d" }}
-                                        <span>{{ news.post_date|date:"M" }}</span>
+                                        {{ news.schedule_date|date:"d" }}
+                                        <span>{{ news.schedule_date|date:"M" }}</span>
                                     </span>
                                 </div>
 
-                                <!-- CONTENT -->
                                 <div class="ul-event-txt">
                                     <h3 class="ul-event-title">
-                                        <a
-                                            href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
+                                        <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
                                             {{ news.post_title|truncatechars:70 }}
                                         </a>
                                     </h3>
@@ -115,13 +110,10 @@
 
                                     <div class="ul-event-info">
                                         <span class="ul-event-info-title">Source</span>
-                                        <p class="ul-event-info-descr">
-                                            {{ news.newsfrom.name }}
-                                        </p>
+                                        <p class="ul-event-info-descr">{{ news.newsfrom.name }}</p>
                                     </div>
 
-                                    <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}"
-                                        class="ul-btn">
+                                    <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}" class="ul-btn">
                                         <i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
                                         Read More
                                     </a>
@@ -131,12 +123,13 @@
                         </div>
                         {% endfor %}
 
+
                     </div>
 
                 </div>
             </div>
 
-            <!-- ================= TAB 2 : LATEST NEWS ================= -->
+            <!-- ================= TAB 2 : TRANDING NEWS ================= -->
             <div id="tab-latest" class="ul-tab ul-about-tab">
                 <div class="ul-events-wrapper">
                  <div class="row ul-bs-row row-cols-lg-2 row-cols-1">
@@ -145,33 +138,27 @@
                         <div class="col wow animate__fadeInUp">
                             <div class="ul-event">
 
-                                <!-- IMAGE -->
-                                <div class="ul-event-img">
-                                    {% if news.video_file %}
-                                    <video class="w-100 h-100 object-fit-cover" preload="none" loop playsinline autoplay
-                                        muted>
-                                        <source src="{{ news.video_file.url }}" type="video/mp4">
+                                <div class="ul-event-img position-relative flex-shrink-0">
+                                    {% if Blog.video_file %}
+                                    <video class="w-100 h-100 object-fit-cover"
+                                        preload="none" loop autoplay muted playsinline>
+                                        <source src="{{ Blog.video_file.url }}" type="video/mp4">
                                     </video>
                                     {% else %}
-                                    <a
-                                        href="/{{ Blog.newsfrom.slug }}/{{ Blog.post_cat.sub_cat.cat_slug }}/{{ Blog.slug }}">
-                                        <img src="{{ Blog.post_image.url }}" alt="{{ Blog.post_title }}"
-                                            title="{{ Blog.post_title }}">
-                                    </a>
+                                    <img src="{{ Blog.post_image.url }}"
+                                        alt="{{ Blog.post_title }}"
+                                        title="{{ Blog.post_title }}">
                                     {% endif %}
 
-                                    <!-- DATE -->
                                     <span class="date">
-                                        {{ Blog.post_date|date:"d" }}
-                                        <span>{{ Blog.post_date|date:"M" }}</span>
+                                        {{ Blog.schedule_date|date:"d" }}
+                                        <span>{{ Blog.schedule_date|date:"M" }}</span>
                                     </span>
                                 </div>
 
-                                <!-- CONTENT -->
                                 <div class="ul-event-txt">
                                     <h3 class="ul-event-title">
-                                        <a
-                                            href="/{{ Blog.newsfrom.slug }}/{{ Blog.post_cat.sub_cat.cat_slug }}/{{ Blog.slug }}">
+                                        <a href="/{{ Blog.newsfrom.slug }}/{{ Blog.post_cat.sub_cat.cat_slug }}/{{ Blog.slug }}">
                                             {{ Blog.post_title|truncatechars:70 }}
                                         </a>
                                     </h3>
@@ -182,13 +169,10 @@
 
                                     <div class="ul-event-info">
                                         <span class="ul-event-info-title">Source</span>
-                                        <p class="ul-event-info-descr">
-                                            {{ news.newsfrom.name }}
-                                        </p>
+                                        <p class="ul-event-info-descr">{{ Blog.newsfrom.name }}</p>
                                     </div>
 
-                                    <a href="/{{ Blog.newsfrom.slug }}/{{ Blog.post_cat.sub_cat.cat_slug }}/{{ Blog.slug }}"
-                                        class="ul-btn">
+                                    <a href="/{{ Blog.newsfrom.slug }}/{{ Blog.post_cat.sub_cat.cat_slug }}/{{ Blog.slug }}" class="ul-btn">
                                         <i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
                                         Read More
                                     </a>
@@ -197,6 +181,7 @@
                             </div>
                         </div>
                         {% endfor %}
+
 
                     </div>
                 </div>
@@ -211,33 +196,24 @@
                         <div class="col wow animate__fadeInUp">
                             <div class="ul-event">
 
-                                <!-- IMAGE -->
-                                <div class="ul-event-img">
+                                <div class="ul-event-img position-relative flex-shrink-0">
                                     {% if news.video_file %}
-                                        <video class="w-100 h-100 object-fit-cover"
-                                            preload="none"
-                                            loop
-                                            playsinline
-                                            autoplay
-                                            muted>
-                                            <source src="{{ news.video_file.url }}" type="video/mp4">
-                                        </video>
+                                    <video class="w-100 h-100 object-fit-cover"
+                                        preload="none" loop autoplay muted playsinline>
+                                        <source src="{{ news.video_file.url }}" type="video/mp4">
+                                    </video>
                                     {% else %}
-                                        <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
-                                            <img src="{{ news.post_image.url }}"
-                                                alt="{{ news.post_title }}"
-                                                title="{{ news.post_title }}">
-                                        </a>
+                                    <img src="{{ news.post_image.url }}"
+                                        alt="{{ news.post_title }}"
+                                        title="{{ news.post_title }}">
                                     {% endif %}
 
-                                    <!-- DATE -->
                                     <span class="date">
                                         {{ news.schedule_date|date:"d" }}
                                         <span>{{ news.schedule_date|date:"M" }}</span>
                                     </span>
                                 </div>
 
-                                <!-- CONTENT -->
                                 <div class="ul-event-txt">
                                     <h3 class="ul-event-title">
                                         <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
@@ -251,13 +227,10 @@
 
                                     <div class="ul-event-info">
                                         <span class="ul-event-info-title">Source</span>
-                                        <p class="ul-event-info-descr">
-                                            {{ news.newsfrom.name }}
-                                        </p>
+                                        <p class="ul-event-info-descr">{{ news.newsfrom.name }}</p>
                                     </div>
 
-                                    <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}"
-                                    class="ul-btn">
+                                    <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}" class="ul-btn">
                                         <i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
                                         Read More
                                     </a>
@@ -265,81 +238,69 @@
 
                             </div>
                         </div>
-                        {% empty %}
-                            <p>No breaking news available.</p>
                         {% endfor %}
+
 
                     </div>
                 </div>
 
             </div>
 
-            <!-- ================= TAB 4 : BLOGS ================= -->
+            <!-- ================= TAB 4 : ARTICLE ================= -->
             <div id="tab-blogs" class="ul-tab ul-about-tab">
                <div class="ul-events-wrapper">
                     <div class="row ul-bs-row row-cols-lg-2 row-cols-1">
 
-                        {% for news in bnews|slice:"0:4" %}
+                        {% for article in Articale|slice:"0:4" %}
                         <div class="col wow animate__fadeInUp">
-                            <div class="ul-event d-flex align-items-center">
+                            <div class="ul-event">
 
-                                <!-- LEFT IMAGE -->
+                                <!-- IMAGE / VIDEO -->
                                 <div class="ul-event-img position-relative flex-shrink-0">
-                                    {% if news.video_file %}
-                                        <video class="w-100 h-100 object-fit-cover"
-                                            preload="none"
-                                            loop
-                                            autoplay
-                                            muted
-                                            playsinline>
-                                            <source src="{{ news.video_file.url }}" type="video/mp4">
-                                        </video>
+                                    {% if article.video_file %}
+                                    <video class="w-100 h-100 object-fit-cover"
+                                        preload="none" loop autoplay muted playsinline>
+                                        <source src="{{ article.video_file.url }}" type="video/mp4">
+                                    </video>
                                     {% else %}
-                                        <img src="{{ news.post_image.url }}"
-                                            alt="{{ news.post_title }}"
-                                            title="{{ news.post_title }}">
+                                    <img src="{{ article.post_image.url }}"
+                                        alt="{{ article.post_title }}"
+                                        title="{{ article.post_title }}">
                                     {% endif %}
 
-                                    <!-- DATE BADGE -->
                                     <span class="date">
-                                        {{ news.schedule_date|date:"d" }}
-                                        <span>{{ news.schedule_date|date:"M" }}</span>
+                                        {{ article.schedule_date|date:"d" }}
+                                        <span>{{ article.schedule_date|date:"M" }}</span>
                                     </span>
                                 </div>
 
-                                <!-- RIGHT CONTENT -->
+                                <!-- CONTENT -->
                                 <div class="ul-event-txt">
-
                                     <h3 class="ul-event-title">
-                                        <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}">
-                                            {{ news.post_title|truncatechars:60 }}
+                                        <a href="/{{ article.newsfrom.slug }}/{{ article.post_cat.sub_cat.cat_slug }}/{{ article.slug }}">
+                                            {{ article.post_title|truncatechars:70 }}
                                         </a>
                                     </h3>
 
                                     <p class="ul-event-descr">
-                                        {{ news.post_short_des|truncatechars:120 }}
+                                        {{ article.post_short_des|truncatechars:120 }}
                                     </p>
+
                                     <div class="ul-event-info">
                                         <span class="ul-event-info-title">Source</span>
-                                        <p class="ul-event-info-descr">
-                                            {{ news.newsfrom.name }}
-                                        </p>
+                                        <p class="ul-event-info-descr">{{ article.newsfrom.name }}</p>
                                     </div>
 
-                                    <!-- SAME READ MORE BUTTON -->
-                                    <a href="/{{ news.newsfrom.slug }}/{{ news.post_cat.sub_cat.cat_slug }}/{{ news.slug }}"
-                                    class="ul-btn">
+                                    <a href="/{{ article.newsfrom.slug }}/{{ article.post_cat.sub_cat.cat_slug }}/{{ article.slug }}" class="ul-btn">
                                         <i class="flaticon-fast-forward-double-right-arrows-symbol"></i>
                                         Read More
                                     </a>
-
                                 </div>
 
                             </div>
                         </div>
-                        {% empty %}
-                            <p>No breaking news available.</p>
                         {% endfor %}
+
 
                     </div>
                 </div>
@@ -349,3 +310,4 @@
     </div>
 </section>
 <!-- EVENTS / NEWS TABS SECTION END -->
+
