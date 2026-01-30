@@ -1,0 +1,343 @@
+{% load static %}
+
+<!-- ================= DONATE MODAL ================= -->
+<div id="donateModal" class="donate-modal" aria-hidden="true">
+
+  <div class="donate-overlay" onclick="closeDonateModal()"></div>
+
+  <div class="donate-box">
+
+    <!-- CLOSE -->
+    <button class="close-btn" onclick="closeDonateModal()">×</button>
+
+    <!-- HEADER -->
+    <div class="donate-header">
+      <a href="/">
+        <img src="{{ profile_setting.logo_dark.url }}" class="donate-logo" alt="Salaam Zindagi">
+      </a>
+      <h3 class="bank-title">Your small help can change a life 💙</h3>
+      <!-- <p class="subtitle">Your small help can change a life</p> -->
+    </div>
+
+    <!-- OPTIONS -->
+    <div class="donate-options">
+
+      <!-- OPTION 1 : ITEMS -->
+      <div class="donate-option highlight">
+        <img src="{% static 'assets/salamjindagi/img/th1.png' %}" alt="">
+        <h4 class="bank-title">Donate Items</h4>
+        <p>Clothes, food, medical equipment & essentials</p>
+
+        <a href="{% url 'donate' %}" class="ul-btn donate-main-btn">
+          Donate Items Now →
+        </a>
+      </div>
+
+      <!-- OPTION 2 : BANK -->
+      <div class="">
+       
+        <div class="bank-card">
+           <h4 class="bank-title">Donate via Bank</h4>
+          <div class="bank-qr">
+            <img src="{% static 'assets/salamjindagi/img/qr.png' %}"
+             class="qr-img"
+             onclick="openQR()"
+             alt="Scan QR">
+            <span class="scan-text">Scan & Pay</span>
+          </div>
+
+          <ul class="bank-details">
+            <li>
+              <span>Bank</span>
+              <b>State Bank of India</b>
+            </li>
+            <li>
+              <span>Account No</span>
+              <b id="accNo">30654458758</b>
+            </li>
+            <li>
+              <span>IFSC Code</span>
+              <b>SBIN0010605</b>
+            </li>
+          </ul>
+
+          <div class="upi-badges">
+            <span>GPay</span>
+            <span>PhonePe</span>
+            <span>Paytm</span>
+          </div>
+
+          <!-- <button class="copy-btn" onclick="copyAccount()">
+            Copy Account Number
+          </button> -->
+        </div>
+
+
+        <!-- UPI QUICK PAY -->
+       
+      </div>
+
+    </div>
+
+    <!-- TRUST -->
+     <p class="small pt-3">Salaam Zindagi Charitable Trust, also known as Salaam Zindagi India, is a registered organization established since 2008.</p>
+    <p class="trust-note">
+      ✔ Registered Trust &nbsp; • &nbsp; ✔ U/s 80G and 20A of Income Tax Department &nbsp; • &nbsp; ✔ Government of India.
+    </p>
+
+  </div>
+</div>
+
+<!-- ================= QR ZOOM ================= -->
+<div id="qrModal" class="qr-modal">
+  <div class="qr-overlay" onclick="closeQR()"></div>
+
+  <div class="qr-box">
+    <button class="qr-close" onclick="closeQR()">×</button>
+
+    <img src="{% static 'assets/salamjindagi/img/qr.png' %}" class="qr-big">
+  </div>
+</div>
+
+
+<!-- ================= STYLE ================= -->
+<style>
+/* MODAL */
+.donate-modal{position:fixed;inset:0;display:none;z-index:9999}
+.donate-modal.active{display:block}
+.donate-overlay{position:absolute;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px)}
+
+/* BOX */
+.donate-box{
+  position:relative;
+  max-width:780px;
+  margin:2% auto;
+  background:linear-gradient(180deg,#fff,#f7fbff);
+  border-radius:24px;
+  padding:20px;
+  text-align:center;
+  animation:pop .35s ease;
+}
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+
+.close-btn{
+  position:absolute;top:14px;right:18px;
+  font-size:26px;border:none;background:none;cursor:pointer
+}
+
+/* HEADER */
+.donate-logo{max-height:50px;margin-bottom:15px}
+.subtitle{color:#475569;margin-bottom:30px}
+
+/* OPTIONS */
+.donate-options{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.donate-option{
+  background:#fff;border-radius:20px;
+  padding:25px;border:1px solid #e5e7eb;
+  transition:.25s
+}
+.donate-option:hover{
+  transform:translateY(-5px);
+  box-shadow:0 20px 40px rgba(0,0,0,.08)
+}
+.donate-option img{width:120px;margin-bottom:15px}
+
+/* HIGHLIGHT */
+.highlight{border:2px solid #0c54a0}
+
+/* BUTTONS */
+.donate-main-btn{margin-top:15px}
+.outline-btn{
+  margin-top:15px;
+  background:#fff !important;
+  color:#0c54a0 !important;
+  border:1px solid #0c54a0 !important;
+}
+
+/* BANK */
+.bank-details{list-style:none;padding:0;margin:15px 0 0;font-size:14px}
+.bank-details li{display:flex;justify-content:space-between;padding:6px 0}
+.bank-details span{color:#64748b}
+
+/* UPI */
+.upi-row{display:flex;gap:10px;justify-content:center;margin-top:15px}
+.upi-btn{
+  padding:7px 14px;border-radius:18px;
+  color:#fff;font-size:13px;font-weight:700;text-decoration:none
+}
+.gpay{background:#1a73e8}
+.phonepe{background:#5f259f}
+.paytm{background:#00baf2}
+
+/* TRUST */
+.trust-note{margin:5px;font-size:13px;color:#0c54a0}
+
+/* QR ZOOM */
+.qr-img{cursor:pointer;transition:.25s}
+.qr-img:hover{transform:scale(1.05)}
+.qr-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;z-index:10000}
+.qr-modal.active{display:flex;align-items:center;justify-content:center}
+.qr-big{max-width:90%;max-height:90%;background:#fff;padding:15px;border-radius:16px}
+/* QR MODAL */
+.qr-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  display:none;
+  z-index:10000;
+}
+.qr-modal.active{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.qr-box{
+  position:relative;
+  background:#fff;
+  padding:20px;
+  border-radius:20px;
+  animation:zoomIn .3s ease;
+}
+
+.qr-big{
+  max-width:320px;
+  width:100%;
+}
+
+.qr-close{
+  position:absolute;
+  top:-14px;
+  right:-14px;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  border:none;
+  background:#ef4444;
+  color:#fff;
+  font-size:22px;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+@keyframes zoomIn{
+  from{transform:scale(.8);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+.bank-title{
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+.bank-card{
+  background:linear-gradient(180deg,#f8fbff,#ffffff);
+  border:1px solid #e5e7eb;
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 12px 30px rgba(0,0,0,.06);
+}
+
+.bank-qr{
+  text-align:center;
+  margin-bottom:15px;
+}
+.bank-qr img{
+  width:140px;
+  border-radius:12px;
+  background:#fff;
+  padding:10px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.scan-text{
+  display:block;
+  margin-top:8px;
+  font-size:13px;
+  color:#64748b;
+}
+
+.bank-details{
+  list-style:none;
+  padding:0;
+  margin:15px 0;
+}
+.bank-details li{
+  display:flex;
+  justify-content:space-between;
+  padding:8px 0;
+  border-bottom:1px dashed #e5e7eb;
+}
+.bank-details li:last-child{
+  border-bottom:none;
+}
+.bank-details span{
+  color:#64748b;
+  font-size:13px;
+}
+.bank-details b{
+  font-size:14px;
+  color:#0f172a;
+}
+
+.upi-badges{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  margin:12px 0;
+}
+.upi-badges span{
+  background:#eef2ff;
+  color:#3730a3;
+  padding:4px 12px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+}
+
+.copy-btn{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border-radius:30px;
+  border:none;
+  background:#b0cb1f;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+.copy-btn:hover{
+  opacity:.9;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .donate-options{grid-template-columns:1fr}
+  .donate-box{margin:10% 15px}
+}
+</style>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+function openDonateModal(){
+  document.getElementById("donateModal").classList.add("active");
+  document.body.style.overflow="hidden";
+}
+function closeDonateModal(){
+  document.getElementById("donateModal").classList.remove("active");
+  document.body.style.overflow="";
+}
+function copyAccount(){
+  navigator.clipboard.writeText(
+    document.getElementById("accNo").innerText
+  );
+  alert("Account number copied ✔");
+}
+function openQR(){
+  document.getElementById("qrModal").classList.add("active");
+}
+function closeQR(){
+  document.getElementById("qrModal").classList.remove("active");
+}
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){closeDonateModal();closeQR();}
+});
+</script>

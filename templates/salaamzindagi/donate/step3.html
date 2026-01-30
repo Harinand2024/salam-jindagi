@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<main>
+
+<!-- BREADCRUMB -->
+<section class="ul-breadcrumb ul-section-spacing">
+  <div class="ul-container">
+    <h2 class="ul-breadcrumb-title">Confirm Your Donation</h2>
+    <h6 class="text-white">Please review the details before submitting</h6>
+  </div>
+</section>
+
+<section class="donation-step">
+  <div class="donation-container">
+
+    <!-- LEFT BAR -->
+    <div class="left-bar">
+      <div class="user-wrap">
+        <span class="step-no">3</span>
+        <img src="{% static 'assets/salamjindagi/img/user-1.png' %}">
+      </div>
+      <div class="step-text">CONFIRM</div>
+    </div>
+
+    <!-- RIGHT CONTENT -->
+    <div class="right-content">
+      <div class="step-label">Step 3</div>
+
+      <h1>Confirm Your Donation</h1>
+      <p class="subtitle">Please check the information below</p>
+
+      <!-- DETAILS BOX -->
+      <div class="confirm-box">
+        <div class="confirm-row">
+          <span>Item</span>
+          <strong>{{ request.session.item }}</strong>
+        </div>
+        <div class="confirm-row">
+          <span>Name</span>
+          <strong>{{ request.session.contact_name }}</strong>
+        </div>
+        <div class="confirm-row">
+          <span>Phone</span>
+          <strong>{{ request.session.phone }}</strong>
+        </div>
+        <div class="confirm-row">
+          <span>Address</span>
+          <strong>{{ request.session.address }}</strong>
+        </div>
+        {% if request.session.note %}
+        <div class="confirm-row">
+          <span>Note</span>
+          <strong>{{ request.session.note }}</strong>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- ACTIONS -->
+      <form method="post">
+        {% csrf_token %}
+        <div class="btn-row">
+          <a href="{% url 'donate_step2' %}" class="back-btn">Previous</a>
+          <button type="submit" class="next-btn">Confirm & Submit</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<style>
+/* SAME BASE STYLE AS STEP 1 & 2 */
+body{margin:0;background:#eef3f9;font-family:Arial,sans-serif}
+
+.donation-container{
+  max-width:1200px;
+  margin:40px auto;
+  background:#f8fdff;
+  border-radius:30px;
+  display:flex;
+  padding:30px;
+}
+
+/* LEFT */
+.left-bar{
+  width:160px;
+  background:#efeaff;
+  border-radius:25px;
+  text-align:center;
+  padding:25px 10px;
+}
+.user-wrap{
+  width:90px;height:90px;
+  margin:0 auto 10px;
+  position:relative;
+}
+.user-wrap img{
+  width:100%;height:100%;
+  border-radius:50%;
+  border:5px solid #fff;
+}
+.step-no{
+  position:absolute;
+  top:-6px;left:-6px;
+  width:26px;height:26px;
+  background:#fff;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+}
+.step-text{font-weight:700}
+
+/* RIGHT */
+.right-content{
+  flex:1;
+  padding:20px 50px;
+  position:relative;
+}
+.step-label{
+  position:absolute;
+  right:30px;
+  top:10px;
+  font-weight:700;
+}
+.subtitle{color:#555;margin-bottom:30px}
+
+/* CONFIRM BOX */
+.confirm-box{
+  background:#fff;
+  border-radius:18px;
+  padding:25px 30px;
+  border:1px solid #e5e7eb;
+  margin-bottom:30px;
+}
+.confirm-row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px dashed #e5e7eb;
+}
+.confirm-row:last-child{border-bottom:none}
+.confirm-row span{color:#555}
+
+/* BUTTONS */
+.btn-row{
+  display:flex;
+  justify-content:space-between;
+}
+.next-btn,.back-btn{
+  padding:14px 45px;
+  border-radius:35px;
+  border:none;
+  background:#bfcbea;
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+}
+.back-btn{background:#cbd5e1}
+
+@media(max-width:768px){
+  .donation-container{flex-direction:column}
+  .left-bar{width:100%;margin-bottom:20px}
+  .right-content{padding:20px}
+}
+</style>
+
+{% endblock %}

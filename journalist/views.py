@@ -16,6 +16,7 @@ from datetime import date, datetime
 from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
 from django.utils.timezone import now
 from django.contrib.auth.hashers import make_password, check_password
+from .models import Donation
 
 import logging
 import traceback
@@ -612,3 +613,39 @@ def logout_view(request):
     messages.success(request, 'You have been logged out successfully.')
     return redirect('home')
 
+from django.shortcuts import render, redirect
+from .models import Donation
+
+def donate_step1(request):
+    if request.method == "POST":
+        request.session["item"] = request.POST.get("item")
+        return redirect("donate_step2")
+
+    return render(request, "donate/step1.html")
+
+
+def donate_step2(request):
+    if request.method == "POST":
+        request.session["contact_name"] = request.POST.get("contact_name")
+        request.session["phone"] = request.POST.get("phone")
+        request.session["address"] = request.POST.get("address")
+        request.session["note"] = request.POST.get("note")
+
+        return redirect("donate_confirm")
+
+    return render(request, "donate/step2.html")
+
+
+def donate_confirm(request):
+    if request.method == "POST":
+        Donation.objects.create(
+            item=request.session.get("item"),
+            contact_name=request.session.get("contact_name"),
+            phone=request.session.get("phone"),
+            address=request.session.get("address"),
+            note=request.session.get("note"),
+        )
+        request.session.flush()
+        return render(request, "donate/success.html")
+
+    return render(request, "donate/step3.html")

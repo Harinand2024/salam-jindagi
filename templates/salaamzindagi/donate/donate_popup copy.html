@@ -1,0 +1,166 @@
+{% load static %}
+
+<!-- ================= DONATE MODAL ================= -->
+<div id="donateModal" class="donate-modal" aria-hidden="true">
+
+  <div class="donate-overlay" onclick="closeDonateModal()"></div>
+
+  <div class="donate-box">
+
+    <button class="close-btn" onclick="closeDonateModal()">×</button>
+
+    <!-- HEADER -->
+    <div class="donate-header">
+      <img src="{{ profile_setting.logo_dark.url }}" class="donate-logo">
+      <h2>Support Salaam Zindagi 💙</h2>
+      <p class="subtitle">Your small help can change a life</p>
+    </div>
+
+    <!-- OPTIONS -->
+    <div class="donate-options">
+
+      <!-- ITEMS -->
+      <div class="donate-option highlight">
+        <img src="{% static 'assets/salamjindagi/img/th1.png' %}">
+        <h4>Donate Items</h4>
+        <p>Clothes, food, medical equipment & essentials</p>
+        <a href="{% url 'donate' %}" class="ul-btn">Donate Items Now →</a>
+      </div>
+
+      <!-- MONEY -->
+      <div class="donate-option">
+        <img src="{% static 'assets/salamjindagi/img/qr.png' %}" class="qr-img" onclick="openQR()">
+
+        <h4>Donate Money</h4>
+
+        <!-- AMOUNT -->
+        <div class="amount-row">
+          <button onclick="setAmount(500)">₹500</button>
+          <button onclick="setAmount(1000)">₹1000</button>
+          <button onclick="setAmount(2000)">₹2000</button>
+        </div>
+
+        <input type="number" id="customAmount" placeholder="Custom Amount ₹">
+
+        <!-- UPI -->
+        <a id="upiLink" href="upi://pay?pa=salaamzindagi@upi&pn=Salaam Zindagi&cu=INR"
+           class="ul-btn upi-btn">
+          Pay via UPI
+        </a>
+
+        <!-- BANK -->
+        <ul class="bank-details">
+          <li><span>Bank</span><b>SBI</b></li>
+          <li><span>A/C</span><b id="accNo">30654458758</b></li>
+          <li><span>IFSC</span><b>SBIN0010605</b></li>
+        </ul>
+
+        <button class="ul-btn outline" onclick="copyAccount()">Copy Account</button>
+      </div>
+
+    </div>
+
+    <!-- EMAIL -->
+    <div class="email-box">
+      <h4>Get Updates</h4>
+      <input type="email" placeholder="Enter your email">
+      <button class="ul-btn small">Notify Me</button>
+    </div>
+
+    <p class="trust-note">
+      ✔ Registered Trust • ✔ 80G Available • ✔ Secure Donation
+    </p>
+
+  </div>
+</div>
+
+<!-- ================= QR ================= -->
+<div id="qrModal" class="qr-modal" onclick="closeQR()">
+  <img src="{% static 'assets/salamjindagi/img/qr.png' %}" class="qr-big">
+</div>
+
+<!-- ================= CONFETTI ================= -->
+<canvas id="confetti"></canvas>
+
+<!-- ================= STYLE ================= -->
+<style>
+:root{
+  --primary:#b0cb1f;
+  --bg:#f8fbff;
+}
+body.dark{
+  --bg:#0f172a;
+  color:#fff;
+}
+.donate-modal{position:fixed;inset:0;display:none;z-index:9999}
+.donate-modal.active{display:block}
+.donate-overlay{background:rgba(0,0,0,.65);position:absolute;inset:0}
+.donate-box{
+  max-width:800px;margin:5% auto;
+  background:var(--bg);
+  border-radius:24px;padding:35px;
+  text-align:center;position:relative
+}
+.close-btn{position:absolute;top:14px;right:18px;font-size:26px;background:none;border:none}
+.donate-logo{max-height:70px;margin-bottom:10px}
+.donate-options{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.donate-option{background:#fff;border-radius:18px;padding:25px;border:1px solid #e5e7eb}
+.highlight{border:2px solid var(--primary)}
+.amount-row button{
+  margin:5px;padding:8px 16px;border-radius:20px;
+  border:1px solid var(--primary);background:#fff;cursor:pointer
+}
+.amount-row button:hover{background:var(--primary);color:#fff}
+#customAmount{width:100%;padding:12px;border-radius:12px;margin:10px 0}
+.upi-btn{margin-top:10px}
+.outline{background:#fff;color:var(--primary);border:1px solid var(--primary)}
+.bank-details{list-style:none;padding:0;font-size:14px}
+.bank-details li{display:flex;justify-content:space-between}
+.email-box{margin-top:25px}
+.email-box input{padding:12px;width:60%;border-radius:20px}
+.small{padding:10px 20px}
+.trust-note{margin-top:20px;color:var(--primary)}
+.qr-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center}
+.qr-modal.active{display:flex}
+.qr-big{max-width:90%;background:#fff;padding:20px;border-radius:20px}
+@media(max-width:768px){
+  .donate-options{grid-template-columns:1fr}
+  .email-box input{width:100%}
+}
+</style>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+function openDonateModal(){
+  document.getElementById("donateModal").classList.add("active");
+  document.body.style.overflow="hidden";
+}
+function closeDonateModal(){
+  document.getElementById("donateModal").classList.remove("active");
+  document.body.style.overflow="";
+}
+function setAmount(val){
+  document.getElementById("customAmount").value = val;
+  document.getElementById("upiLink").href =
+    `upi://pay?pa=salaamzindagi@upi&pn=Salaam Zindagi&am=${val}&cu=INR`;
+}
+function copyAccount(){
+  navigator.clipboard.writeText(document.getElementById("accNo").innerText);
+  alert("Account copied ✔");
+}
+function openQR(){document.getElementById("qrModal").classList.add("active")}
+function closeQR(){document.getElementById("qrModal").classList.remove("active")}
+
+/* AUTO OPEN */
+setTimeout(()=>openDonateModal(),6000);
+
+/* EXIT INTENT */
+document.addEventListener("mouseleave",e=>{
+  if(e.clientY<0) openDonateModal();
+});
+
+/* ESC */
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){closeDonateModal();closeQR();}
+});
+</script>

@@ -41,4 +41,7 @@ urlpatterns = [
     path('journalist-update-video-post', post_management.JournalistUpdateVideoPost, name="journalist-update-video-post"),
     path('tag-autocomplete/', post_management.tag_autocomplete, name='tag-autocomplete'),
     path('news-data-post', post_management.Journalist_News_Data_Post, name='news-data-post'),
+    path("donate/", views.donate_step1, name="donate"),
+    path("donate/pickup/", views.donate_step2, name="donate_step2"),
+    path("donate/confirm/", views.donate_confirm, name="donate_confirm"),
 ]

@@ -99,6 +99,95 @@
         </div>
     </div>
 </section>
+
+<!-- DONATE SECTION START -->
+<div class="ul-section-spacing">
+    <div class="ul-container">
+        <div class="ul-donate-form-section">
+            <div class="row justify-content-between align-items-center">
+                <!-- donate form -->
+                <div class="col-lg-6 position-relative">
+                    <div class="ul-donate-form-wrapper">
+                        <h3 class="ul-donate-form-title">Festival of Sharing: A Heartwarming Success</h3>
+                        <p>The Festival of Sharing, orchestrated by Salaam Zindagi Charitable Trust, has drawn immense
+                            support with contributions from around 132,000 donors. </p>
+                        <form action="#" class="ul-donate-form">
+                            <div>
+                                <input type="radio" name="donate-amount" id="donate-amount-1" checked hidden>
+                                <label for="donate-amount-1" class="ul-donate-form-label">₹100</label>
+                            </div>
+
+                            <div>
+                                <input type="radio" name="donate-amount" id="donate-amount-2" hidden>
+                                <label for="donate-amount-2" class="ul-donate-form-label">₹200</label>
+                            </div>
+
+                            <div>
+                                <input type="radio" name="donate-amount" id="donate-amount-3" hidden>
+                                <label for="donate-amount-3" class="ul-donate-form-label">₹300</label>
+                            </div>
+
+                            <div>
+                                <input type="radio" name="donate-amount" id="donate-amount-4" hidden>
+                                <label for="donate-amount-4" class="ul-donate-form-label">₹400</label>
+                            </div>
+
+                            <div>
+                                <input type="radio" name="donate-amount" id="donate-amount-5" hidden>
+                                <label for="donate-amount-5" class="ul-donate-form-label">₹500</label>
+                            </div>
+
+                            <div class="custom-amount-wrapper">
+                                <input type="radio" name="donate-amount" id="custom-amount">
+                                <label for="donate-amount-custom" class="ul-donate-form-label">
+                                    <input type="number" name="custom-amount" id="donate-amount-custom"
+                                        placeholder="Custom Amount" class="ul-donate-form-custom-input">
+                                </label>
+                            </div>
+
+                            <div>
+                                <button type="submit" onclick="openDonateModal()"  class="ul-btn"><i
+                                        class="flaticon-fast-forward-double-right-arrows-symbol"></i> Donate Money Now
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <img src="{% static 'assets/salamjindagi/img/donate-form-vector.svg' %}" alt="vector"
+                        class="ul-donate-form-vector">
+                </div>
+
+                <!-- donate form  -->
+                <div class="col-xl-5 col-lg-6">
+                    <div class="ul-donate-form-section-txt">
+                        <span class="ul-section-sub-title text-white">Make A Donation</span>
+                        <h2 class="ul-section-title text-white">India's Biggest Warm Clothes Donation Drive Since 2012
+                        </h2>
+                        <div class="ul-donation-progress">
+                            <div class="donation-progress-container ul-progress-container">
+                                <div class="donation-progressbar ul-progressbar" data-ul-progress-value="64">
+                                    <div class="donation-progress-label ul-progress-label"></div>
+                                </div>
+                            </div>
+                            <div class="ul-donation-progress-labels">
+                                <span class="ul-donation-progress-label">Raised : ₹25,000</span>
+                                <span class="ul-donation-progress-label">Goal : ₹30,000</span>
+                            </div>
+                            <div class="text-white mt-4">
+                                <p class="ul-donation-progress-label">Support with a Donation in Kind: Choose items like
+                                    clothes, blankets, shoes, books, or food.
+                                    Click below to help now!</p>
+
+                                <p class="ul-donation-progress-label">All donations, in funds or items, go solely to
+                                    uplifting the poor.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- DONATE SECTION END -->
 <style>
 .ul-banner-stat .imgs {
     display: flex;

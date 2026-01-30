@@ -183,3 +183,23 @@ class NewsVideo(models.Model):
     class Meta:
         verbose_name = "News Video"
         verbose_name_plural = "News Videos"
+    
+    
+
+class Donation(models.Model):
+    ITEM_CHOICES = [
+        ("toiletries", "Toiletries"),
+        ("tech", "Tech Items"),
+        ("music", "Music Instrument"),
+    ]
+
+    item = models.CharField(max_length=50, choices=ITEM_CHOICES)
+    contact_name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
+    address = models.TextField()
+    note = models.TextField(blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.contact_name} - {self.item}"

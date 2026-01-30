@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<main>
+
+<!-- BREADCRUMB -->
+<section class="ul-breadcrumb ul-section-spacing">
+  <div class="ul-container">
+    <h2 class="ul-breadcrumb-title">Donation Submitted</h2>
+    <h6 class="text-white">Thank you for making a difference 💙</h6>
+  </div>
+</section>
+
+<section class="donation-step">
+  <div class="donation-container success-container">
+
+    <!-- LEFT -->
+    <div class="left-bar">
+      <div class="user-wrap">
+        <span class="step-no">✓</span>
+        <img src="{% static 'assets/salamjindagi/img/user-1.png' %}">
+      </div>
+      <div class="step-text">SUCCESS</div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-content center">
+
+      <img src="{% static 'assets/salamjindagi/img/th1.png' %}"
+           class="thank-img" alt="Thank you">
+
+      <h1>🙏 Thank You!</h1>
+      <p class="subtitle">
+        Your donation request has been submitted successfully.<br>
+        Our team will contact you shortly for the pickup.
+      </p>
+
+      <div class="success-box">
+        <p>
+          Every contribution brings hope and help to someone in need.
+          We truly appreciate your kindness.
+        </p>
+      </div>
+      <!-- EMAIL SUBSCRIBE -->
+        <div class="email-subscribe">
+        <input type="email" placeholder="Subscribe for daily update Jobs">
+        <button class="mail-btn">
+            ✉️
+        </button>
+        </div>
+      <a href="/" class="next-btn">Back to Home</a>
+
+    </div>
+  </div>
+</section>
+
+<style>
+body{margin:0;background:#eef3f9;font-family:Arial,sans-serif}
+
+.donation-container{
+  max-width:1200px;
+  margin:40px auto;
+  background:#f8fdff;
+  border-radius:30px;
+  display:flex;
+  padding:30px;
+}
+
+/* LEFT */
+.left-bar{
+  width:160px;
+  background:#efeaff;
+  border-radius:25px;
+  text-align:center;
+  padding:25px 10px;
+}
+.user-wrap{
+  width:90px;height:90px;
+  margin:0 auto 10px;
+  position:relative;
+}
+.user-wrap img{
+  width:100%;height:100%;
+  border-radius:50%;
+  border:5px solid #fff;
+}
+.step-no{
+  position:absolute;
+  top:-6px;left:-6px;
+  width:26px;height:26px;
+  background:#22c55e;
+  color:#fff;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+}
+.step-text{font-weight:700}
+
+/* RIGHT */
+.right-content{
+  flex:1;
+  padding:20px 50px;
+  position:relative;
+}
+.right-content.center{
+  text-align:center;
+}
+.subtitle{
+  color:#555;
+  margin:15px 0 25px;
+}
+
+/* THANK YOU */
+.thank-img{
+  width:240px;
+  margin:30px auto 20px;
+}
+.success-box{
+  background:#ecfeff;
+  border-radius:18px;
+  padding:20px 30px;
+  border:1px solid #bae6fd;
+  margin-bottom:30px;
+  color:#0f172a;
+}
+
+/* BUTTON */
+.next-btn{
+  display:inline-block;
+  padding:14px 50px;
+  border-radius:35px;
+  background:#bfcbea;
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+}
+/* EMAIL SUBSCRIBE */
+.email-subscribe{
+  max-width:520px;
+  margin:0 auto 35px;
+  background:#f0fdfa;
+  border-radius:40px;
+  padding:10px 12px;
+  display:flex;
+  align-items:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.08);
+  border-bottom:3px solid #22c55e;
+}
+
+.email-subscribe input{
+  flex:1;
+  border:none;
+  background:transparent;
+  padding:14px 18px;
+  font-size:15px;
+  outline:none;
+  color:#0f172a;
+}
+
+.email-subscribe input::placeholder{
+  color:#64748b;
+}
+
+.mail-btn{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:none;
+  background:#111827;
+  color:#fff;
+  font-size:18px;
+  cursor:pointer;
+}
+
+@media(max-width:768px){
+  .donation-container{flex-direction:column}
+  .left-bar{width:100%;margin-bottom:20px}
+  .right-content{padding:20px}
+}
+</style>
+
+</main>
+{% endblock %}
