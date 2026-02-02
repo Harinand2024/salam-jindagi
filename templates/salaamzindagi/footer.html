@@ -105,13 +105,13 @@
             <div class="ul-footer-widget">
             <h3 class="ul-footer-widget-title">Quick Links</h3>
             <div class="ul-footer-widget-links">
-                <a href="/" class="text-white text-decoration-none link-hover">Blog</a>
-                <a href="/" class="text-white text-decoration-none link-hover">Contact</a>
-                <a href="/" class="text-white text-decoration-none link-hover">About Us</a>
+                <a href="{% url 'blog:blog_list' %}" class="text-white text-decoration-none link-hover">Blog</a>
+                <a href="{% url 'contact-us' %}" class="text-white text-decoration-none link-hover">Contact</a>
+                <a href="{% url 'about-us' %}" class="text-white text-decoration-none link-hover">About Us</a>
                 <a href="/" class="text-white text-decoration-none link-hover">Give Donation</a>
                 <a href="/" class="text-white text-decoration-none link-hover">Privacy Policy</a>
                 <a href="/" class="text-white text-decoration-none link-hover">Become Volunteer</a>
-                <a href="/" class="text-white text-decoration-none link-hover">Join our Events</a>
+                <a href="{% url 'join-us' %}" class="text-white text-decoration-none link-hover">Join our Events</a>
             </div>
             </div>
 

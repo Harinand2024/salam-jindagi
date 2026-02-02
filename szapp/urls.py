@@ -54,6 +54,7 @@ urlpatterns = [
     path('contact-us', views.Contactus, name="contact-us"),
     path('about-us', views.Aboutus, name="about-us"),
     path('join-us', views.Joinus, name="join-us"),
+    path('our-gallery', views.Ourgallery, name="our-gallery"),
     path('sitemap-page', views.SiteMap, name="sitemap-page"),
     path('advertise-with-us', views.advertise, name="advertise-with-us"),
     path('upcoming-events', views.UcEvents, name="upcoming-events"),

@@ -94,8 +94,20 @@
                                 </ul>
                             </div>
                         </div>
-
-                        <a href="{% url 'about-us' %}">About Us</a>
+                        <div class="has-sub-menu">
+                            <a role="button">Causes</a>
+                            <div class="ul-header-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="{% url 'about-us' %}">About Us</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="{% url 'our-gallery' %}">Our Gallery</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                         <a href="{% url 'contact-us' %}">Contact Us</a>
                         <a href="/auth/sign-in">Login</a>
 

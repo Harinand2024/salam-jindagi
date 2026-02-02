@@ -281,35 +281,53 @@ class CMS(models.Model):
          return reverse('cms', args=[self.slug])
      
 class slider(models.Model):
-    slidercat=models.ForeignKey("sub_category", verbose_name="Select Cetegory",null=True,default=None,on_delete=models.CASCADE)
-    title=models.CharField(max_length=200, verbose_name="News Head Line",null=True,default=None)
-    des=models.CharField(max_length=300, verbose_name="Short Discretion",null=True,default=None)
-    sliderimage = ImageCropField(upload_to='blog/', max_length=255,null=True,default=None, verbose_name="Slider Image (1400X520px)")
-    #image_crop = ImageRatioField('post_image', '430x360')
-    
-    def save(self, *args, **kwargs):
-        # Override the save method to resize the image before saving
-        super(slider, self).save(*args, **kwargs)
-        # Open the image
-        img = Image.open(self.sliderimage.path)
-        # Set the desired size for cropping (width, height)
-        desired_size = (1400, 520)
-        # Resize the image while maintaining the aspect ratio
-        img.thumbnail(desired_size)
-        # Save the resized image back to the original path
-        img.save(self.sliderimage.path)
-    
-    slug=AutoSlugField(max_length=200, populate_from='slidercat',unique=True,null=True,default=None)
-    post_date=models.DateTimeField(auto_now_add=True)
+    slidercat = models.ForeignKey(
+        "sub_category",
+        verbose_name="Select Category",
+        null=True,
+        default=None,
+        on_delete=models.CASCADE
+    )
+
+    title = models.CharField(max_length=200, verbose_name="News Head Line", null=True, default=None)
+    des = models.CharField(max_length=300, verbose_name="Short Description", null=True, default=None)
+
+    sliderimage = ImageCropField(
+        upload_to='blog/',
+        max_length=255,
+        null=True,
+        default=None,
+        verbose_name="Slider Image (1400X520px)"
+    )
+
+    slug = AutoSlugField(
+        max_length=200,
+        populate_from='title',   # ✅ FIXED
+        unique=True,
+        null=True,
+        default=None
+    )
+
+    post_date = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    order=models.IntegerField(unique=False,null=True,default=5,verbose_name="Order")
+    order = models.IntegerField(unique=False, null=True, default=5, verbose_name="Order")
+
     STATUS_CHOICES = (
         ('active', 'Active'),
         ('inactive', 'Inactive'),
     )
     status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='active')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, default=1) 
-    
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.sliderimage:   # ✅ safety check
+            img = Image.open(self.sliderimage.path)
+            img.thumbnail((1400, 520))
+            img.save(self.sliderimage.path)
+
     def __str__(self):
-        return self.slidercat
+        return self.title   # ✅ FIXED
+
     
