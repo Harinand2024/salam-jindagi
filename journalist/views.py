@@ -1,7 +1,7 @@
 from .models import Journalist, Language, Equipment, CountryCode, Country, Region, City, Qualification
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
-from django.core.mail import send_mail
+
 import random
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
@@ -16,7 +16,10 @@ from datetime import date, datetime
 from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
 from django.utils.timezone import now
 from django.contrib.auth.hashers import make_password, check_password
+
 from .models import Donation
+from django.core.mail import send_mail
+from django.conf import settings
 
 import logging
 import traceback
@@ -613,8 +616,7 @@ def logout_view(request):
     messages.success(request, 'You have been logged out successfully.')
     return redirect('home')
 
-from django.shortcuts import render, redirect
-from .models import Donation
+
 
 def donate_step1(request):
     if request.method == "POST":
@@ -638,14 +640,59 @@ def donate_step2(request):
 
 def donate_confirm(request):
     if request.method == "POST":
-        Donation.objects.create(
-            item=request.session.get("item"),
-            contact_name=request.session.get("contact_name"),
-            phone=request.session.get("phone"),
-            address=request.session.get("address"),
-            note=request.session.get("note"),
+        item = request.session.get("item")
+        name = request.session.get("contact_name")
+        phone = request.session.get("phone")
+        address = request.session.get("address")
+        note = request.session.get("note")
+
+        # ✅ Save to DB
+        donation = Donation.objects.create(
+            item=item,
+            contact_name=name,
+            phone=phone,
+            address=address,
+            note=note,
         )
-        request.session.flush()
+
+        # ✅ Choice label (human readable)
+        item_label = dict(Donation.ITEM_CHOICES).get(item, item)
+
+        # ✅ Email content
+        message = f"""
+New Donation Request
+
+Item: {item_label}
+Name: {name}
+Phone: {phone}
+Address: {address}
+Note: {note}
+        """
+
+        send_mail(
+            subject="New Donation Submitted",
+            message=message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=["hnb2307@gmail.com"],
+        )
+
+        # ✅ Clear only used keys (better than flush)
+        for k in ["item", "contact_name", "phone", "address", "note"]:
+            request.session.pop(k, None)
+
         return render(request, "donate/success.html")
 
     return render(request, "donate/step3.html")
+
+from django.http import HttpResponse
+
+def test_email(request):
+    from django.core.mail import send_mail
+    send_mail(
+        "Test",
+        "Working",
+        "no-reply@salaamzindagi.com",
+        ["hnb2307@gmail.com"],
+        fail_silently=False,
+    )
+    return HttpResponse("sent")
