@@ -224,15 +224,15 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'srv986719.hstgr.cloud'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'no-reply@salaamzindagi.com'
-# EMAIL_HOST_PASSWORD = '!@#$%^@1212'  # TODO: Replace with actual password
-# DEFAULT_FROM_EMAIL = 'no-reply@salaamzindagi.com'
-# #EMAIL_USE_SSL = ''
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'srv986719.hstgr.cloud'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'no-reply@salaamzindagi.com'
+EMAIL_HOST_PASSWORD = '!@#$%^@1212'  # TODO: Replace with actual password
 DEFAULT_FROM_EMAIL = 'no-reply@salaamzindagi.com'
+#EMAIL_USE_SSL = ''
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# DEFAULT_FROM_EMAIL = 'no-reply@salaamzindagi.com'
 
